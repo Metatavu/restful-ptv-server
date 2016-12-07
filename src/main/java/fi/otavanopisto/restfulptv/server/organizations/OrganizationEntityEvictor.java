@@ -81,12 +81,10 @@ public class OrganizationEntityEvictor extends EntityEvictor {
   public void timeout(Timer timer) {
     if (!stopped) {
       try {
-        if (!stopped) {
-          if (queue.isEmpty()) {
-            queue.addAll(organizationCache.getIds());
-          } else {
-            checkOrganization(queue.remove(0)); 
-          }
+        if (queue.isEmpty()) {
+          queue.addAll(organizationCache.getIds());
+        } else {
+          checkOrganization(queue.remove(0)); 
         }
       } finally {
         startTimer(SystemUtils.inTestMode() ? 1000 : TIMER_INTERVAL);
