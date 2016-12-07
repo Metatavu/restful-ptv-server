@@ -150,19 +150,6 @@ public class OrganizationEntityUpdater extends EntityUpdater {
           organizationServiceIdUpdateRequest.fire(new OrganizationServiceIdUpdateRequest(Arrays.asList(id), priority));
         }
       }
-    } else if (response.getStatus() == 404) {
-      logger.info(String.format("Organization %s has been removed", entityId));
-      List<String> organizationServiceIds = organizationServiceCache.getOrganizationIds(entityId);
-      
-      // Purge organization from cache
-      
-      organizationCache.clear(entityId);
-      
-      // Purge organization service ids
-      
-      for (String organizationServiceId : organizationServiceIds) {
-        organizationServiceCache.clear(organizationServiceId);
-      }
     } else {
       logger.warning(String.format("Organization %s caching failed on [%d] %s", entityId, response.getStatus(),
           response.getMessage()));
