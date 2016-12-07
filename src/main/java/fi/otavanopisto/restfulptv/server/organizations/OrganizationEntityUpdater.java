@@ -150,9 +150,8 @@ public class OrganizationEntityUpdater extends EntityUpdater {
           organizationServiceIdUpdateRequest.fire(new OrganizationServiceIdUpdateRequest(Arrays.asList(id), priority));
         }
       }
-      
     } else {
-      logger.warning(String.format("Service %s caching failed on [%d] %s", entityId, response.getStatus(),
+      logger.warning(String.format("Organization %s caching failed on [%d] %s", entityId, response.getStatus(),
           response.getMessage()));
     }
   }
