@@ -1,0 +1,108 @@
+{
+  "id": "326ae77e-9c19-4600-995b-0c77ae88e450",
+  "serviceChannelType": "ServiceLocation",
+  "organizationId": "25f60e29-7bb2-4c8f-ae10-4e3f03a431f3",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Päämajatalo",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Päämajatalossa sijaitsevat osa musiikin opetustiloista sekä näyttämötaiteen opetustilat.",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Päämajatalon salissa toimii näyttämötaiteiden opetus ja siellä pidetään näytelmien yleisöesityksiä. Muissa tiloissa on musiikin opetusta sekä liikunnan kursseja.",
+      "type": "Description"
+    }
+  ],
+  "serviceAreaRestricted": true,
+  "supportContacts": [],
+  "email": "kansalaisopisto@mikkeli.fi",
+  "phone": "015 194 2929",
+  "languages": [
+    "en",
+    "fi"
+  ],
+  "fax": null,
+  "latitude": null,
+  "longitude": null,
+  "coordinateSystem": null,
+  "coordinatesSetManually": false,
+  "phoneServiceCharge": true,
+  "webPages": [],
+  "serviceAreas": [
+    "Mikkeli",
+    "Hirvensalmi"
+  ],
+  "phoneChargeDescriptions": [
+    {
+      "value": "paikallisverkkomaksu/paikallispuhelumaksu",
+      "language": "fi"
+    }
+  ],
+  "addresses": [
+    {
+      "type": "Postal",
+      "postOfficeBox": "-",
+      "postalCode": "50100",
+      "postOffice": "MIKKELI",
+      "streetAddress": [
+        {
+          "value": "Päämajankuja 1-3",
+          "language": "fi"
+        }
+      ],
+      "municipality": null,
+      "country": "FI",
+      "qualifier": "",
+      "additionalInformations": null
+    },
+    {
+      "type": "Visiting",
+      "postOfficeBox": null,
+      "postalCode": "50100",
+      "postOffice": "MIKKELI",
+      "streetAddress": [
+        {
+          "value": "Päämajankuja 1-3",
+          "language": "fi"
+        }
+      ],
+      "municipality": "Mikkeli",
+      "country": "FI",
+      "qualifier": "Päämajankuja 1-3, kulku pihan puolelta.",
+      "additionalInformations": null
+    }
+  ],
+  "serviceChargeTypes": [],
+  "serviceHours": [
+    {
+      "serviceHourType": "Standard",
+      "exceptionHourType": null,
+      "validFrom": null,
+      "validTo": null,
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": false,
+      "sunday": false,
+      "opens": "09:00",
+      "closes": "16:00",
+      "additionalInformation": [
+        {
+          "value": "Opetustilat ovat avoinna opetusaikoina.",
+          "language": "fi"
+        }
+      ]
+    }
+  ],
+  "publishingStatus": "Published"
+}

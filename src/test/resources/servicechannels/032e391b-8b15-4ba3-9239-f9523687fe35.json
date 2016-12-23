@@ -1,0 +1,83 @@
+{
+  "id": "032e391b-8b15-4ba3-9239-f9523687fe35",
+  "serviceChannelType": "PrintableForm",
+  "organizationId": "e242e863-2b49-4fb1-8b20-b5e2884aac9f",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Tulotodistus",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Tulotodistukset toimitetaan päivähoitomaksun määräämistä varten päivähoidon toimistosihteereille päivähoitotoimistoon.",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Uudet hoitolapset\nHoitosuhteen alkaessa uusien hoitolasten osalta tulotiedot toimitetaan päivähoitomaksun määräämistä varten päivähoitotoimistoon ennen lapsen päivähoidon alkamista, viimeistään kuitenkin aloituskuukauden aikana. Mikäli perhe hyväksyy ylimmän maksuluokan, ilmoitetaan myös siitä päivähoitotoimistoon.\n\nVanhat hoitolapset\nTulot tarkistetaan vuosittain kaikkien perheiden osalta. Tulotodistukset kerätään keväällä, erikseen ilmoitettuna ajankohtana. Mikäli perhe on jo aiemmin hyväksynyt ylimmän maksuluokan, ei erillistä ilmoitusta tarvita, eikä tulotietoja tarvitse toimittaa.\n\nTulotietojen tarkistamisesta ja maksupäätöksen tekemisestä huolehtivat toimistosihteerit. Tulotodistukset voi toimittaa sähköpostin liitteenä tai postitse. \n",
+      "type": "Description"
+    }
+  ],
+  "formIdentifier": "doc",
+  "formReceiver": "Kaarinan kaupunki, Varhaiskasvatus/Päivähoitotoimisto",
+  "supportContacts": [
+    {
+      "email": "paivahoito@kaarina.fi",
+      "phone": "+358503146148",
+      "phoneChargeDescription": "",
+      "language": "fi",
+      "serviceChargeTypes": [
+        "Charged"
+      ]
+    }
+  ],
+  "deliveryAddress": {
+    "postOfficeBox": "PL 22",
+    "postalCode": "20780",
+    "postOffice": "KAARINA",
+    "streetAddress": [
+      {
+        "value": "Lautakunnankatu 4 A ",
+        "language": "fi"
+      }
+    ],
+    "municipality": null,
+    "country": "FI",
+    "qualifier": null,
+    "additionalInformations": [
+      {
+        "value": "",
+        "language": "fi"
+      }
+    ]
+  },
+  "channelUrls": [
+    {
+      "language": "fi",
+      "value": "http://www.kaarina.fi/perhe_ja_sosiaalipalvelut/Varhaiskasvatus/paivahoitoon_hakeminen/fi_FI/tulotodistukset/",
+      "type": "DOC"
+    }
+  ],
+  "languages": [],
+  "deliveryAddressDescriptions": [
+    {
+      "value": "",
+      "language": "fi"
+    }
+  ],
+  "attachments": [
+    {
+      "type": "Attachment",
+      "name": "",
+      "description": "",
+      "url": "",
+      "language": "fi"
+    }
+  ],
+  "webPages": [],
+  "serviceHours": [],
+  "publishingStatus": "Published"
+}

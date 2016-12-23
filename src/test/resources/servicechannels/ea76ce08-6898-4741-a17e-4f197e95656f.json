@@ -1,0 +1,51 @@
+{
+  "id": "ea76ce08-6898-4741-a17e-4f197e95656f",
+  "serviceChannelType": "EChannel",
+  "organizationId": "e38d13f6-d525-4679-8e92-2347a19ea663",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Kansalaisneuvonnan chat",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Kansalaisneuvonnan chatin kautta voit esittää kysymyksen Kansalaisneuvonnan palveluneuvojalle. Chat aukeaa Kansalaisneuvonnan verkkosivuilta. Chat palvelee ma-pe klo 8-21 ja la klo 9-15. ",
+      "type": "Description"
+    },
+    {
+      "language": "fi",
+      "value": "Kansalaisneuvonnan chatissä voit esittää kysymyksen Kansalaisneuvonnan palveluneuvojalle.",
+      "type": "ShortDescription"
+    }
+  ],
+  "signatureQuantity": 0,
+  "requiresSignature": false,
+  "supportContacts": [
+    {
+      "email": null,
+      "phone": null,
+      "phoneChargeDescription": null,
+      "language": "fi",
+      "serviceChargeTypes": []
+    }
+  ],
+  "requiresAuthentication": false,
+  "urls": [
+    {
+      "value": "http://www.kansalaisneuvonta.fi/",
+      "language": "fi"
+    }
+  ],
+  "languages": [
+    "fi",
+    "en",
+    "sv"
+  ],
+  "attachments": [],
+  "webPages": [],
+  "serviceHours": [],
+  "publishingStatus": "Published"
+}

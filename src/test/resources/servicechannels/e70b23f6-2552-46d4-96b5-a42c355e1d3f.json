@@ -1,0 +1,83 @@
+{
+  "id": "e70b23f6-2552-46d4-96b5-a42c355e1d3f",
+  "serviceChannelType": "PrintableForm",
+  "organizationId": "c11a9489-02f8-47d7-956a-26344b99bf92",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Venepaikkahakemus/sopimus",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Venepaikkaa haetaan venepaikkahakemus/sopimuslomakkeella",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Venepaikkaa haetaan venepaikkahakemus/sopimuslomakkeella, jonka saa tulostettua tästä .(Voitte täyttää lomakkeen internetissä ja palauttaa sen sähköisesti osoitteeseen: tarja.hurtig@tornio.fi\n\nLomakkeen voi hakea myös Palvelukeskus Kompassista (kaupungintalo 1. krs).\n\nMaksukuitin esittäessään hakija saa teknisten palvelujen toimistosta (kaup.talon 7. krs) venepaikkasopimuksen. Laituriportin avaimen saa Palvelukeskus Kompassin kassalta, (kaupungintalo 1. krs),  30 euron panttia vastaan esittäessään em. sopimuksen. Vuonna 2015 käytössä ollutta laituriportin avainta ei tarvitse vaihtaa.\n\nNiillä torniolaisilla, joilla on ollut venepaikka veneilykaudella 2015, on etuoikeus saada venepaikka myös veneilykaudeksi 2016. Heille lähetetään hakemus ja lasku. Venepaikan saamisen edellytyksenä on hakemuslomakkeen palauttaminen ja venepaikkamaksun maksaminen eräpäivään mennessä.\n\nVapaita venepaikkoja aletaan vuokrata uusille hakijoille laskun eräpäivän jälkeen hakemisjärjestyksessä kuitenkin siten torniolaiset ovat etusijalla.\n\nKalasataman kylkikiinnityspaikkoihin on etuoikeus ammattikalastajarekisteriin kuuluvilla ja kalastusalusrekisterissä olevilla veneillä ja osa-aikakalastajilla muihin Leton venepaikkoihin.",
+      "type": "Description"
+    }
+  ],
+  "formIdentifier": "",
+  "formReceiver": "Tornion kaupunki Palvelukeskus Kompassi",
+  "supportContacts": [
+    {
+      "email": "tarja.hurtig@tornio.fi",
+      "phone": "+358505972031",
+      "phoneChargeDescription": "",
+      "language": "fi",
+      "serviceChargeTypes": [
+        "Charged"
+      ]
+    }
+  ],
+  "deliveryAddress": {
+    "postOfficeBox": null,
+    "postalCode": "95400",
+    "postOffice": "TORNIO",
+    "streetAddress": [
+      {
+        "value": "Suensaarenkatu 4",
+        "language": "fi"
+      }
+    ],
+    "municipality": null,
+    "country": "FI",
+    "qualifier": null,
+    "additionalInformations": [
+      {
+        "value": "",
+        "language": "fi"
+      }
+    ]
+  },
+  "channelUrls": [
+    {
+      "language": "fi",
+      "value": "https://www.tornio.fi/filewrap.php?c=&f=venepaikkahakemus.doc.doc",
+      "type": "DOC"
+    }
+  ],
+  "languages": [],
+  "deliveryAddressDescriptions": [
+    {
+      "value": "",
+      "language": "fi"
+    }
+  ],
+  "attachments": [
+    {
+      "type": "Attachment",
+      "name": "",
+      "description": "",
+      "url": "",
+      "language": "fi"
+    }
+  ],
+  "webPages": [],
+  "serviceHours": [],
+  "publishingStatus": "Published"
+}

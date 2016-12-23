@@ -1,0 +1,106 @@
+{
+  "id": "fe58aa59-9d43-402f-aaed-26ec5a6dc755",
+  "serviceChannelType": "ServiceLocation",
+  "organizationId": "a54b1ce5-ec91-4180-8de2-ab20ed16cd0c",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Mäntyharjun eläinlääkäriasema",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Eläinlääkäri on tavattavissa ajanvarauksella. Ajan voi varata puhelimitse arkiaamuisin.",
+      "type": "Description"
+    },
+    {
+      "language": "fi",
+      "value": "Eläinlääkäri on tavattavissa ajanvarauksella.",
+      "type": "ShortDescription"
+    }
+  ],
+  "serviceAreaRestricted": true,
+  "supportContacts": [],
+  "email": null,
+  "phone": "+35815227530",
+  "languages": [
+    "fi"
+  ],
+  "fax": null,
+  "latitude": "6809522",
+  "longitude": "492828",
+  "coordinateSystem": "3067",
+  "coordinatesSetManually": true,
+  "phoneServiceCharge": true,
+  "webPages": [],
+  "serviceAreas": [
+    "Mäntyharju"
+  ],
+  "phoneChargeDescriptions": [
+    {
+      "value": "paikallisverkkomaksu (pvm), matkapuhelinmaksu (mpm), ulkomaanpuhelumaksu",
+      "language": "fi"
+    }
+  ],
+  "addresses": [
+    {
+      "type": "Postal",
+      "postOfficeBox": null,
+      "postalCode": "52700",
+      "postOffice": "MÄNTYHARJU",
+      "streetAddress": [
+        {
+          "value": "Sairaalantie 5",
+          "language": "fi"
+        }
+      ],
+      "municipality": null,
+      "country": "FI",
+      "qualifier": "",
+      "additionalInformations": null
+    },
+    {
+      "type": "Visiting",
+      "postOfficeBox": null,
+      "postalCode": "52700",
+      "postOffice": "MÄNTYHARJU",
+      "streetAddress": [
+        {
+          "value": "Sairaalantie 5",
+          "language": "fi"
+        }
+      ],
+      "municipality": "Mäntyharju",
+      "country": "FI",
+      "qualifier": null,
+      "additionalInformations": null
+    }
+  ],
+  "serviceChargeTypes": [],
+  "serviceHours": [
+    {
+      "serviceHourType": "Standard",
+      "exceptionHourType": null,
+      "validFrom": null,
+      "validTo": null,
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": false,
+      "sunday": false,
+      "opens": "08:00",
+      "closes": "10:00",
+      "additionalInformation": [
+        {
+          "value": "Aukioloaika koskee ajanvarauspuhelinta. Asiointi vain ajanvarauksella.",
+          "language": "fi"
+        }
+      ]
+    }
+  ],
+  "publishingStatus": "Published"
+}

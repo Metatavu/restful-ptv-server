@@ -18,7 +18,7 @@ public class OrganizationController implements Serializable {
   private static final long serialVersionUID = -1069291263681772143L;
   
   @Inject
-  private Logger logger;
+  private transient Logger logger;
 
   @Inject
   private OrganizationCache organizationCache;
@@ -31,8 +31,8 @@ public class OrganizationController implements Serializable {
     List<String> ids = organizationCache.getIds();
     
     int idCount = ids.size();
-    int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount - 1);
-    int toIndex = maxResults == null ? idCount - 1 : Math.min(firstIndex + maxResults.intValue(), idCount - 1);
+    int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
+    int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
     List<Organization> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {

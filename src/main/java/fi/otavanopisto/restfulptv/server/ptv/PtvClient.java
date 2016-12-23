@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 
 import fi.otavanopisto.ptv.client.ApiResponse;
@@ -32,8 +33,7 @@ import fi.otavanopisto.restfulptv.server.http.GenericHttpClient.Response;
 @Dependent
 public class PtvClient extends fi.otavanopisto.ptv.client.ApiClient {
 
-  // TODO: Parameterize this
-  private static final String BASE_PATH = "https://api.palvelutietovaranto.trn.suomi.fi";
+  private static final String DEFAULT_PTV_URL = "https://api.palvelutietovaranto.trn.suomi.fi";
   private static final String INVALID_URI_SYNTAX = "Invalid uri syntax";
   
   @Inject
@@ -49,7 +49,7 @@ public class PtvClient extends fi.otavanopisto.ptv.client.ApiClient {
   public <T> ApiResponse<T> doGETRequest(String path, ResultType<T> resultType, Map<String, Object> queryParams, Map<String, Object> postParams) {
     URIBuilder uriBuilder;
     try {
-      uriBuilder = new URIBuilder(String.format("%s%s", BASE_PATH, path));
+      uriBuilder = new URIBuilder(String.format("%s%s", getBasePath(), path));
     } catch (URISyntaxException e) {
       logger.log(Level.SEVERE, INVALID_URI_SYNTAX, e);
       return new ApiResponse<>(500, INVALID_URI_SYNTAX, null);
@@ -112,6 +112,15 @@ public class PtvClient extends fi.otavanopisto.ptv.client.ApiClient {
     } 
     
     return String.valueOf(value);
+  }
+  
+  private String getBasePath() {
+    String ptvUrl = System.getProperty("ptv.url");
+    if (StringUtils.isNotBlank(ptvUrl)) {
+      return ptvUrl;
+    }
+    
+    return DEFAULT_PTV_URL;
   }
   
 }

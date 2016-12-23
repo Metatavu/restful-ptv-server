@@ -29,7 +29,7 @@ public class ServiceChannelController implements Serializable {
   private static final long serialVersionUID = -1069291263681772143L;
   
   @Inject
-  private Logger logger;
+  private transient Logger logger;
 
   @Inject
   private ServiceChannelsCache serviceChannelsCache;
@@ -82,7 +82,7 @@ public class ServiceChannelController implements Serializable {
     
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
-    int toIndex = maxResults == null ? idCount - 1 : Math.min(firstIndex + maxResults.intValue(), idCount);
+    int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
     List<ElectronicChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
@@ -138,7 +138,7 @@ public class ServiceChannelController implements Serializable {
     
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
-    int toIndex = maxResults == null ? idCount - 1 : Math.min(firstIndex + maxResults.intValue(), idCount);
+    int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
     List<PrintableFormChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
@@ -166,7 +166,7 @@ public class ServiceChannelController implements Serializable {
     
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
-    int toIndex = maxResults == null ? idCount - 1 : Math.min(firstIndex + maxResults.intValue(), idCount);
+    int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
     List<PhoneChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
@@ -194,7 +194,7 @@ public class ServiceChannelController implements Serializable {
     
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
-    int toIndex = maxResults == null ? idCount - 1 : Math.min(firstIndex + maxResults.intValue(), idCount);
+    int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
     List<WebPageChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
@@ -207,5 +207,50 @@ public class ServiceChannelController implements Serializable {
     }
     
     return result;
+  }
+
+  public boolean isElectricServiceChannelOfService(String serviceId, String id) {
+    ServiceChannelIds channelIds = serviceChannelsCache.get(serviceId);
+    if (channelIds != null) {
+      return channelIds.getElectricChannels().contains(id);
+    }
+
+    return false;
+  }  
+
+  public boolean isPhoneServiceChannelOfService(String serviceId, String id) {
+    ServiceChannelIds channelIds = serviceChannelsCache.get(serviceId);
+    if (channelIds != null) {
+      return channelIds.getPhoneChannels().contains(id);
+    }
+
+    return false;
+  }   
+
+  public boolean isPrintableFormChannelOfService(String serviceId, String id) {
+    ServiceChannelIds channelIds = serviceChannelsCache.get(serviceId);
+    if (channelIds != null) {
+      return channelIds.getPrintableFormChannels().contains(id);
+    }
+
+    return false;
+  }  
+
+  public boolean isLocationServiceChannelsOfService(String serviceId, String id) {
+    ServiceChannelIds channelIds = serviceChannelsCache.get(serviceId);
+    if (channelIds != null) {
+      return channelIds.getLocationServiceChannels().contains(id);
+    }
+
+    return false;
+  }  
+
+  public boolean isWebPageChannelOfService(String serviceId, String id) {
+    ServiceChannelIds channelIds = serviceChannelsCache.get(serviceId);
+    if (channelIds != null) {
+      return channelIds.getWebPageChannels().contains(id);
+    }
+
+    return false;
   }  
 }

@@ -1,17 +1,19 @@
 package fi.otavanopisto.restfulptv.server.services;
 
+import java.util.List;
+
 public class ServiceIdUpdateRequest {
 
-  private String id;  
+  private List<String> ids;  
   private boolean priority;
   
-  public ServiceIdUpdateRequest(String id, boolean priority) {
-    this.id = id;
+  public ServiceIdUpdateRequest(List<String> ids, boolean priority) {
+    this.ids = ids;
     this.priority = priority;
   }
   
-  public String getId() {
-    return id;
+  public List<String> getIds() {
+    return ids;
   }
   
   public boolean isPriority() {

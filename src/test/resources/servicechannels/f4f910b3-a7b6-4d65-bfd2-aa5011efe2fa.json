@@ -1,0 +1,46 @@
+{
+  "id": "f4f910b3-a7b6-4d65-bfd2-aa5011efe2fa",
+  "serviceChannelType": "WebPage",
+  "organizationId": "3f7ca041-bf91-4355-95a9-8e38c2441ef4",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Mikkelin kaupunginkirjaston Twitter-tili",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Kirjaston Twitter-tilin kautta saat aineistovinkkejä sekä tietoa kirjaston tapahtumista, palveluista. Sivuilla voi kommentoida julkaisuja.",
+      "type": "Description"
+    },
+    {
+      "language": "fi",
+      "value": "Mikkelin kaupunginkirjaston Twitter-tili",
+      "type": "ShortDescription"
+    }
+  ],
+  "urls": [
+    {
+      "value": "https://twitter.com/mikkelikirjasto",
+      "language": "fi"
+    }
+  ],
+  "attachments": [],
+  "supportContacts": [
+    {
+      "email": null,
+      "phone": null,
+      "phoneChargeDescription": null,
+      "language": "fi",
+      "serviceChargeTypes": []
+    }
+  ],
+  "languages": [
+    "fi"
+  ],
+  "webPages": [],
+  "serviceHours": [],
+  "publishingStatus": "Published"
+}

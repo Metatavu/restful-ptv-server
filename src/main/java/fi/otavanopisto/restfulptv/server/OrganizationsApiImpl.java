@@ -7,6 +7,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.StringUtils;
+
 import fi.otavanopisto.restfulptv.server.rest.OrganizationsApi;
 import fi.otavanopisto.restfulptv.server.rest.model.Organization;
 import fi.otavanopisto.restfulptv.server.rest.model.OrganizationService;
@@ -28,6 +30,9 @@ public class OrganizationsApiImpl extends OrganizationsApi {
   
   @Inject
   private OrganizationController organizationController;
+
+  @Inject
+  private OrganizationServiceController organizationServiceController;
 
   @Override
   public Response createOrganization(Organization body) {
@@ -52,16 +57,46 @@ public class OrganizationsApiImpl extends OrganizationsApi {
 
   @Override
   public Response findOrganizationService(String organizationId, String organizationServiceId) {
-    return createNotImplemented(NOT_IMPLEMENTED);
+    OrganizationService organizationService = organizationServiceController.findOrganizationServiceById(organizationServiceId);
+    if (organizationService == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    if (!StringUtils.equals(organizationService.getOrganizationId(), organizationId)) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    return Response.ok(organizationService)
+      .build();
   }
 
   @Override
   public Response listOrganizationOrganizationServices(String organizationId, Long firstResult, Long maxResults) {
-    return createNotImplemented(NOT_IMPLEMENTED);
+    if (firstResult != null && firstResult < 0) {
+      return createBadRequest("firstResult must by a positive integer");
+    }
+    
+    if (maxResults != null && maxResults < 0) {
+      return createBadRequest("maxResults must by a positive integer");
+    }
+    
+    List<OrganizationService> organizationServices = organizationServiceController
+        .listOrganizationServices(organizationId, firstResult, maxResults);
+    
+    return Response.ok(organizationServices)
+      .build();
   }
 
   @Override
   public Response listOrganizations(Long firstResult, Long maxResults) {
+    if (firstResult != null && firstResult < 0) {
+      return createBadRequest("firstResult must by a positive integer");
+    }
+    
+    if (maxResults != null && maxResults < 0) {
+      return createBadRequest("maxResults must by a positive integer");
+    }
+    
     List<Organization> organizations = organizationController.listOrganizations(firstResult, maxResults);
     return Response.ok(organizations)
       .build();

@@ -26,6 +26,8 @@ import fi.otavanopisto.restfulptv.server.rest.model.WebPageChannel;
 @SuppressWarnings ("squid:S3306")
 public class ServicesApiImpl extends ServicesApi {
 
+  private static final String MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER = "maxResults must by a positive integer";
+  private static final String FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER = "firstResult must by a positive integer";
   private static final String NOT_FOUND = "Not found";
   private static final String NOT_IMPLEMENTED = "Not implemented";
   
@@ -77,39 +79,130 @@ public class ServicesApiImpl extends ServicesApi {
   }
 
   @Override
-  public Response listServices(Long firstResult, Long maxResults) {
-    List<Service> services = serviceController.listServices(firstResult, maxResults);
+  public Response listServices(String organizationId, Long firstResult, Long maxResults) {
+    if (firstResult != null && firstResult < 0) {
+      return createBadRequest(FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
+    if (maxResults != null && maxResults < 0) {
+      return createBadRequest(MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
+    List<Service> services = serviceController.listServices(organizationId, firstResult, maxResults);
     return Response.ok(services)
       .build();
   }
 
   @Override
   public Response findServiceElectronicChannel(String serviceId, String electronicChannelId) {
-    return createNotImplemented(NOT_IMPLEMENTED);
+    Service service = serviceController.findServiceById(serviceId);
+    if (service == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    ElectronicChannel electronicChannel = serviceChannelController.findElectronicChannelById(electronicChannelId);
+    if (electronicChannel == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    if (!serviceChannelController.isElectricServiceChannelOfService(serviceId, electronicChannel.getId())) {
+      return createNotFound(NOT_FOUND);   
+    }
+    
+    return Response.ok(electronicChannel)
+      .build();
   }
 
   @Override
   public Response findServicePhoneChannel(String serviceId, String phoneChannelId) {
-    return createNotImplemented(NOT_IMPLEMENTED);
+    Service service = serviceController.findServiceById(serviceId);
+    if (service == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    PhoneChannel phoneChannel = serviceChannelController.findPhoneChannelById(phoneChannelId);
+    if (phoneChannel == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    if (!serviceChannelController.isPhoneServiceChannelOfService(serviceId, phoneChannel.getId())) {
+      return createNotFound(NOT_FOUND);   
+    }
+    
+    return Response.ok(phoneChannel)
+      .build();
   }
 
   @Override
   public Response findServicePrintableFormChannel(String serviceId, String printableFormChannelId) {
-    return createNotImplemented(NOT_IMPLEMENTED);
+    Service service = serviceController.findServiceById(serviceId);
+    if (service == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    PrintableFormChannel printableFormChannel = serviceChannelController.findPrintableFormChannelById(printableFormChannelId);
+    if (printableFormChannel == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    if (!serviceChannelController.isPrintableFormChannelOfService(serviceId, printableFormChannel.getId())) {
+      return createNotFound(NOT_FOUND);   
+    }
+    
+    return Response.ok(printableFormChannel)
+      .build();
   }
 
   @Override
   public Response findServiceServiceLocationChannel(String serviceId, String serviceLocationChannelId) {
-    return createNotImplemented(NOT_IMPLEMENTED);
+    Service service = serviceController.findServiceById(serviceId);
+    if (service == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    ServiceLocationChannel serviceLocationChannel = serviceChannelController.findServiceLocationChannelById(serviceLocationChannelId);
+    if (serviceLocationChannel == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    if (!serviceChannelController.isLocationServiceChannelsOfService(serviceId, serviceLocationChannel.getId())) {
+      return createNotFound(NOT_FOUND);   
+    }
+    
+    return Response.ok(serviceLocationChannel)
+      .build();
   }
 
   @Override
   public Response findServiceWebPageChannel(String serviceId, String webPageChannelId) {
-    return createNotImplemented(NOT_IMPLEMENTED);
+    Service service = serviceController.findServiceById(serviceId);
+    if (service == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    WebPageChannel webPageChannel = serviceChannelController.findWebPageChannelById(webPageChannelId);
+    if (webPageChannel == null) {
+      return createNotFound(NOT_FOUND);
+    }
+    
+    if (!serviceChannelController.isWebPageChannelOfService(serviceId, webPageChannel.getId())) {
+      return createNotFound(NOT_FOUND);   
+    }
+    
+    return Response.ok(webPageChannel)
+      .build();
   }
 
   @Override
   public Response listServiceElectronicChannels(String serviceId, Long firstResult, Long maxResults) {
+    if (firstResult != null && firstResult < 0) {
+      return createBadRequest(FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
+    if (maxResults != null && maxResults < 0) {
+      return createBadRequest(MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
     Service service = serviceController.findServiceById(serviceId);
     if (service == null) {
       return createNotFound(NOT_FOUND);
@@ -122,6 +215,14 @@ public class ServicesApiImpl extends ServicesApi {
 
   @Override
   public Response listServicePhoneChannels(String serviceId, Long firstResult, Long maxResults) {
+    if (firstResult != null && firstResult < 0) {
+      return createBadRequest(FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
+    if (maxResults != null && maxResults < 0) {
+      return createBadRequest(MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
     Service service = serviceController.findServiceById(serviceId);
     if (service == null) {
       return createNotFound(NOT_FOUND);
@@ -134,6 +235,14 @@ public class ServicesApiImpl extends ServicesApi {
 
   @Override
   public Response listServicePrintableFormChannels(String serviceId, Long firstResult, Long maxResults) {
+    if (firstResult != null && firstResult < 0) {
+      return createBadRequest(FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
+    if (maxResults != null && maxResults < 0) {
+      return createBadRequest(MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
     Service service = serviceController.findServiceById(serviceId);
     if (service == null) {
       return createNotFound(NOT_FOUND);
@@ -146,6 +255,14 @@ public class ServicesApiImpl extends ServicesApi {
 
   @Override
   public Response listServiceServiceLocationChannels(String serviceId, Long firstResult, Long maxResults) {
+    if (firstResult != null && firstResult < 0) {
+      return createBadRequest(FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
+    if (maxResults != null && maxResults < 0) {
+      return createBadRequest(MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
     Service service = serviceController.findServiceById(serviceId);
     if (service == null) {
       return createNotFound(NOT_FOUND);
@@ -158,6 +275,14 @@ public class ServicesApiImpl extends ServicesApi {
 
   @Override
   public Response listServiceWebPageChannels(String serviceId, Long firstResult, Long maxResults) {
+    if (firstResult != null && firstResult < 0) {
+      return createBadRequest(FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
+    if (maxResults != null && maxResults < 0) {
+      return createBadRequest(MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER);
+    }
+    
     Service service = serviceController.findServiceById(serviceId);
     if (service == null) {
       return createNotFound(NOT_FOUND);

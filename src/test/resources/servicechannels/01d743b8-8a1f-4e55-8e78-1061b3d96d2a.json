@@ -1,0 +1,60 @@
+{
+  "id": "01d743b8-8a1f-4e55-8e78-1061b3d96d2a",
+  "serviceChannelType": "Phone",
+  "organizationId": "a54b1ce5-ec91-4180-8de2-ab20ed16cd0c",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Mäntyharjun ja Pertunmaan tuotanto- ja pieneläinlääkärin ajanvaraus",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Voit soittaa tähän numeroon eläinlääkintää koskevissa asioissa tai varataksesi ajan eläinlääkäriltä.",
+      "type": "Description"
+    }
+  ],
+  "phoneType": "Phone",
+  "serviceChargeTypes": [],
+  "supportContacts": [],
+  "phoneNumbers": [
+    {
+      "value": "+35815227530",
+      "language": "fi"
+    }
+  ],
+  "languages": [],
+  "phoneChargeDescriptions": [
+    {
+      "value": "paikallisverkkomaksu (pvm), matkapuhelinmaksu (mpm), ulkomaanpuhelumaksu",
+      "language": "fi"
+    }
+  ],
+  "webPages": [],
+  "serviceHours": [
+    {
+      "serviceHourType": "Standard",
+      "exceptionHourType": null,
+      "validFrom": null,
+      "validTo": null,
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": false,
+      "sunday": false,
+      "opens": "08:00",
+      "closes": "10:00",
+      "additionalInformation": [
+        {
+          "value": "Arkipyhinä suljettu.",
+          "language": "fi"
+        }
+      ]
+    }
+  ],
+  "publishingStatus": "Published"
+}

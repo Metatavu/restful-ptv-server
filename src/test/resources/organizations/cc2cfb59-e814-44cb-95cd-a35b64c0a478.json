@@ -1,0 +1,25 @@
+{
+  "id": "cc2cfb59-e814-44cb-95cd-a35b64c0a478",
+  "oid": "1893930371",
+  "municipality": "Rovaniemi",
+  "streetAddressAsPostalAddress": false,
+  "organizationType": "Municipality",
+  "businessCode": "1978283-1",
+  "businessName": "Rovaniemi",
+  "organizationNames": [
+    {
+      "language": "fi",
+      "value": "Rovaniemen kaupunki",
+      "type": "Name"
+    }
+  ],
+  "displayNameType": "Name",
+  "organizationDescriptions": [],
+  "emailAddresses": [],
+  "phoneNumbers": [],
+  "webPages": [],
+  "addresses": [],
+  "publishingStatus": "Published",
+  "parentOrganization": null,
+  "services": []
+}

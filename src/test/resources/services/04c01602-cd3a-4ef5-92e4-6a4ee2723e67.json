@@ -1,0 +1,175 @@
+{
+  "id": "04c01602-cd3a-4ef5-92e4-6a4ee2723e67",
+  "type": "Service",
+  "statutoryServiceGeneralDescriptionId": null,
+  "serviceChargeType": null,
+  "serviceNames": [
+    {
+      "language": "fi",
+      "value": "Kirjasto- ja tietopalvelut",
+      "type": "Name"
+    },
+    {
+      "language": "fi",
+      "value": "kirjasto",
+      "type": "AlternateName"
+    }
+  ],
+  "serviceDescriptions": [
+    {
+      "language": "fi",
+      "value": "Kirjastoissa saat tietoa ja elämyksiä kirjoista, musiikista, elokuvista, lehdistä, peleistä ja tietokannoista. Voit lainata aineistoa kotiisi. Tiloissamme voit opiskella, tehdä etätyötä ja oleskella. Voit osallistua monenlaisiin tapahtumiimme ja kerhoihin.  \n\nMikkelin kaupunginkirjasto – Etelä-Savon maakuntakirjastossa on pääkirjaston lisäksi 12 lähikirjastoa. Löydät pääkirjaston torin laidalta kaupungin keskustasta. Lähikirjastomme sijaitsevat Anttolassa, Haukivuorella, Hirvensalmella, Kalevankankaalla, Kuortissa, Lähemäellä, Otavassa, Pertunmaalla, Puumalassa, Rantakylässä, Ristiinassa ja Suomenniemellä. Aukioloajat, yhteystiedot ja lisätietoa palveluista löydät verkkosivuiltamme.\nMikkelisssä kaupunkilaisia palvelevat kaupunginkirjaston lisäksi  Kaakkois-Suomen Ammattikorkeakoulu Oy:n (XAMK) kirjasto sekä yliopistokeskuksen kirjasto.",
+      "type": "Description"
+    },
+    {
+      "language": "fi",
+      "value": "Kirjasto on kaikille avoin palvelu. Aineiston lainaamiseen tarvitset kirjastokortin. Kirjastokortin saat palvelupisteistä täyttämällä asiakastietolomakkeen ja esittämällä kuvallisen henkilötodistuksen. \nAsiakastietolomakkeen voit tulostaa kirjaston verkkosivuilta. \nAlle 15-vuotias tarvitsee huoltajansa kirjallisen suostumuksen asiakastietolomakkeeseen. \n\nLumme-kirjastojen käyttöliitymällä  voit selata aineistoa ilman tunnuksia. Jos haluat varata tai uusia lainoja, kirjaudu omilla tunnuksillasi. \nKirjautumiseen tarvitaan käyttäjätunnukseksi kirjastokortin numero. Salasana on kirjastosta saatu (vähintään) nelinumeroinen tunnusluku.\n\nVoit varata vain oman alueesi kirjaston aineistoa. Toisen alueen aineistoa voi saada maksullisen kaukolainauksen kautta. Kaukolainat on tilattava oman kirjaston kautta.",
+      "type": "ServiceUserInstruction"
+    },
+    {
+      "language": "fi",
+      "value": "Kirjastoissa saat tietoa ja elämyksiä, voit lainata aineistoa kotiin. Kirjaston tilat ovat käytettävissä opiskeluun, etätyöhön ja oleskeluun. ",
+      "type": "ShortDescription"
+    }
+  ],
+  "languages": [
+    "sv",
+    "en",
+    "fi"
+  ],
+  "serviceClasses": [
+    {
+      "id": "01017f74-5fc6-4332-a84f-a0aff99c0cce",
+      "name": "Kirjastot ja tietopalvelut",
+      "code": "P25.1",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:P25.1",
+      "parentId": "b34122ef-e758-44df-bb93-328fcdcbe4dc",
+      "parentUri": null
+    }
+  ],
+  "ontologyTerms": [
+    {
+      "id": "e0354d7e-0bab-40b3-ad04-e1db2bb84170",
+      "name": "kirjastopalvelut",
+      "code": "",
+      "ontologyType": "All",
+      "uri": "http://www.yso.fi/onto/koko/p15530",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "320de7cf-e644-4a26-976a-c5cdfd3dbbc5",
+      "name": "yleiset kirjastot",
+      "code": "",
+      "ontologyType": "All",
+      "uri": "http://www.yso.fi/onto/koko/p17635",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "9df6c93d-effc-46d6-abff-4995528aed5f",
+      "name": "maakuntakirjastot",
+      "code": "",
+      "ontologyType": "All",
+      "uri": "http://www.yso.fi/onto/koko/p4660",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "targetGroups": [
+    {
+      "id": "e7196fa6-e696-4032-a611-83e152f8acfe",
+      "name": "Yritykset",
+      "code": "KR2",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR2",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "bf7e1aed-a2a0-484b-ba05-004db883bd71",
+      "name": "Kansalaiset",
+      "code": "KR1",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "lifeEvents": [],
+  "industrialClasses": [],
+  "keywords": [],
+  "serviceCoverageType": "Local",
+  "municipalities": [
+    "Mikkeli"
+  ],
+  "webPages": [],
+  "requirements": [
+    {
+      "value": "",
+      "language": "fi"
+    }
+  ],
+  "serviceAdditionalInformations": [
+    {
+      "language": "fi",
+      "value": "",
+      "type": "ChargeType"
+    },
+    {
+      "language": "fi",
+      "value": "",
+      "type": "DeadLine"
+    },
+    {
+      "language": "fi",
+      "value": "",
+      "type": "ProcessingTime"
+    },
+    {
+      "language": "fi",
+      "value": "",
+      "type": "Tasks"
+    },
+    {
+      "language": "fi",
+      "value": "",
+      "type": "ValidityTime"
+    }
+  ],
+  "serviceChannels": [
+    "20d1299f-d606-4ced-ad22-ba429252c43c",
+    "cd459bcf-1fd3-47b5-9765-c5b29a7d2efb",
+    "ea76ce08-6898-4741-a17e-4f197e95656f",
+    "01d743b8-8a1f-4e55-8e78-1061b3d96d2a",
+    "61a3dd0b-0bae-4110-ba5a-f1662dc55c4d",
+    "f75db250-6228-4e7a-9194-855cddc561f6",
+    "032e391b-8b15-4ba3-9239-f9523687fe35",
+    "a7b244fa-9e78-4d06-950a-e5fba3847ad6",
+    "e70b23f6-2552-46d4-96b5-a42c355e1d3f",
+    "1646ff9a-b111-48aa-b261-be333d144d95",
+    "326ae77e-9c19-4600-995b-0c77ae88e450",
+    "fe58aa59-9d43-402f-aaed-26ec5a6dc755",
+    "d487de8b-bd31-4b04-8403-f93e39e98510",
+    "f08651b8-29ff-4883-818a-890fc7291988",
+    "f4f910b3-a7b6-4d65-bfd2-aa5011efe2fa"
+  ],
+  "organizations": [
+    {
+      "organizationId": "3f7ca041-bf91-4355-95a9-8e38c2441ef4",
+      "roleType": "Producer",
+      "provisionType": null,
+      "additionalInformation": [],
+      "webPages": []
+    },
+    {
+      "organizationId": "516f3e93-3c31-4275-a3c1-6835f61be4fa",
+      "roleType": "Responsible",
+      "provisionType": null,
+      "additionalInformation": [],
+      "webPages": []
+    }
+  ],
+  "publishingStatus": "Published"
+}

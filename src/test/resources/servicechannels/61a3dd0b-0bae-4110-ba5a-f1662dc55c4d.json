@@ -1,0 +1,55 @@
+{
+  "id": "61a3dd0b-0bae-4110-ba5a-f1662dc55c4d",
+  "serviceChannelType": "Phone",
+  "organizationId": "516f3e93-3c31-4275-a3c1-6835f61be4fa",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Mäntyharjun ja Hirvensalmen löytökoirien vastaanotto",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Mäntyharjulla ja Hirvensalmella löytökoirat hoitaa Kalevi Pulkkinen, johon saa yhteyden puhelimitse.",
+      "type": "Description"
+    }
+  ],
+  "phoneType": "Phone",
+  "serviceChargeTypes": [],
+  "supportContacts": [],
+  "phoneNumbers": [
+    {
+      "value": "+358440258951",
+      "language": "fi"
+    }
+  ],
+  "languages": [],
+  "phoneChargeDescriptions": [
+    {
+      "value": "paikallisverkkomaksu (pvm), matkapuhelinmaksu (mpm), ulkomaanpuhelumaksu",
+      "language": "fi"
+    }
+  ],
+  "webPages": [],
+  "serviceHours": [
+    {
+      "serviceHourType": "Standard",
+      "exceptionHourType": null,
+      "validFrom": null,
+      "validTo": null,
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true,
+      "opens": "",
+      "closes": "",
+      "additionalInformation": []
+    }
+  ],
+  "publishingStatus": "Published"
+}

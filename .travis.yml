@@ -1,0 +1,32 @@
+language: java
+sudo: false
+jdk: oraclejdk8
+cache:
+  directories:
+  - $HOME/.sonar
+  - $HOME/.m2
+  - $HOME/.cargo
+addons:
+  hosts:
+    - test-restful-ptv.kunta-api.fi
+
+install: true
+
+before_script:
+  - . travis-before-script.sh
+  
+script:
+  - . travis.sh
+  
+after_failure:
+- . travis-after-failure.sh
+    
+notifications:
+  email: false
+  
+notifications:
+  webhooks:
+    urls:
+      - http://travis.metatavu.io:7333/travisping
+    on_success: always
+    on_failure: never

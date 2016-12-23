@@ -1,0 +1,59 @@
+{
+  "id": "cd459bcf-1fd3-47b5-9765-c5b29a7d2efb",
+  "serviceChannelType": "EChannel",
+  "organizationId": "e38d13f6-d525-4679-8e92-2347a19ea663",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Korvaushakemus tapahtuneesta rikosvahingosta",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Sähköisessä asiointipalvelussa voit hakea korvausta rikosvahingosta.",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Sähköisessä asiointipalvelussa voit hakea korvausta rikosvahingosta. ",
+      "type": "Description"
+    }
+  ],
+  "signatureQuantity": 0,
+  "requiresSignature": false,
+  "supportContacts": [
+    {
+      "email": "rikosvahingot@valtiokonttori.fi",
+      "phone": "0295 50 2736",
+      "phoneChargeDescription": "paikallisverkkomaksu/paikallispuhelumaksu",
+      "language": "fi",
+      "serviceChargeTypes": []
+    }
+  ],
+  "requiresAuthentication": true,
+  "urls": [
+    {
+      "value": "https://lomake.fi/forms/xml/VK/VK_rikosvahinko/fi",
+      "language": "fi"
+    }
+  ],
+  "languages": [
+    "sv",
+    "en",
+    "fi"
+  ],
+  "attachments": [
+    {
+      "type": null,
+      "name": "Luettelo rikosvahinkokorvaushakemuksen liitteistä",
+      "description": "Verkkosivulla luetellaan liitteet, jotka rikoksen uhrin on liitettävä rikosvahinkokorvaushakemuksen liitteeksi.",
+      "url": "http://www.valtiokonttori.fi/fi-FI/Kansalaisille_ja_yhteisoille/Korvaukset_ja_etuisuudet/Rikosvahingot/Rikosvahinkokorvausten_hakeminen_hakemuk(49792)",
+      "language": "fi"
+    }
+  ],
+  "webPages": [],
+  "serviceHours": [],
+  "publishingStatus": "Published"
+}

@@ -1,0 +1,71 @@
+{
+  "id": "a7b244fa-9e78-4d06-950a-e5fba3847ad6",
+  "serviceChannelType": "PrintableForm",
+  "organizationId": "e350fc7d-6c7d-40aa-aa4f-273965c77e9b",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Tulostettava_lomake",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "lyhyt kuvaus_jmeter -Djava.rmi.server.hostname=10.234.182.129 -Dserver_port=1099 -s -j jmeter-server.log  jmeter -Djava.rmi.server.hostname=10.234.\n ",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Kuvaus: jmeter -Djava.rmi.server.hostname=10.234.182.129 -Dserver_port=1099 -s -j jmeter-server.log  jmeter -Djava.rmi.server.hostname=10.234.182.129 jmeter -Djava.rmi.server.hostname=10.234.182.129 -Dserver_port=1099 -s -j jmeter-server.log  jmeter -Djava.rmi.server.hostname=10.234.182.129 jmeter -Djava.rmi.server.hostname=10.234.182.129 -Dserver_port=1099 -s -j jmeter-server.log  jmeter -Djava.rmi.server.hostname=10.234.182.129 jmeter -Djava.rmi.server.hostname=10.234.182.129 -Dserver_port",
+      "type": "Description"
+    }
+  ],
+  "formIdentifier": "jmeter -Djava.rmi.server.hostname=10.234.182.129 -Dserver_port=1099 -s -j jmeter-server.log  jmeter ",
+  "formReceiver": "jdhsfkjshdfkjhsdfkjhsdkjfhsdkjfhsdkjfhskjdfhkjsdfhkjsdah",
+  "supportContacts": [
+    {
+      "email": null,
+      "phone": null,
+      "phoneChargeDescription": "",
+      "language": "fi",
+      "serviceChargeTypes": []
+    }
+  ],
+  "deliveryAddress": {
+    "postOfficeBox": "PL-205",
+    "postalCode": "20660",
+    "postOffice": "LITTOINEN",
+    "streetAddress": [
+      {
+        "value": "jhdjdsfhkjsdhkjhsjhsfjhskj",
+        "language": "fi"
+      }
+    ],
+    "municipality": null,
+    "country": "FI",
+    "qualifier": null,
+    "additionalInformations": []
+  },
+  "channelUrls": [
+    {
+      "language": "fi",
+      "value": "www.jshdjhsdkjfhsdkhfjkhfkjdshfkjdshfkjhsdfkjhdfkjhdskjfhsdkjfhksjdfhkjdsfhkjdsfhkjdshfjkdshfkjdhfkjdshfkjhsdfkdskfj.fi",
+      "type": "PDF"
+    }
+  ],
+  "languages": [],
+  "deliveryAddressDescriptions": [],
+  "attachments": [
+    {
+      "type": "Attachment",
+      "name": "",
+      "description": "",
+      "url": "",
+      "language": "fi"
+    }
+  ],
+  "webPages": [],
+  "serviceHours": [],
+  "publishingStatus": "Published"
+}

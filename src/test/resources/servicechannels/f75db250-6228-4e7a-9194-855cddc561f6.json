@@ -1,0 +1,55 @@
+{
+  "id": "f75db250-6228-4e7a-9194-855cddc561f6",
+  "serviceChannelType": "Phone",
+  "organizationId": "516f3e93-3c31-4275-a3c1-6835f61be4fa",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Pertunmaan löytöeläinten sekä Mäntyharjun ja Hirvensalmen löytökissojen vastaanotto",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Pertunmaan löytöeläimet sekä Mäntyharjun ja Hirvensalmen löytökissat vastaanottaa Unto Liukkonen, johon saa yhteyden puhelimitse.",
+      "type": "Description"
+    }
+  ],
+  "phoneType": "Phone",
+  "serviceChargeTypes": [],
+  "supportContacts": [],
+  "phoneNumbers": [
+    {
+      "value": "+358400139577",
+      "language": "fi"
+    }
+  ],
+  "languages": [],
+  "phoneChargeDescriptions": [
+    {
+      "value": "paikallisverkkomaksu (pvm), matkapuhelinmaksu (mpm), ulkomaanpuhelumaksu",
+      "language": "fi"
+    }
+  ],
+  "webPages": [],
+  "serviceHours": [
+    {
+      "serviceHourType": "Standard",
+      "exceptionHourType": null,
+      "validFrom": null,
+      "validTo": null,
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true,
+      "opens": "",
+      "closes": "",
+      "additionalInformation": []
+    }
+  ],
+  "publishingStatus": "Published"
+}

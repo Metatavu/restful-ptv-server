@@ -1,0 +1,77 @@
+{
+  "id": "18bbc7da-3700-4ebc-b030-d4ca89aafe72",
+  "names": [
+    {
+      "language": "fi",
+      "value": "Yleiskaavoitukseen vaikuttaminen",
+      "type": "Name"
+    }
+  ],
+  "descriptions": [
+    {
+      "language": "fi",
+      "value": "Yleiskaava kertoo, miten kunta suunnittelee alueiden käyttöä ja jakamista asumisen, työelämän, liikenteen, virkistyksen ym. kesken.",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Kaikilla, joiden oloihin tai etuihin yleiskaavoitus vaikuttaa, on oikeus osallistua yleiskaavoitusprosessiin ja vaikuttaa siihen osaltaan.\n\nYleiskaava kertoo, miten kunta suunnittelee alueidensa käyttöä ja jakamista asumisen, työelämän, liikenteen, virkistyksen ja muiden toimintojen kesken. Yleiskaavasta säädetään maankäyttö- ja rakennuslaissa.\n\nKunta voi laatia yleiskaavan joko yksin tai yhdessä naapurikuntiensa (yhteinen yleiskaava) kanssa.",
+      "type": "Description"
+    }
+  ],
+  "languages": [
+    "fi"
+  ],
+  "serviceClasses": [
+    {
+      "id": "6639e905-f70a-46f2-9531-29c809237f5f",
+      "name": "Maankäyttö, kaavoitus ja tontit",
+      "code": "P2.3",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:P2.3",
+      "parentId": "d289e556-a8f3-471d-9d4d-505be08099c4",
+      "parentUri": null
+    }
+  ],
+  "ontologyTerms": [
+    {
+      "id": "37459e75-936b-4293-b3ca-c46c6063ffc7",
+      "name": "yleiskaavoitus",
+      "code": "",
+      "ontologyType": null,
+      "uri": "http://www.yso.fi/onto/yso/p18373",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "a4ea1d02-eb6a-4d8c-ad21-b839ae6518ac",
+      "name": "yleiskaavat",
+      "code": "",
+      "ontologyType": null,
+      "uri": "http://www.yso.fi/onto/jupo/p34",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "targetGroups": [
+    {
+      "id": "bf7e1aed-a2a0-484b-ba05-004db883bd71",
+      "name": "Kansalaiset",
+      "code": "KR1",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "e7196fa6-e696-4032-a611-83e152f8acfe",
+      "name": "Yritykset",
+      "code": "KR2",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR2",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "lifeEvents": []
+}

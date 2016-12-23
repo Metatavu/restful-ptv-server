@@ -1,0 +1,165 @@
+{
+  "id": "9f97d7d9-509a-4185-a798-4b91b6f1c25f",
+  "type": "Service",
+  "statutoryServiceGeneralDescriptionId": null,
+  "serviceChargeType": "Charged",
+  "serviceNames": [
+    {
+      "language": "fi",
+      "value": "Tapahtuma- ja torimyyntipaikkojen vuokraus",
+      "type": "Name"
+    },
+    {
+      "language": "fi",
+      "value": "Julkisten alueiden tilapäinen vuokraus",
+      "type": "AlternateName"
+    }
+  ],
+  "serviceDescriptions": [
+    {
+      "language": "fi",
+      "value": "Kaupunki vuokraa julkisia alueitaan erilaisiin tapahtumiin.",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Kaupunki vuokraa julkisia alueitaan erilaisiin tapahtumiin. Perinteiset Tornion syys- ja kevätmarkkinat torilla ovat olleet nykymuotoisina jo vuodesta 1933. Uusi kiinnostava tapahtumapaikka on Victoriantori, joka sijaitsee puoliksi Suomen ja Ruotsin puolella Rajalla kauppakeskuksen läheisyydessä.\nKävelukadun (Hallituskatu 1-4) ympärivuotinen myyntipaikkojen vuokraus on luovutettu Tornion Elävä kaupunkikeskusta -yhdistykselle. Yhdistys hoitaa torikentän (Torikatu 8) Kesätoripaikkojen myynnin ajalle 1.5. - 30.9.  Muiden alueiden käytöstä ja käyttöehdoista saa lisätietoja Teknisten palveluiden tonttipalveluista Tornion kaupungitalolta.",
+      "type": "Description"
+    },
+    {
+      "language": "fi",
+      "value": "",
+      "type": "ServiceUserInstruction"
+    }
+  ],
+  "languages": [
+    "fi"
+  ],
+  "serviceClasses": [
+    {
+      "id": "b34122ef-e758-44df-bb93-328fcdcbe4dc",
+      "name": "Kulttuuri",
+      "code": "P25",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:P25",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "884779ad-dbbd-47b9-bdca-6db6858fc1a9",
+      "name": "Elinkeinot",
+      "code": "P11",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:P11",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "ontologyTerms": [
+    {
+      "id": "eb5f8925-d8ee-47e3-84e9-7aae81007c12",
+      "name": "torimyyntipaikat",
+      "code": "",
+      "ontologyType": "All",
+      "uri": "http://www.yso.fi/onto/koko/p67723",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "44d1f12f-1373-4c68-afea-eed1549d032a",
+      "name": "tapahtumat ja toiminta",
+      "code": "",
+      "ontologyType": "All",
+      "uri": "http://www.yso.fi/onto/koko/p35417",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "3926b44f-5495-4927-b071-731ff1bbcee7",
+      "name": "katujen vuokraus",
+      "code": "",
+      "ontologyType": "All",
+      "uri": "http://www.yso.fi/onto/koko/p66775",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "36b44b20-d313-4fb7-b25d-4eefe446f63a",
+      "name": "määräaikaisuus",
+      "code": "",
+      "ontologyType": "All",
+      "uri": "http://www.yso.fi/onto/koko/p10475",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "targetGroups": [
+    {
+      "id": "b95c9f0a-aef8-4d92-ab49-979baf4c6bbb",
+      "name": "Viranomaiset",
+      "code": "KR3",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR3",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "bf7e1aed-a2a0-484b-ba05-004db883bd71",
+      "name": "Kansalaiset",
+      "code": "KR1",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "e7196fa6-e696-4032-a611-83e152f8acfe",
+      "name": "Yritykset",
+      "code": "KR2",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR2",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "lifeEvents": [],
+  "industrialClasses": [],
+  "keywords": [],
+  "serviceCoverageType": "Local",
+  "municipalities": [
+    "Tornio"
+  ],
+  "webPages": [],
+  "requirements": [
+    {
+      "value": "Vuokrasopimus",
+      "language": "fi"
+    }
+  ],
+  "serviceAdditionalInformations": [
+    {
+      "language": "fi",
+      "value": "",
+      "type": "ChargeType"
+    }
+  ],
+  "serviceChannels": [
+  ],
+  "organizations": [
+    {
+      "organizationId": "c11a9489-02f8-47d7-956a-26344b99bf92",
+      "roleType": "Responsible",
+      "provisionType": null,
+      "additionalInformation": [],
+      "webPages": []
+    },
+    {
+      "organizationId": "c11a9489-02f8-47d7-956a-26344b99bf92",
+      "roleType": "Producer",
+      "provisionType": "SelfProduced",
+      "additionalInformation": [],
+      "webPages": []
+    }
+  ],
+  "publishingStatus": "Published"
+}

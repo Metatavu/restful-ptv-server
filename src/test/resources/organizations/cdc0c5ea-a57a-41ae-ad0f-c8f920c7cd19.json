@@ -1,0 +1,25 @@
+{
+  "id": "cdc0c5ea-a57a-41ae-ad0f-c8f920c7cd19",
+  "oid": "-546841026",
+  "municipality": "Ristijärvi",
+  "streetAddressAsPostalAddress": false,
+  "organizationType": "Municipality",
+  "businessCode": "0189576-6",
+  "businessName": "Ristijärvi",
+  "organizationNames": [
+    {
+      "language": "fi",
+      "value": "Ristijärven kunta",
+      "type": "Name"
+    }
+  ],
+  "displayNameType": "Name",
+  "organizationDescriptions": [],
+  "emailAddresses": [],
+  "phoneNumbers": [],
+  "webPages": [],
+  "addresses": [],
+  "publishingStatus": "Published",
+  "parentOrganization": null,
+  "services": []
+}

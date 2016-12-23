@@ -1,0 +1,51 @@
+{
+  "id": "20d1299f-d606-4ced-ad22-ba429252c43c",
+  "serviceChannelType": "EChannel",
+  "organizationId": "e38d13f6-d525-4679-8e92-2347a19ea663",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Kansalaisneuvonnan yhteydenottolomake",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Kansalaisneuvonnan sähköisellä yhteydenottolomakkeella voit lähettää kysymyksen Kansalaisneuvonnan palveluneuvojalle. Sähköisellä lomakkeella voit myös antaa palautetta sivustosta tai Kansalaisneuvonnasta. \n\nVoit lähettää sähköisellä lomakkeella kysymyksen tai palautteen mihin vuorokaudenaikaan tahansa. ",
+      "type": "Description"
+    },
+    {
+      "language": "fi",
+      "value": "Kansalaisneuvonnan yhteydenottolomakkeella voit lähettää kysymyksen tai palautteen Kansalaisneuvonnan palveluneuvojalle.",
+      "type": "ShortDescription"
+    }
+  ],
+  "signatureQuantity": 0,
+  "requiresSignature": false,
+  "supportContacts": [
+    {
+      "email": null,
+      "phone": null,
+      "phoneChargeDescription": null,
+      "language": "fi",
+      "serviceChargeTypes": []
+    }
+  ],
+  "requiresAuthentication": false,
+  "urls": [
+    {
+      "value": "http://kansalaisneuvonta.fi/kansalaisneuvonta/fi/palaute/index.html",
+      "language": "fi"
+    }
+  ],
+  "languages": [
+    "sv",
+    "en",
+    "fi"
+  ],
+  "attachments": [],
+  "webPages": [],
+  "serviceHours": [],
+  "publishingStatus": "Published"
+}

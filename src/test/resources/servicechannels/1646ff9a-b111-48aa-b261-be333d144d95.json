@@ -1,0 +1,103 @@
+{
+  "id": "1646ff9a-b111-48aa-b261-be333d144d95",
+  "serviceChannelType": "ServiceLocation",
+  "organizationId": "516f3e93-3c31-4275-a3c1-6835f61be4fa",
+  "serviceChannelNames": [
+    {
+      "language": "fi",
+      "value": "Viestikeskus Lokki",
+      "type": "Name"
+    }
+  ],
+  "serviceChannelDescriptions": [
+    {
+      "language": "fi",
+      "value": "Viestikeskus Lokki vaalii jatkosodan aikaisen Mikkeliin sijoitetun Suomen armeijan päämajan viestikeskuksen historiallista perintöä.",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Viestikeskus Lokki vaalii jatkosodan aikaisen Mikkeliin sijoitetun Suomen armeijan päämajan viestikeskuksen historiallista perintöä säilyttämällä, tallentamalla ja tekemällä sitä tunnetuksi harjoittamalla tutkimusta, opetusta, näyttely- ja julkaisutoimintaa.",
+      "type": "Description"
+    }
+  ],
+  "serviceAreaRestricted": true,
+  "supportContacts": [],
+  "email": null,
+  "phone": null,
+  "languages": [
+    "en",
+    "sv",
+    "fi"
+  ],
+  "fax": null,
+  "latitude": "6839853",
+  "longitude": "514266",
+  "coordinateSystem": "3067",
+  "coordinatesSetManually": true,
+  "phoneServiceCharge": false,
+  "webPages": [],
+  "serviceAreas": [
+    "Mikkeli"
+  ],
+  "phoneChargeDescriptions": [],
+  "addresses": [
+    {
+      "type": "Visiting",
+      "postOfficeBox": null,
+      "postalCode": "50100",
+      "postOffice": "MIKKELI",
+      "streetAddress": [
+        {
+          "value": "Vuorikatu",
+          "language": "fi"
+        }
+      ],
+      "municipality": "Mikkeli",
+      "country": "FI",
+      "qualifier": "Vuorikadun ja Ristimäenkadun kulma. Sisäänkäynti Vuorikadun puolelta.",
+      "additionalInformations": null
+    },
+    {
+      "type": "Postal",
+      "postOfficeBox": null,
+      "postalCode": "50100",
+      "postOffice": "MIKKELI",
+      "streetAddress": [
+        {
+          "value": "Hallituskatu 8 E",
+          "language": "fi"
+        }
+      ],
+      "municipality": null,
+      "country": "FI",
+      "qualifier": "",
+      "additionalInformations": null
+    }
+  ],
+  "serviceChargeTypes": [],
+  "serviceHours": [
+    {
+      "serviceHourType": "Standard",
+      "exceptionHourType": null,
+      "validFrom": null,
+      "validTo": null,
+      "monday": true,
+      "tuesday": true,
+      "wednesday": true,
+      "thursday": true,
+      "friday": true,
+      "saturday": true,
+      "sunday": true,
+      "opens": "10:00",
+      "closes": "17:00",
+      "additionalInformation": [
+        {
+          "value": "Juhlapyhinä suljettu.",
+          "language": "fi"
+        }
+      ]
+    }
+  ],
+  "publishingStatus": "Published"
+}

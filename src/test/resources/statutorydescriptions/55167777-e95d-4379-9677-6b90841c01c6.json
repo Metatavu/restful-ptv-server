@@ -1,0 +1,77 @@
+{
+  "id": "55167777-e95d-4379-9677-6b90841c01c6",
+  "names": [
+    {
+      "language": "fi",
+      "value": "Maakuntakaavoitukseen vaikuttaminen",
+      "type": "Name"
+    }
+  ],
+  "descriptions": [
+    {
+      "language": "fi",
+      "value": "Maakuntakaava on yleispiirteinen suunnitelma kaavassa mukana olevien kuntien alueiden käytöstä.",
+      "type": "ShortDescription"
+    },
+    {
+      "language": "fi",
+      "value": "Kaikilla, joiden oloihin tai etuihin maakuntakaavoitus vaikuttaa, on oikeus osallistua maakunnan kaavoitusprosessiin ja vaikuttaa siihen osaltaan. \n\nMaakuntakaava on yleispiirteinen suunnitelma kaavassa mukana olevien kuntien alueiden käytöstä. Siinä esitetään alueiden käytön ja yhdyskuntarakenteen periaatteet ja osoitetaan alueita, joiden kehittäminen katsotaan eri syistä tarpeelliseksi. \n\nMaakuntakaavan laatimisesta ja muusta maakunnan suunnittelusta huolehtii kuntayhtymä eli maakunnan liitto, jossa alueen kuntien on oltava jäseninä. Maakuntakaava voidaan laatia myös vaiheittain tai osa-alueittain.",
+      "type": "Description"
+    }
+  ],
+  "languages": [
+    "fi"
+  ],
+  "serviceClasses": [
+    {
+      "id": "6639e905-f70a-46f2-9531-29c809237f5f",
+      "name": "Maankäyttö, kaavoitus ja tontit",
+      "code": "P2.3",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:P2.3",
+      "parentId": "d289e556-a8f3-471d-9d4d-505be08099c4",
+      "parentUri": null
+    }
+  ],
+  "ontologyTerms": [
+    {
+      "id": "f522e018-5394-434b-bcec-308fc4c50245",
+      "name": "maakuntakaavat",
+      "code": "",
+      "ontologyType": null,
+      "uri": "http://www.yso.fi/onto/jupo/p1101",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "69a8cdd5-f222-4ee5-9be5-d7a37659eefe",
+      "name": "maakuntakaavoitus",
+      "code": "",
+      "ontologyType": null,
+      "uri": "http://www.yso.fi/onto/yso/p12274",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "targetGroups": [
+    {
+      "id": "bf7e1aed-a2a0-484b-ba05-004db883bd71",
+      "name": "Kansalaiset",
+      "code": "KR1",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
+      "parentId": null,
+      "parentUri": null
+    },
+    {
+      "id": "e7196fa6-e696-4032-a611-83e152f8acfe",
+      "name": "Yritykset",
+      "code": "KR2",
+      "ontologyType": null,
+      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR2",
+      "parentId": null,
+      "parentUri": null
+    }
+  ],
+  "lifeEvents": []
+}

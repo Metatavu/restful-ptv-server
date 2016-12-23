@@ -18,7 +18,7 @@ public class ServiceController implements Serializable {
   private static final long serialVersionUID = -1069291263681772143L;
   
   @Inject
-  private Logger logger;
+  private transient Logger logger;
 
   @Inject
   private ServiceCache serviceCache;
@@ -27,18 +27,20 @@ public class ServiceController implements Serializable {
     return serviceCache.get(id);
   }
   
-  public List<Service> listServices(Long firstResult, Long maxResults) {
+  public List<Service> listServices(String organizationId, Long firstResult, Long maxResults) {
     List<String> ids = serviceCache.getIds();
     
     int idCount = ids.size();
-    int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount - 1);
-    int toIndex = maxResults == null ? idCount - 1 : Math.min(firstIndex + maxResults.intValue(), idCount - 1);
+    int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
+    int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
     List<Service> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
       Service service = findServiceById(id);
       if (service != null) {
-        result.add(service);
+        if (organizationId == null || (service.getOrganizationIds() != null && service.getOrganizationIds().contains(organizationId))) {
+          result.add(service);
+        }
       } else {
         logger.severe(String.format("Could not find service by id %s", id));
       }
