@@ -21,6 +21,7 @@ import org.infinispan.manager.CacheContainer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
  * Abstract base cache for all PTV entity caches
@@ -87,7 +88,7 @@ public abstract class AbstractEntityCache <T> implements Serializable {
         return null;
       }
       
-      ObjectMapper objectMapper = new ObjectMapper();
+      ObjectMapper objectMapper = getObjectMapper();
       try {
         return objectMapper.readValue(rawData, getTypeReference());
       } catch (IOException e) {
@@ -107,7 +108,7 @@ public abstract class AbstractEntityCache <T> implements Serializable {
    */
   public void put(String id, T response) {
     Cache<String, String> cache = getCache();
-    ObjectMapper objectMapper = new ObjectMapper();
+    ObjectMapper objectMapper = getObjectMapper();
     try {
       cache.put(id, objectMapper.writeValueAsString(response));
       assignIndex(id);
@@ -153,6 +154,12 @@ public abstract class AbstractEntityCache <T> implements Serializable {
     Collections.sort(result, new KeyComparator());
     
     return result;
+  }
+  
+  private ObjectMapper getObjectMapper() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.registerModule(new JavaTimeModule());
+    return objectMapper;
   }
   
   private TypeReference<T> getTypeReference() {    
