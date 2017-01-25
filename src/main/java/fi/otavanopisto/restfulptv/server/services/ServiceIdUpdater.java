@@ -2,6 +2,7 @@ package fi.otavanopisto.restfulptv.server.services;
 
 import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -95,9 +96,9 @@ public class ServiceIdUpdater implements IdUpdater {
     boolean hasMore = false;
 
     if (pageCount > 0) {
-      logger.fine(String.format("Updating services page %d / %d", page + 1, pageCount));
+      logger.log(Level.FINE, () -> String.format("Updating services page %d / %d", page + 1, pageCount));
     } else {
-      logger.fine(String.format("Updating services page %d", page + 1));
+      logger.log(Level.FINE, () -> String.format("Updating services page %d", page + 1));
     }
 
     ApiResponse<VmOpenApiGuidPage> response = ptvApi.getServiceApi().apiServiceGet(null, page);
@@ -110,11 +111,11 @@ public class ServiceIdUpdater implements IdUpdater {
       hasMore = pageCount > page + 1;
 
       if (discoverCount > 0) {
-        logger.info(String.format("Discovered %d service ids", discoverCount));
+        int count = discoverCount;
+        logger.log(Level.INFO, () -> String.format("Discovered %d service ids", count));
       }
     } else {
-      logger.severe(
-          String.format("Failed to update service ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
+      logger.log(Level.SEVERE, () -> String.format("Failed to update service ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
     }
 
     if (hasMore) {
@@ -137,13 +138,13 @@ public class ServiceIdUpdater implements IdUpdater {
       pageCount = pageData.getPageCount();
 
       if (discoverCount > 0) {
-        logger.info(String.format("Discovered %d priority services", discoverCount));
+        int count = discoverCount;
+        logger.log(Level.INFO, () -> String.format("Discovered %d priority services", count));
       }
 
       priortyScanTime = OffsetDateTime.now();
     } else {
-      logger.severe(String.format("Failed to update priority service ids from PTV (%d: %s)", response.getStatus(),
-          response.getMessage()));
+      logger.log(Level.SEVERE, () -> String.format("Failed to update priority service ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
     }
   }
 

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -132,7 +133,7 @@ public class OrganizationEntityUpdater extends EntityUpdater {
 
   private void processEntity(String entityId) {
     if (!queue.remove(entityId)) {
-      logger.warning(String.format("Could not remove %s from queue", entityId));
+      logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
 
     ApiResponse<VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiOrganizationByIdGet(entityId);
@@ -151,8 +152,7 @@ public class OrganizationEntityUpdater extends EntityUpdater {
         }
       }
     } else {
-      logger.warning(String.format("Organization %s caching failed on [%d] %s", entityId, response.getStatus(),
-          response.getMessage()));
+      logger.log(Level.WARNING, () -> String.format("Organization %s caching failed on [%d] %s", entityId, response.getStatus(), response.getMessage()));
     }
   }
 
@@ -161,7 +161,7 @@ public class OrganizationEntityUpdater extends EntityUpdater {
     if (organization != null) {
       organizationCache.put(entityId, organization);
     } else {
-      logger.warning(String.format("Failed to translate ptvOrganization %s", ptvOrganization.getId()));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvOrganization %s", ptvOrganization.getId()));
     }
   }
 
