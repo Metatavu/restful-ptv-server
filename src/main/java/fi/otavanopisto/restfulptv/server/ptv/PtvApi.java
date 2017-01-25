@@ -1,15 +1,14 @@
 package fi.otavanopisto.restfulptv.server.ptv;
 
-import fi.otavanopisto.ptv.client.OrganizationApi;
-
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.ptv.client.GeneralDescriptionApi;
-import fi.otavanopisto.ptv.client.ServiceApi;
-import fi.otavanopisto.ptv.client.ServiceChannelApi;
+import fi.metatavu.ptv.client.GeneralDescriptionApi;
+import fi.metatavu.ptv.client.OrganizationApi;
+import fi.metatavu.ptv.client.ServiceApi;
+import fi.metatavu.ptv.client.ServiceChannelApi;
 
-@Dependent
+@ApplicationScoped
 @SuppressWarnings ("squid:S3306")
 public class PtvApi {
   

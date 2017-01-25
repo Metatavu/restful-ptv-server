@@ -9,11 +9,11 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.restfulptv.server.rest.model.ElectronicChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PhoneChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PrintableFormChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.ServiceLocationChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
+import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
+import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
 import fi.otavanopisto.restfulptv.server.servicechannels.ElectronicServiceChannelCache;
 import fi.otavanopisto.restfulptv.server.servicechannels.LocationServiceChannelCache;
 import fi.otavanopisto.restfulptv.server.servicechannels.PhoneServiceChannelCache;

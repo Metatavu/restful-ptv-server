@@ -3,14 +3,14 @@ package fi.otavanopisto.restfulptv.server.servicechannels;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.ptv.client.ApiResponse;
-import fi.otavanopisto.ptv.client.ResultType;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.ResultType;
 import fi.otavanopisto.restfulptv.server.ptv.PtvClient;
 
-@Dependent
+@ApplicationScoped
 @SuppressWarnings ("squid:S3306")
 public class ServiceChannelResolver {
 

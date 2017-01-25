@@ -9,7 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
-import fi.otavanopisto.restfulptv.server.rest.model.OrganizationService;
+import fi.metatavu.restfulptv.server.rest.model.OrganizationService;
 
 @RequestScoped
 @SuppressWarnings ("squid:S3306")

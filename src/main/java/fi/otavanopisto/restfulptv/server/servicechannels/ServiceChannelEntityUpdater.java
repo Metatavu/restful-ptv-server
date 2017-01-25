@@ -25,17 +25,17 @@ import javax.inject.Inject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fi.otavanopisto.ptv.client.model.VmOpenApiElectronicChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiPhoneChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiPrintableFormChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiServiceLocationChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiWebPageChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
-import fi.otavanopisto.restfulptv.server.rest.model.ElectronicChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PhoneChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PrintableFormChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.ServiceLocationChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
+import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
+import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
 

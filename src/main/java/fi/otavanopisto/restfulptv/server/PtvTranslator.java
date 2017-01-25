@@ -12,49 +12,47 @@ import javax.enterprise.context.RequestScoped;
 
 import org.apache.commons.lang3.StringUtils;
 
-import fi.otavanopisto.ptv.client.model.IVmOpenApiLocalizedListItem;
-import fi.otavanopisto.ptv.client.model.IVmOpenApiService;
-import fi.otavanopisto.ptv.client.model.VmOpenApiAddress;
-import fi.otavanopisto.ptv.client.model.VmOpenApiAddressWithType;
-import fi.otavanopisto.ptv.client.model.VmOpenApiAttachment;
-import fi.otavanopisto.ptv.client.model.VmOpenApiAttachmentWithType;
-import fi.otavanopisto.ptv.client.model.VmOpenApiElectronicChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiFintoItem;
-import fi.otavanopisto.ptv.client.model.VmOpenApiGeneralDescription;
-import fi.otavanopisto.ptv.client.model.VmOpenApiLanguageItem;
-import fi.otavanopisto.ptv.client.model.VmOpenApiLocalizedListItem;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganization;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganizationEmail;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganizationPhone;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganizationService;
-import fi.otavanopisto.ptv.client.model.VmOpenApiPhoneChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiPrintableFormChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiService;
-import fi.otavanopisto.ptv.client.model.VmOpenApiServiceHour;
-import fi.otavanopisto.ptv.client.model.VmOpenApiServiceLocationChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiServiceOrganization;
-import fi.otavanopisto.ptv.client.model.VmOpenApiSupport;
-import fi.otavanopisto.ptv.client.model.VmOpenApiWebPage;
-import fi.otavanopisto.ptv.client.model.VmOpenApiWebPageChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.Address;
-import fi.otavanopisto.restfulptv.server.rest.model.Attachment;
-import fi.otavanopisto.restfulptv.server.rest.model.ElectronicChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.FintoItem;
-import fi.otavanopisto.restfulptv.server.rest.model.LanguageItem;
-import fi.otavanopisto.restfulptv.server.rest.model.LocalizedListItem;
-import fi.otavanopisto.restfulptv.server.rest.model.Organization;
-import fi.otavanopisto.restfulptv.server.rest.model.OrganizationEmail;
-import fi.otavanopisto.restfulptv.server.rest.model.OrganizationPhone;
-import fi.otavanopisto.restfulptv.server.rest.model.OrganizationService;
-import fi.otavanopisto.restfulptv.server.rest.model.PhoneChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PrintableFormChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.Service;
-import fi.otavanopisto.restfulptv.server.rest.model.ServiceHour;
-import fi.otavanopisto.restfulptv.server.rest.model.ServiceLocationChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.StatutoryDescription;
-import fi.otavanopisto.restfulptv.server.rest.model.Support;
-import fi.otavanopisto.restfulptv.server.rest.model.WebPage;
-import fi.otavanopisto.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiAddress;
+import fi.metatavu.ptv.client.model.VmOpenApiAddressWithType;
+import fi.metatavu.ptv.client.model.VmOpenApiAttachment;
+import fi.metatavu.ptv.client.model.VmOpenApiAttachmentWithType;
+import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiFintoItem;
+import fi.metatavu.ptv.client.model.VmOpenApiGeneralDescription;
+import fi.metatavu.ptv.client.model.VmOpenApiLanguageItem;
+import fi.metatavu.ptv.client.model.VmOpenApiLocalizedListItem;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganizationEmail;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganizationPhone;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganizationService;
+import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiService;
+import fi.metatavu.ptv.client.model.VmOpenApiServiceHour;
+import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiServiceOrganization;
+import fi.metatavu.ptv.client.model.VmOpenApiSupport;
+import fi.metatavu.ptv.client.model.VmOpenApiWebPage;
+import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
+import fi.metatavu.restfulptv.server.rest.model.Address;
+import fi.metatavu.restfulptv.server.rest.model.Attachment;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
+import fi.metatavu.restfulptv.server.rest.model.FintoItem;
+import fi.metatavu.restfulptv.server.rest.model.LanguageItem;
+import fi.metatavu.restfulptv.server.rest.model.LocalizedListItem;
+import fi.metatavu.restfulptv.server.rest.model.Organization;
+import fi.metatavu.restfulptv.server.rest.model.OrganizationEmail;
+import fi.metatavu.restfulptv.server.rest.model.OrganizationPhone;
+import fi.metatavu.restfulptv.server.rest.model.OrganizationService;
+import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
+import fi.metatavu.restfulptv.server.rest.model.Service;
+import fi.metatavu.restfulptv.server.rest.model.ServiceHour;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
+import fi.metatavu.restfulptv.server.rest.model.StatutoryDescription;
+import fi.metatavu.restfulptv.server.rest.model.Support;
+import fi.metatavu.restfulptv.server.rest.model.WebPage;
+import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
 
 @RequestScoped
 public class PtvTranslator implements Serializable {
@@ -132,22 +130,6 @@ public class PtvTranslator implements Serializable {
     
     List<LocalizedListItem> result = new ArrayList<>(ptvItems.size());
     for (VmOpenApiLocalizedListItem ptvItem : ptvItems) {
-      LocalizedListItem item = translateLocalizedListItem(ptvItem);
-      if (item != null) {
-        result.add(item);
-      }
-    }
-
-    return result;
-  }
-
-  public List<LocalizedListItem> translateLocalizedListItemsI(List<IVmOpenApiLocalizedListItem> ptvItems) {
-    if (ptvItems == null || ptvItems.isEmpty()) {
-      return Collections.emptyList();
-    }
-    
-    List<LocalizedListItem> result = new ArrayList<>(ptvItems.size());
-    for (IVmOpenApiLocalizedListItem ptvItem : ptvItems) {
       LocalizedListItem item = translateLocalizedListItem(ptvItem);
       if (item != null) {
         result.add(item);
@@ -308,19 +290,6 @@ public class PtvTranslator implements Serializable {
     return result;
   }
 
-  public LocalizedListItem translateLocalizedListItem(IVmOpenApiLocalizedListItem ptvItem) {
-    if (ptvItem == null) {
-      return null;
-    }
-    
-    LocalizedListItem result = new LocalizedListItem();
-    result.setLanguage(ptvItem.getLanguage());
-    result.setType(ptvItem.getType());
-    result.setValue(ptvItem.getValue());
-    
-    return result;
-  }
-
   public Address translateAddress(VmOpenApiAddressWithType ptvAddress) {
     if (ptvAddress == null) {
       return null;
@@ -414,36 +383,6 @@ public class PtvTranslator implements Serializable {
   }
 
   public Service translateService(VmOpenApiService ptvService) {
-    if (ptvService == null) {
-      return null;
-    }
-    
-    Service result = new Service();
-    result.setId(ptvService.getId());
-    result.setType(ptvService.getType());
-    result.setStatutoryDescriptionId(ptvService.getStatutoryServiceGeneralDescriptionId());
-    result.setServiceClasses(translateFintoItems(ptvService.getServiceClasses()));
-    result.setOntologyTerms(translateFintoItems(ptvService.getOntologyTerms()));
-    result.setLifeEvents(translateFintoItems(ptvService.getLifeEvents()));
-    result.setIndustrialClasses(translateFintoItems(ptvService.getIndustrialClasses()));
-    result.setNames(translateLocalizedListItems(ptvService.getServiceNames()));
-    result.setDescriptions(translateLocalizedListItems(ptvService.getServiceDescriptions()));
-    result.setLanguages(ptvService.getLanguages());
-    result.setKeywords(ptvService.getKeywords());
-    result.setCoverageType(ptvService.getServiceCoverageType());
-    result.setMunicipalities(ptvService.getMunicipalities());
-    result.setWebPages(translateWebPages(ptvService.getWebPages()));
-    result.setRequirements(translateLanguageItems(ptvService.getRequirements()));
-    result.setPublishingStatus(ptvService.getPublishingStatus());
-    result.setChargeType(ptvService.getServiceChargeType());
-    result.setAdditionalInformations(translateLocalizedListItems(ptvService.getServiceAdditionalInformations()));
-    result.setTargetGroups(translateFintoItems(ptvService.getTargetGroups()));
-    result.setOrganizationIds(getOrganizationIds(ptvService.getOrganizations()));
-    
-    return result;
-  }
-
-  public Service translateService(IVmOpenApiService ptvService) {
     if (ptvService == null) {
       return null;
     }
@@ -763,8 +702,8 @@ public class PtvTranslator implements Serializable {
     
     StatutoryDescription result = new StatutoryDescription();
     result.setId(ptvStatutoryDescription.getId());
-    result.setNames(translateLocalizedListItemsI(ptvStatutoryDescription.getNames()));
-    result.setDescriptions(translateLocalizedListItemsI(ptvStatutoryDescription.getDescriptions()));
+    result.setNames(translateLocalizedListItems(ptvStatutoryDescription.getNames()));
+    result.setDescriptions(translateLocalizedListItems(ptvStatutoryDescription.getDescriptions()));
     result.setLanguages(ptvStatutoryDescription.getLanguages());
     result.setServiceClasses(translateFintoItems(ptvStatutoryDescription.getServiceClasses()));
     result.setOntologyTerms(translateFintoItems(ptvStatutoryDescription.getOntologyTerms()));
