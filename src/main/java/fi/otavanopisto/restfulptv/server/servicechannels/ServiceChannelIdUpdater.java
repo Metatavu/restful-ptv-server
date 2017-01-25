@@ -2,6 +2,7 @@ package fi.otavanopisto.restfulptv.server.servicechannels;
 
 import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -95,9 +96,9 @@ public class ServiceChannelIdUpdater implements IdUpdater {
     boolean hasMore = false;
 
     if (pageCount > 0) {
-      logger.fine(String.format("Updating serviceChannels page %d / %d", page + 1, pageCount));
+      logger.log(Level.FINE, () -> String.format("Updating serviceChannels page %d / %d", page + 1, pageCount));
     } else {
-      logger.fine(String.format("Updating serviceChannels page %d", page + 1));
+      logger.log(Level.FINE, () -> String.format("Updating serviceChannels page %d", page + 1));
     }
 
     ApiResponse<VmOpenApiGuidPage> response = ptvApi.getServiceChannelApi().apiServiceChannelGet(null, page);
@@ -111,11 +112,11 @@ public class ServiceChannelIdUpdater implements IdUpdater {
       hasMore = pageCount > page + 1;
 
       if (discoverCount > 0) {
-        logger.info(String.format("Discovered %d serviceChannel ids", discoverCount));
+        int count = discoverCount;
+        logger.log(Level.INFO, () -> String.format("Discovered %d serviceChannel ids", count));
       }
     } else {
-      logger.severe(String.format("Failed to update serviceChannel ids from PTV (%d: %s)", response.getStatus(),
-          response.getMessage()));
+      logger.log(Level.SEVERE, () -> String.format("Failed to update serviceChannel ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
     }
 
     if (hasMore) {
@@ -138,13 +139,13 @@ public class ServiceChannelIdUpdater implements IdUpdater {
       pageCount = pageData.getPageCount();
 
       if (discoverCount > 0) {
-        logger.info(String.format("Discovered %d priority serviceChannels", discoverCount));
+        int count = discoverCount;
+        logger.log(Level.FINE, () -> String.format("Discovered %d priority serviceChannels", count));
       }
 
       priortyScanTime = OffsetDateTime.now();
     } else {
-      logger.severe(String.format("Failed to update priority serviceChannel ids from PTV (%d: %s)",
-          response.getStatus(), response.getMessage()));
+      logger.log(Level.SEVERE, () -> String.format("Failed to update priority serviceChannel ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
     }
   }
 

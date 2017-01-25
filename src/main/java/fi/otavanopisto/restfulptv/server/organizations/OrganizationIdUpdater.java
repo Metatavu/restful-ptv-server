@@ -2,6 +2,7 @@ package fi.otavanopisto.restfulptv.server.organizations;
 
 import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -95,9 +96,9 @@ public class OrganizationIdUpdater implements IdUpdater {
     boolean hasMore = false;
 
     if (pageCount > 0) {
-      logger.fine(String.format("Updating organizations page %d / %d", page + 1, pageCount));
+      logger.log(Level.FINE, () -> String.format("Updating organizations page %d / %d", page + 1, pageCount));
     } else {
-      logger.fine(String.format("Updating organizations page %d", page + 1));
+      logger.log(Level.FINE, () -> String.format("Updating organizations page %d", page + 1));
     }
 
     ApiResponse<VmOpenApiGuidPage> response = ptvApi.getOrganizationApi().apiOrganizationGet(null, page);
@@ -110,11 +111,11 @@ public class OrganizationIdUpdater implements IdUpdater {
       hasMore = pageCount > page + 1;
 
       if (discoverCount > 0) {
-        logger.info(String.format("Discovered %d organization ids", discoverCount));
+        int count = discoverCount;
+        logger.log(Level.FINE, () -> String.format("Discovered %d organization ids", count));
       }
     } else {
-      logger.severe(String.format("Failed to update organization ids from PTV (%d: %s)", response.getStatus(),
-          response.getMessage()));
+      logger.log(Level.SEVERE, () -> String.format("Failed to update organization ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
     }
 
     if (hasMore) {
@@ -137,13 +138,13 @@ public class OrganizationIdUpdater implements IdUpdater {
       pageCount = pageData.getPageCount();
 
       if (discoverCount > 0) {
-        logger.info(String.format("Discovered %d priority organizations", discoverCount));
+        int count = discoverCount;
+        logger.log(Level.INFO, () -> String.format("Discovered %d priority organizations", count));
       }
 
       priortyScanTime = OffsetDateTime.now();
     } else {
-      logger.severe(String.format("Failed to update priority organization ids from PTV (%d: %s)", response.getStatus(),
-          response.getMessage()));
+      logger.log(Level.SEVERE, () -> String.format("Failed to update priority organization ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
     }
   }
 
