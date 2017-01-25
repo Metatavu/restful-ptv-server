@@ -19,7 +19,7 @@ public class OrganizationServiceController implements Serializable {
   private static final long serialVersionUID = -4740033885526942105L;
 
   @Inject
-  private Logger logger;
+  private transient Logger logger;
 
   @Inject
   private OrganizationServiceCache organizationServiceCache;

@@ -19,7 +19,7 @@ public class ServiceController implements Serializable {
   private static final long serialVersionUID = -1069291263681772143L;
   
   @Inject
-  private Logger logger;
+  private transient Logger logger;
 
   @Inject
   private ServiceCache serviceCache;
