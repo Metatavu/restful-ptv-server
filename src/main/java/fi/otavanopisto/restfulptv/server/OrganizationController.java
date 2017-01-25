@@ -3,6 +3,7 @@ package fi.otavanopisto.restfulptv.server;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
@@ -18,7 +19,7 @@ public class OrganizationController implements Serializable {
   private static final long serialVersionUID = -1069291263681772143L;
   
   @Inject
-  private transient Logger logger;
+  private Logger logger;
 
   @Inject
   private OrganizationCache organizationCache;
@@ -40,7 +41,7 @@ public class OrganizationController implements Serializable {
       if (organization != null) {
         result.add(organization);
       } else {
-        logger.severe(String.format("Could not find organization by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find organization by id %s", id));
       }
     }
     
