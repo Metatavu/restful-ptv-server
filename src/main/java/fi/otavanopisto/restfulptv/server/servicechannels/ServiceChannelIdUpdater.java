@@ -1,6 +1,6 @@
 package fi.otavanopisto.restfulptv.server.servicechannels;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -47,7 +47,7 @@ public class ServiceChannelIdUpdater implements IdUpdater {
   private int page;
   private int pageCount;
   private int counter;
-  private LocalDateTime priortyScanTime;
+  private OffsetDateTime priortyScanTime;
 
   @Override
   public String getName() {
@@ -56,7 +56,7 @@ public class ServiceChannelIdUpdater implements IdUpdater {
 
   @Override
   public void startTimer() {
-    priortyScanTime = LocalDateTime.now();
+    priortyScanTime = OffsetDateTime.now();
     stopped = false;
     counter = 0;
     startTimer(WARMUP_TIME);
@@ -141,7 +141,7 @@ public class ServiceChannelIdUpdater implements IdUpdater {
         logger.info(String.format("Discovered %d priority serviceChannels", discoverCount));
       }
 
-      priortyScanTime = LocalDateTime.now();
+      priortyScanTime = OffsetDateTime.now();
     } else {
       logger.severe(String.format("Failed to update priority serviceChannel ids from PTV (%d: %s)",
           response.getStatus(), response.getMessage()));

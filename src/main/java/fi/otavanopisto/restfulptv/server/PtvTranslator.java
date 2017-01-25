@@ -1,9 +1,6 @@
 package fi.otavanopisto.restfulptv.server;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -581,8 +578,8 @@ public class PtvTranslator implements Serializable {
    
     serviceHour.setStatus(currentOpen ? "OPEN": "CLOSED");
     serviceHour.setType(ptvServiceHour.getServiceHourType());
-    serviceHour.setValidFrom(toOffsetDateTime(ptvServiceHour.getValidFrom()));
-    serviceHour.setValidTo(toOffsetDateTime(ptvServiceHour.getValidTo()));
+    serviceHour.setValidFrom(ptvServiceHour.getValidFrom());
+    serviceHour.setValidTo(ptvServiceHour.getValidTo());
     
     return serviceHour;
   }
@@ -711,14 +708,6 @@ public class PtvTranslator implements Serializable {
     result.setTargetGroups(translateFintoItems(ptvStatutoryDescription.getTargetGroups()));
     
     return result;
-  }
-
-  private OffsetDateTime toOffsetDateTime(LocalDateTime localeDateTime) {
-    if (localeDateTime == null) {
-      return null;
-    }
-    
-    return localeDateTime.atOffset(ZoneOffset.UTC);
   }
 
 }
