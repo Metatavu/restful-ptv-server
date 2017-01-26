@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -21,12 +22,12 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 
-import fi.otavanopisto.ptv.client.ApiResponse;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganization;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganizationService;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganizationService;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
-import fi.otavanopisto.restfulptv.server.rest.model.OrganizationService;
+import fi.metatavu.restfulptv.server.rest.model.OrganizationService;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
 
@@ -124,12 +125,12 @@ public class OrganizationServiceEntityUpdater extends EntityUpdater {
 
   private void processEntity(String entityId) {
     if (!queue.remove(entityId)) {
-      logger.warning(String.format("Could not remove %s from queue", entityId));
+      logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
     
     String[] idParts = StringUtils.split(entityId, '+');
     if ((idParts == null) || (idParts.length != 2)) {
-      logger.severe(String.format("Malformed organization service id %s", entityId));
+      logger.log(Level.SEVERE, () -> String.format("Malformed organization service id %s", entityId));
       return;
     }
     
@@ -145,10 +146,9 @@ public class OrganizationServiceEntityUpdater extends EntityUpdater {
         }
       }
       
-      logger.warning(String.format("Could not find service %s from organization %s", serviceId, organizationId));
+      logger.log(Level.WARNING, () -> String.format("Could not find service %s from organization %s", serviceId, organizationId));
     } else {
-      logger.warning(String.format("Organization service %s caching failed on [%d] %s", entityId, response.getStatus(),
-          response.getMessage()));
+      logger.log(Level.WARNING, () -> String.format("Organization service %s caching failed on [%d] %s", entityId, response.getStatus(), response.getMessage()));
     }
   }
 
@@ -157,7 +157,7 @@ public class OrganizationServiceEntityUpdater extends EntityUpdater {
     if (organizationService != null) {
       organizationServiceCache.put(entityId, organizationService);
     } else {
-      logger.warning(String.format("Failed to translate ptvOrganizationService %s", entityId));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvOrganizationService %s", entityId));
     }
   }
 

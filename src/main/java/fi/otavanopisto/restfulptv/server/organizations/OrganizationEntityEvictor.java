@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -17,8 +18,8 @@ import javax.ejb.TimerService;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.ptv.client.ApiResponse;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganization;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityEvictor;
@@ -100,7 +101,7 @@ public class OrganizationEntityEvictor extends EntityEvictor {
   }
 
   private void evictOrganization(String organizationId) {
-    logger.info(String.format("Organization %s has been removed", organizationId));
+    logger.log(Level.INFO, () -> String.format("Organization %s has been removed", organizationId));
     List<String> organizationServiceIds = organizationServiceCache.getOrganizationIds(organizationId);
     
     // Purge organization from cache

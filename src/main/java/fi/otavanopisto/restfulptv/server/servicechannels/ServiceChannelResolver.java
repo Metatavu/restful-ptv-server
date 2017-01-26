@@ -1,16 +1,17 @@
 package fi.otavanopisto.restfulptv.server.servicechannels;
 
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.ptv.client.ApiResponse;
-import fi.otavanopisto.ptv.client.ResultType;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.ResultType;
 import fi.otavanopisto.restfulptv.server.ptv.PtvClient;
 
-@Dependent
+@ApplicationScoped
 @SuppressWarnings ("squid:S3306")
 public class ServiceChannelResolver {
 
@@ -26,7 +27,7 @@ public class ServiceChannelResolver {
     if (response.isOk()) {
       return response.getResponse();
     } else {
-      logger.warning(String.format("Service channel %s loading failed on [%d] %s. Request path was %s", serviceChannelId, response.getStatus(), response.getMessage(), path));
+      logger.log(Level.WARNING, () -> String.format("Service channel %s loading failed on [%d] %s. Request path was %s", serviceChannelId, response.getStatus(), response.getMessage(), path));
     }
     
     return null;
@@ -37,7 +38,7 @@ public class ServiceChannelResolver {
     
     Object type = serviceChannelData.get("serviceChannelType");
     if (!(type instanceof String)) {
-      logger.warning(String.format("ServiceChannel %s does not have a type", id));
+      logger.log(Level.WARNING, () -> String.format("ServiceChannel %s does not have a type", id));
       return null;
     }
     
@@ -67,7 +68,9 @@ public class ServiceChannelResolver {
       case "WebPage":
         return ServiceChannelType.WEB_PAGE;
       default:
-        logger.severe(String.format("ServiceChannel %s has unknown type %s", id, (String) type));
+        if (logger.isLoggable(Level.SEVERE)) {
+          logger.severe(String.format("ServiceChannel %s has unknown type %s", id, (String) type));
+        }
         return null;
     }
   }

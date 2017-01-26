@@ -3,12 +3,13 @@ package fi.otavanopisto.restfulptv.server;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.restfulptv.server.rest.model.Service;
+import fi.metatavu.restfulptv.server.rest.model.Service;
 import fi.otavanopisto.restfulptv.server.services.ServiceCache;
 
 @RequestScoped
@@ -42,7 +43,7 @@ public class ServiceController implements Serializable {
           result.add(service);
         }
       } else {
-        logger.severe(String.format("Could not find service by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find service by id %s", id));
       }
     }
     

@@ -7,13 +7,13 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
-import fi.otavanopisto.restfulptv.server.rest.ServicesApi;
-import fi.otavanopisto.restfulptv.server.rest.model.ElectronicChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PhoneChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PrintableFormChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.Service;
-import fi.otavanopisto.restfulptv.server.rest.model.ServiceLocationChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.restfulptv.server.rest.ServicesApi;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
+import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
+import fi.metatavu.restfulptv.server.rest.model.Service;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
+import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
 
 /**
  * Services REST Service implementation

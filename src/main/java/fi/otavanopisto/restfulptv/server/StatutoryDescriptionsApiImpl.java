@@ -7,8 +7,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
-import fi.otavanopisto.restfulptv.server.rest.StatutoryDescriptionsApi;
-import fi.otavanopisto.restfulptv.server.rest.model.StatutoryDescription;
+import fi.metatavu.restfulptv.server.rest.StatutoryDescriptionsApi;
+import fi.metatavu.restfulptv.server.rest.model.StatutoryDescription;
 
 /**
  * Statutory descriptions REST Service implementation
