@@ -30,6 +30,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
  * Response aware HTTP client for integrations
@@ -148,6 +149,7 @@ public class GenericHttpClient {
   @SuppressWarnings("unchecked")
   private <T> Response<T> handleOkResponse(HttpResponse httpResponse, int statusCode, String message, TypeReference<T> typeReference) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.registerModule(new JavaTimeModule());
     
     HttpEntity entity = httpResponse.getEntity();
     try {

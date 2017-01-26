@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
@@ -163,6 +164,8 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
       logger.log(Level.WARNING, () -> String.format("ServiceChannel %s does not have a type", entityId));
     } else {
       ObjectMapper objectMapper = new ObjectMapper();
+      objectMapper.registerModule(new JavaTimeModule());
+      
       byte[] requestData;
       try {
         requestData = objectMapper.writeValueAsBytes(serviceChannelData);
