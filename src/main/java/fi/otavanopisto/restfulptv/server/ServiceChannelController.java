@@ -4,16 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.restfulptv.server.rest.model.ElectronicChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PhoneChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PrintableFormChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.ServiceLocationChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
+import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
+import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
 import fi.otavanopisto.restfulptv.server.servicechannels.ElectronicServiceChannelCache;
 import fi.otavanopisto.restfulptv.server.servicechannels.LocationServiceChannelCache;
 import fi.otavanopisto.restfulptv.server.servicechannels.PhoneServiceChannelCache;
@@ -90,7 +91,7 @@ public class ServiceChannelController implements Serializable {
       if (electronicChannel != null) {
         result.add(electronicChannel);
       } else {
-        logger.severe(String.format("Could not find electronic channel by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find electronic channel by id %s", id));
       }
     }
     
@@ -118,7 +119,7 @@ public class ServiceChannelController implements Serializable {
       if (serviceLocationChannel != null) {
         result.add(serviceLocationChannel);
       } else {
-        logger.severe(String.format("Could not find serviceLocation channel by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find serviceLocation channel by id %s", id));
       }
     }
     
@@ -146,7 +147,7 @@ public class ServiceChannelController implements Serializable {
       if (printableFormChannel != null) {
         result.add(printableFormChannel);
       } else {
-        logger.severe(String.format("Could not find printableForm channel by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find printableForm channel by id %s", id));
       }
     }
     
@@ -174,7 +175,7 @@ public class ServiceChannelController implements Serializable {
       if (phoneServiceChannel != null) {
         result.add(phoneServiceChannel);
       } else {
-        logger.severe(String.format("Could not find phoneService channel by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find phoneService channel by id %s", id));
       }
     }
     
@@ -202,7 +203,7 @@ public class ServiceChannelController implements Serializable {
       if (webPageChannel != null) {
         result.add(webPageChannel);
       } else {
-        logger.severe(String.format("Could not find webPage channel by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find webPage channel by id %s", id));
       }
     }
     

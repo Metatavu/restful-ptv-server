@@ -9,9 +9,9 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 
-import fi.otavanopisto.restfulptv.server.rest.OrganizationsApi;
-import fi.otavanopisto.restfulptv.server.rest.model.Organization;
-import fi.otavanopisto.restfulptv.server.rest.model.OrganizationService;
+import fi.metatavu.restfulptv.server.rest.OrganizationsApi;
+import fi.metatavu.restfulptv.server.rest.model.Organization;
+import fi.metatavu.restfulptv.server.rest.model.OrganizationService;
 
 /**
  * Organization REST Service implementation

@@ -3,12 +3,13 @@ package fi.otavanopisto.restfulptv.server;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.restfulptv.server.rest.model.StatutoryDescription;
+import fi.metatavu.restfulptv.server.rest.model.StatutoryDescription;
 import fi.otavanopisto.restfulptv.server.statutorydescriptions.StatutoryDescriptionCache;
 
 @RequestScoped
@@ -40,7 +41,7 @@ public class StatutoryDescriptionController implements Serializable {
       if (statutoryDescription != null) {
         result.add(statutoryDescription);
       } else {
-        logger.severe(String.format("Could not find statutoryDescription by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find statutoryDescription by id %s", id));
       }
     }
     

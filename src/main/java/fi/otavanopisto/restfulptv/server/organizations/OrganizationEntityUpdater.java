@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -21,14 +22,14 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import fi.otavanopisto.ptv.client.ApiResponse;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganization;
-import fi.otavanopisto.ptv.client.model.VmOpenApiOrganizationService;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganizationService;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceIdUpdateRequest;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
-import fi.otavanopisto.restfulptv.server.rest.model.Organization;
+import fi.metatavu.restfulptv.server.rest.model.Organization;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
 
@@ -132,7 +133,7 @@ public class OrganizationEntityUpdater extends EntityUpdater {
 
   private void processEntity(String entityId) {
     if (!queue.remove(entityId)) {
-      logger.warning(String.format("Could not remove %s from queue", entityId));
+      logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
 
     ApiResponse<VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiOrganizationByIdGet(entityId);
@@ -151,8 +152,7 @@ public class OrganizationEntityUpdater extends EntityUpdater {
         }
       }
     } else {
-      logger.warning(String.format("Organization %s caching failed on [%d] %s", entityId, response.getStatus(),
-          response.getMessage()));
+      logger.log(Level.WARNING, () -> String.format("Organization %s caching failed on [%d] %s", entityId, response.getStatus(), response.getMessage()));
     }
   }
 
@@ -161,7 +161,7 @@ public class OrganizationEntityUpdater extends EntityUpdater {
     if (organization != null) {
       organizationCache.put(entityId, organization);
     } else {
-      logger.warning(String.format("Failed to translate ptvOrganization %s", ptvOrganization.getId()));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvOrganization %s", ptvOrganization.getId()));
     }
   }
 

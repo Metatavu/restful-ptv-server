@@ -1,7 +1,8 @@
 package fi.otavanopisto.restfulptv.server.services;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -15,8 +16,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import fi.otavanopisto.ptv.client.ApiResponse;
-import fi.otavanopisto.ptv.client.model.VmOpenApiGuidPage;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.model.VmOpenApiGuidPage;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.schedulers.IdUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
@@ -47,7 +48,7 @@ public class ServiceIdUpdater implements IdUpdater {
   private int page;
   private int pageCount;
   private int counter;
-  private LocalDateTime priortyScanTime;
+  private OffsetDateTime priortyScanTime;
 
   @Override
   public String getName() {
@@ -56,7 +57,7 @@ public class ServiceIdUpdater implements IdUpdater {
 
   @Override
   public void startTimer() {
-    priortyScanTime = LocalDateTime.now();
+    priortyScanTime = OffsetDateTime.now();
     stopped = false;
     counter = 0;
     startTimer(WARMUP_TIME);
@@ -95,9 +96,9 @@ public class ServiceIdUpdater implements IdUpdater {
     boolean hasMore = false;
 
     if (pageCount > 0) {
-      logger.fine(String.format("Updating services page %d / %d", page + 1, pageCount));
+      logger.log(Level.FINE, () -> String.format("Updating services page %d / %d", page + 1, pageCount));
     } else {
-      logger.fine(String.format("Updating services page %d", page + 1));
+      logger.log(Level.FINE, () -> String.format("Updating services page %d", page + 1));
     }
 
     ApiResponse<VmOpenApiGuidPage> response = ptvApi.getServiceApi().apiServiceGet(null, page);
@@ -110,11 +111,11 @@ public class ServiceIdUpdater implements IdUpdater {
       hasMore = pageCount > page + 1;
 
       if (discoverCount > 0) {
-        logger.info(String.format("Discovered %d service ids", discoverCount));
+        int count = discoverCount;
+        logger.log(Level.INFO, () -> String.format("Discovered %d service ids", count));
       }
     } else {
-      logger.severe(
-          String.format("Failed to update service ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
+      logger.log(Level.SEVERE, () -> String.format("Failed to update service ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
     }
 
     if (hasMore) {
@@ -137,13 +138,13 @@ public class ServiceIdUpdater implements IdUpdater {
       pageCount = pageData.getPageCount();
 
       if (discoverCount > 0) {
-        logger.info(String.format("Discovered %d priority services", discoverCount));
+        int count = discoverCount;
+        logger.log(Level.INFO, () -> String.format("Discovered %d priority services", count));
       }
 
-      priortyScanTime = LocalDateTime.now();
+      priortyScanTime = OffsetDateTime.now();
     } else {
-      logger.severe(String.format("Failed to update priority service ids from PTV (%d: %s)", response.getStatus(),
-          response.getMessage()));
+      logger.log(Level.SEVERE, () -> String.format("Failed to update priority service ids from PTV (%d: %s)", response.getStatus(), response.getMessage()));
     }
   }
 

@@ -14,14 +14,14 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 
-import fi.otavanopisto.ptv.client.ApiResponse;
-import fi.otavanopisto.ptv.client.ResultType;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.ResultType;
 import fi.otavanopisto.restfulptv.server.http.GenericHttpClient;
 import fi.otavanopisto.restfulptv.server.http.GenericHttpClient.Response;
 
@@ -30,8 +30,8 @@ import fi.otavanopisto.restfulptv.server.http.GenericHttpClient.Response;
  * 
  * @author Antti Leppä
  */
-@Dependent
-public class PtvClient extends fi.otavanopisto.ptv.client.ApiClient {
+@ApplicationScoped
+public class PtvClient extends fi.metatavu.ptv.client.ApiClient {
 
   private static final String DEFAULT_PTV_URL = "https://api.palvelutietovaranto.trn.suomi.fi";
   private static final String INVALID_URI_SYNTAX = "Invalid uri syntax";
@@ -41,9 +41,6 @@ public class PtvClient extends fi.otavanopisto.ptv.client.ApiClient {
 
   @Inject
   private GenericHttpClient httpClient;
-  
-  private PtvClient() {
-  }
   
   @Override
   public <T> ApiResponse<T> doGETRequest(String path, ResultType<T> resultType, Map<String, Object> queryParams, Map<String, Object> postParams) {

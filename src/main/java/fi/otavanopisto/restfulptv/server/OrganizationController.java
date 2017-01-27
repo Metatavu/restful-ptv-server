@@ -3,13 +3,14 @@ package fi.otavanopisto.restfulptv.server;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import fi.otavanopisto.restfulptv.server.organizations.OrganizationCache;
-import fi.otavanopisto.restfulptv.server.rest.model.Organization;
+import fi.metatavu.restfulptv.server.rest.model.Organization;
 
 @RequestScoped
 @SuppressWarnings ("squid:S3306")
@@ -40,7 +41,7 @@ public class OrganizationController implements Serializable {
       if (organization != null) {
         result.add(organization);
       } else {
-        logger.severe(String.format("Could not find organization by id %s", id));
+        logger.log(Level.SEVERE, () -> String.format("Could not find organization by id %s", id));
       }
     }
     

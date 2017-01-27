@@ -24,18 +24,19 @@ import javax.inject.Inject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import fi.otavanopisto.ptv.client.model.VmOpenApiElectronicChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiPhoneChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiPrintableFormChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiServiceLocationChannel;
-import fi.otavanopisto.ptv.client.model.VmOpenApiWebPageChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
-import fi.otavanopisto.restfulptv.server.rest.model.ElectronicChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PhoneChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.PrintableFormChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.ServiceLocationChannel;
-import fi.otavanopisto.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
+import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
+import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
 
@@ -146,35 +147,41 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
 
   private void processEntity(String entityId) {
     if (!queue.remove(entityId)) {
-      logger.warning(String.format("Could not remove %s from queue", entityId));
+      logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
 
     Map<String, Object> serviceChannelData = serviceChannelResolver.loadServiceChannelData(entityId);
     if (serviceChannelData != null) {
       handleResponse(entityId, serviceChannelData);
     } else {
-      logger.warning(String.format("Service channel %s caching failed", entityId));
+      logger.log(Level.WARNING, () -> String.format("Service channel %s caching failed", entityId));
     }
   }
 
   private void handleResponse(String entityId, Map<String, Object> serviceChannelData) {
     ServiceChannelType type = serviceChannelResolver.resolveServiceChannelType(serviceChannelData);
     if (type == null) {
-      logger.warning(String.format("ServiceChannel %s does not have a type", entityId));
+      logger.log(Level.WARNING, () -> String.format("ServiceChannel %s does not have a type", entityId));
     } else {
       ObjectMapper objectMapper = new ObjectMapper();
+      objectMapper.registerModule(new JavaTimeModule());
+      
       byte[] requestData;
       try {
         requestData = objectMapper.writeValueAsBytes(serviceChannelData);
       } catch (JsonProcessingException e) {
-        logger.log(Level.SEVERE, String.format("Failed to serialize electronic channel %s", entityId), e);
+        if (logger.isLoggable(Level.SEVERE)) {
+          logger.log(Level.SEVERE, String.format("Failed to serialize electronic channel %s", entityId), e);
+        }
         return;
       }
 
       try {
         cacheServiceChannel(type, objectMapper, requestData);
       } catch (IOException e) {
-        logger.log(Level.SEVERE, String.format("Failed to convert channel %s back to PTV format", entityId), e);
+        if (logger.isLoggable(Level.SEVERE)) {
+          logger.log(Level.SEVERE, String.format("Failed to convert channel %s back to PTV format", entityId), e);
+        }
         return;
       }
     }
@@ -199,65 +206,64 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
       cacheWebPageChannel(objectMapper.readValue(requestData, VmOpenApiWebPageChannel.class));
       break;
     default:
-      logger.log(Level.SEVERE, String.format("Unknown service channel type %s", type));
+      logger.log(Level.SEVERE, () -> String.format("Unknown service channel type %s", type));
       break;
     }
   }
 
   private void cacheElectronicChannel(VmOpenApiElectronicChannel ptvElectronicChannel) {
-    logger.fine(String.format("Updating electronic service channel %s", ptvElectronicChannel.getId()));
+    logger.log(Level.FINE, () -> String.format("Updating electronic service channel %s", ptvElectronicChannel.getId()));
 
     ElectronicChannel electronicChannel = ptvTranslator.translateElectronicChannel(ptvElectronicChannel);
     if (electronicChannel != null) {
       electronicServiceChannelCache.put(electronicChannel.getId(), electronicChannel);
     } else {
-      logger.warning(String.format("Failed to translate ptvElectronicChannel %s", ptvElectronicChannel.getId()));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvElectronicChannel %s", ptvElectronicChannel.getId()));
     }
   }
 
   private void cacheServiceLocationChannel(VmOpenApiServiceLocationChannel ptvServiceLocationChannel) {
-    logger.fine(String.format("Updating serviceLocation service channel %s", ptvServiceLocationChannel.getId()));
+    logger.log(Level.FINE, () -> String.format("Updating serviceLocation service channel %s", ptvServiceLocationChannel.getId()));
 
     ServiceLocationChannel serviceLocationChannel = ptvTranslator
         .translateServiceLocationChannel(ptvServiceLocationChannel);
     if (serviceLocationChannel != null) {
       locationServiceChannelCache.put(serviceLocationChannel.getId(), serviceLocationChannel);
     } else {
-      logger.warning(
-          String.format("Failed to translate ptvServiceLocationChannel %s", ptvServiceLocationChannel.getId()));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvServiceLocationChannel %s", ptvServiceLocationChannel.getId()));
     }
   }
 
   private void cachePrintableFormChannel(VmOpenApiPrintableFormChannel ptvPrintableFormChannel) {
-    logger.fine(String.format("Updating printableForm service channel %s", ptvPrintableFormChannel.getId()));
+    logger.log(Level.FINE, () -> String.format("Updating printableForm service channel %s", ptvPrintableFormChannel.getId()));
 
     PrintableFormChannel printableFormChannel = ptvTranslator.translatePrintableFormChannel(ptvPrintableFormChannel);
     if (printableFormChannel != null) {
       printableFormServiceChannelCache.put(printableFormChannel.getId(), printableFormChannel);
     } else {
-      logger.warning(String.format("Failed to translate ptvPrintableFormChannel %s", ptvPrintableFormChannel.getId()));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvPrintableFormChannel %s", ptvPrintableFormChannel.getId()));
     }
   }
 
   private void cachePhoneChannel(VmOpenApiPhoneChannel ptvPhoneChannel) {
-    logger.fine(String.format("Updating phone service channel %s", ptvPhoneChannel.getId()));
+    logger.log(Level.FINE, () -> String.format("Updating phone service channel %s", ptvPhoneChannel.getId()));
 
     PhoneChannel phoneChannel = ptvTranslator.translatePhoneChannel(ptvPhoneChannel);
     if (phoneChannel != null) {
       phoneServiceChannelCache.put(phoneChannel.getId(), phoneChannel);
     } else {
-      logger.warning(String.format("Failed to translate ptvPhoneChannel %s", ptvPhoneChannel.getId()));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvPhoneChannel %s", ptvPhoneChannel.getId()));
     }
   }
 
   private void cacheWebPageChannel(VmOpenApiWebPageChannel ptvWebPageChannel) {
-    logger.fine(String.format("Updating webPage service channel %s", ptvWebPageChannel.getId()));
+    logger.log(Level.FINE, () -> String.format("Updating webPage service channel %s", ptvWebPageChannel.getId()));
 
     WebPageChannel webPageChannel = ptvTranslator.translateWebPageChannel(ptvWebPageChannel);
     if (webPageChannel != null) {
       webPageChannelCache.put(webPageChannel.getId(), webPageChannel);
     } else {
-      logger.warning(String.format("Failed to translate ptvWebPageChannel %s", ptvWebPageChannel.getId()));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvWebPageChannel %s", ptvWebPageChannel.getId()));
     }
   }
 

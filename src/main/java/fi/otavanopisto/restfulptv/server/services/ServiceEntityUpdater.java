@@ -20,11 +20,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import fi.otavanopisto.ptv.client.ApiResponse;
-import fi.otavanopisto.ptv.client.model.IVmOpenApiService;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.model.VmOpenApiService;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
-import fi.otavanopisto.restfulptv.server.rest.model.Service;
+import fi.metatavu.restfulptv.server.rest.model.Service;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityUpdater;
 import fi.otavanopisto.restfulptv.server.servicechannels.ServiceChannelResolver;
 import fi.otavanopisto.restfulptv.server.servicechannels.ServiceChannelType;
@@ -131,28 +131,28 @@ public class ServiceEntityUpdater extends EntityUpdater {
 
   private void processEntity(String entityId) {
     if (!queue.remove(entityId)) {
-      logger.warning(String.format("Could not remove %s from queue", entityId));
+      logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
 
-    ApiResponse<IVmOpenApiService> response = ptvApi.getServiceApi().apiServiceByIdGet(entityId);
+    ApiResponse<VmOpenApiService> response = ptvApi.getServiceApi().apiServiceByIdGet(entityId);
     if (response.isOk()) {
       cacheResponse(entityId, response.getResponse());
     } else {
-      logger.warning(String.format("Service %s caching failed on [%d] %s", entityId, response.getStatus(), response.getMessage()));
+      logger.log(Level.WARNING, () -> String.format("Service %s caching failed on [%d] %s", entityId, response.getStatus(), response.getMessage()));
     }
   }
 
-  private void cacheResponse(String entityId, IVmOpenApiService ptvService) {
+  private void cacheResponse(String entityId, VmOpenApiService ptvService) {
     Service service = ptvTranslator.translateService(ptvService);
     if (service != null) {
       serviceChannelsCache.put(ptvService.getId(), resolveServiceChannelIds(ptvService));
       serviceCache.put(entityId, service);
     } else {
-      logger.warning(String.format("Failed to translate ptvService %s", ptvService.getId()));
+      logger.log(Level.WARNING, () -> String.format("Failed to translate ptvService %s", ptvService.getId()));
     }
   }
 
-  private ServiceChannelIds resolveServiceChannelIds(IVmOpenApiService ptvService) {
+  private ServiceChannelIds resolveServiceChannelIds(VmOpenApiService ptvService) {
     ServiceChannelIds channelIds = new ServiceChannelIds();
 
     for (String channelId : ptvService.getServiceChannels()) {
@@ -175,7 +175,7 @@ public class ServiceEntityUpdater extends EntityUpdater {
           channelIds.getWebPageChannels().add(channelId);
           break;
         default:
-          logger.log(Level.SEVERE, String.format("Unknown service channel type %s", serviceChannelType));
+          logger.log(Level.SEVERE, () -> String.format("Unknown service channel type %s", serviceChannelType));
           break;
         }
       }
