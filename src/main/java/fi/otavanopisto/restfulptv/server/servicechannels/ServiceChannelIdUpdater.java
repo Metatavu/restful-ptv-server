@@ -140,7 +140,7 @@ public class ServiceChannelIdUpdater implements IdUpdater {
 
       if (discoverCount > 0) {
         int count = discoverCount;
-        logger.log(Level.FINE, () -> String.format("Discovered %d priority serviceChannels", count));
+        logger.log(Level.INFO, () -> String.format("Discovered %d priority serviceChannels", count));
       }
 
       priortyScanTime = OffsetDateTime.now();

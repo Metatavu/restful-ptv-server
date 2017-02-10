@@ -37,7 +37,7 @@ import fi.otavanopisto.restfulptv.server.system.SystemUtils;
 @SuppressWarnings("squid:S3306")
 public class OrganizationServiceEntityUpdater extends EntityUpdater {
 
-  private static final int TIMER_INTERVAL = 5000;
+  private static final int TIMER_INTERVAL = 500;
 
   @Inject
   private Logger logger;
@@ -124,6 +124,8 @@ public class OrganizationServiceEntityUpdater extends EntityUpdater {
   }
 
   private void processEntity(String entityId) {
+    logger.log(Level.INFO, () -> String.format("Processing organization service %s. Queued ids %d", entityId, queue.size()));
+
     if (!queue.remove(entityId)) {
       logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
