@@ -96,7 +96,7 @@ public class OrganizationEntityEvictor extends EntityEvictor {
   private void checkOrganization(String organizationId) {
     ApiResponse<VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiOrganizationByIdGet(organizationId);
     if (response.getStatus() == 404) {
-      evictOrganization(organizationId);
+      //evictOrganization(organizationId);
     }
   }
 
