@@ -9,7 +9,10 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.model.VmOpenApiService;
 import fi.metatavu.restfulptv.server.rest.model.Service;
+import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.services.ServiceCache;
 
 @RequestScoped
@@ -22,10 +25,25 @@ public class ServiceController implements Serializable {
   private transient Logger logger;
 
   @Inject
+  private PtvApi ptvApi;
+  
+  @Inject
+  private PtvTranslator ptvTranslator;
+
+  @Inject
   private ServiceCache serviceCache;
 
   public Service findServiceById(String id) {
-    return serviceCache.get(id);
+    if (serviceCache.has(id)) {
+      return serviceCache.get(id);
+    }
+
+    ApiResponse<VmOpenApiService> response = ptvApi.getServiceApi().apiServiceByIdGet(id);
+    if (response.isOk()) {
+      return ptvTranslator.translateService(response.getResponse());
+    }
+    
+    return null;
   }
   
   public List<Service> listServices(String organizationId, Long firstResult, Long maxResults) {

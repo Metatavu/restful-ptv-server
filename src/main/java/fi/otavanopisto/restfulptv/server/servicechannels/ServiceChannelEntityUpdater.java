@@ -1,6 +1,5 @@
 package fi.otavanopisto.restfulptv.server.servicechannels;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,21 +21,17 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
-import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
 import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
 import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
 import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
 import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
+import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
 
@@ -163,50 +158,30 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
     if (type == null) {
       logger.log(Level.WARNING, () -> String.format("ServiceChannel %s does not have a type", entityId));
     } else {
-      ObjectMapper objectMapper = new ObjectMapper();
-      objectMapper.registerModule(new JavaTimeModule());
-      
-      byte[] requestData;
-      try {
-        requestData = objectMapper.writeValueAsBytes(serviceChannelData);
-      } catch (JsonProcessingException e) {
-        if (logger.isLoggable(Level.SEVERE)) {
-          logger.log(Level.SEVERE, String.format("Failed to serialize electronic channel %s", entityId), e);
-        }
-        return;
-      }
-
-      try {
-        cacheServiceChannel(type, objectMapper, requestData);
-      } catch (IOException e) {
-        if (logger.isLoggable(Level.SEVERE)) {
-          logger.log(Level.SEVERE, String.format("Failed to convert channel %s back to PTV format", entityId), e);
-        }
-        return;
-      }
+      byte[] channelData = serviceChannelResolver.serializeChannelData(serviceChannelData);
+      cacheServiceChannel(type, channelData);
     }
   }
 
-  private void cacheServiceChannel(ServiceChannelType type, ObjectMapper objectMapper, byte[] requestData)
-      throws IOException {
+  private void cacheServiceChannel(ServiceChannelType type, byte[] channelData) {
     switch (type) {
-    case ELECTRONIC_CHANNEL:
-      cacheElectronicChannel(objectMapper.readValue(requestData, VmOpenApiElectronicChannel.class));
+      case ELECTRONIC_CHANNEL:
+        cacheElectronicChannel(serviceChannelResolver.unserializeElectronicChannel(channelData));
       break;
-    case SERVICE_LOCATION:
-      cacheServiceLocationChannel(objectMapper.readValue(requestData, VmOpenApiServiceLocationChannel.class));
+      case SERVICE_LOCATION:
+        cacheServiceLocationChannel(serviceChannelResolver.unserializeServiceLocationChannel(channelData));
       break;
-    case PRINTABLE_FORM:
-      cachePrintableFormChannel(objectMapper.readValue(requestData, VmOpenApiPrintableFormChannel.class));
+      case PRINTABLE_FORM:
+        cachePrintableFormChannel(serviceChannelResolver.unserializePrintableFormChannel(channelData));
       break;
-    case PHONE:
-      cachePhoneChannel(objectMapper.readValue(requestData, VmOpenApiPhoneChannel.class));
+      case PHONE:
+        cachePhoneChannel(serviceChannelResolver.unserializePhoneChannel(channelData));
       break;
-    case WEB_PAGE:
-      cacheWebPageChannel(objectMapper.readValue(requestData, VmOpenApiWebPageChannel.class));
+      case WEB_PAGE:
+        cacheWebPageChannel(serviceChannelResolver.unserializeWebPageChannel(channelData));
       break;
-    default:
-      logger.log(Level.SEVERE, () -> String.format("Unknown service channel type %s", type));
+      default:
+        logger.log(Level.SEVERE, () -> String.format("Unknown service channel type %s", type));
       break;
     }
   }

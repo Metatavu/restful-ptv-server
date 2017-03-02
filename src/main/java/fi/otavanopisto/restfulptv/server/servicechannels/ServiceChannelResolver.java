@@ -1,5 +1,6 @@
 package fi.otavanopisto.restfulptv.server.servicechannels;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,8 +8,17 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import fi.metatavu.ptv.client.ApiResponse;
 import fi.metatavu.ptv.client.ResultType;
+import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
 import fi.otavanopisto.restfulptv.server.ptv.PtvClient;
 
 @ApplicationScoped
@@ -20,6 +30,157 @@ public class ServiceChannelResolver {
 
   @Inject
   private PtvClient ptvClient;
+  
+  public VmOpenApiElectronicChannel findElectronicChannel(String id) {
+    Map<String, Object> serviceChannelData = loadServiceChannelData(id);
+    if (serviceChannelData != null) {
+      ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
+      if (type == ServiceChannelType.ELECTRONIC_CHANNEL) {
+        return unserializeElectronicChannel(serializeChannelData(serviceChannelData));
+      }
+    }
+    
+    return null;
+  }
+  
+  public VmOpenApiServiceLocationChannel findServiceLocationChannel(String id) {
+    Map<String, Object> serviceChannelData = loadServiceChannelData(id);
+    if (serviceChannelData != null) {
+      ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
+      if (type == ServiceChannelType.SERVICE_LOCATION) {
+        return unserializeServiceLocationChannel(serializeChannelData(serviceChannelData));
+      }
+    }
+    
+    return null;
+  }
+  
+  public VmOpenApiPrintableFormChannel findPrintableFormChannel(String id) {
+    Map<String, Object> serviceChannelData = loadServiceChannelData(id);
+    if (serviceChannelData != null) {
+      ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
+      if (type == ServiceChannelType.PRINTABLE_FORM) {
+        return unserializePrintableFormChannel(serializeChannelData(serviceChannelData));
+      }
+    }
+    
+    return null;
+  }
+  
+  public VmOpenApiPhoneChannel findPhoneChannel(String id) {
+    Map<String, Object> serviceChannelData = loadServiceChannelData(id);
+    if (serviceChannelData != null) {
+      ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
+      if (type == ServiceChannelType.PHONE) {
+        return unserializePhoneChannel(serializeChannelData(serviceChannelData));
+      }
+    }
+    
+    return null;
+  }
+  
+  public VmOpenApiWebPageChannel findWebPageChannel(String id) {
+    Map<String, Object> serviceChannelData = loadServiceChannelData(id);
+    if (serviceChannelData != null) {
+      ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
+      if (type == ServiceChannelType.WEB_PAGE) {
+        return unserializeWebPageChannel(serializeChannelData(serviceChannelData));
+      }
+    }
+    
+    return null;
+  }
+  
+  @SuppressWarnings ("squid:S1168")
+  public byte[] serializeChannelData(Map<String, Object> serviceChannelData) {
+    if (serviceChannelData == null) {
+      return null;
+    }
+    
+    ObjectMapper objectMapper = createObjectMapper();
+    
+    try {
+      return objectMapper.writeValueAsBytes(serviceChannelData);
+    } catch (JsonProcessingException e) {
+      logger.log(Level.SEVERE, "Failed to serialize channel data", e);
+    }
+    
+    return null;
+  }
+  
+  public VmOpenApiElectronicChannel unserializeElectronicChannel(byte[] channelData) {
+    if (channelData == null) {
+      return null;
+    }
+    
+    ObjectMapper objectMapper = createObjectMapper();
+    try {
+      return objectMapper.readValue(channelData, VmOpenApiElectronicChannel.class);
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Failed to unserialize electronic service channel", e);
+    }
+    
+    return null;
+  }
+
+  public VmOpenApiServiceLocationChannel unserializeServiceLocationChannel(byte[] channelData) {
+    if (channelData == null) {
+      return null;
+    }
+    
+    ObjectMapper objectMapper = createObjectMapper();
+    try {
+      return objectMapper.readValue(channelData, VmOpenApiServiceLocationChannel.class);
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Failed to unserialize service location channel", e);
+    }
+    
+    return null;
+  }
+  
+  public VmOpenApiPrintableFormChannel unserializePrintableFormChannel(byte[] channelData) {
+    if (channelData == null) {
+      return null;
+    }
+    
+    ObjectMapper objectMapper = createObjectMapper();
+
+    try {
+      return objectMapper.readValue(channelData, VmOpenApiPrintableFormChannel.class);
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Failed to unserialize printable form service channel", e);
+    }
+    
+    return null;
+  }
+  
+  public VmOpenApiPhoneChannel unserializePhoneChannel(byte[] channelData) {
+    if (channelData == null) {
+      return null;
+    }
+    
+    ObjectMapper objectMapper = createObjectMapper();
+
+    try {
+      return objectMapper.readValue(channelData, VmOpenApiPhoneChannel.class);
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Failed to unserialize phone service channel", e);
+    }
+    
+    return null;
+  }
+  
+  public VmOpenApiWebPageChannel unserializeWebPageChannel(byte[] channelData) {
+    ObjectMapper objectMapper = createObjectMapper();
+
+    try {
+      return objectMapper.readValue(channelData, VmOpenApiWebPageChannel.class);
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Failed to unserialize web page service channel", e);
+    }
+    
+    return null;
+  }
   
   public Map<String, Object> loadServiceChannelData(String serviceChannelId) {
     String path = String.format("/api/ServiceChannel/%s", serviceChannelId);
@@ -74,5 +235,12 @@ public class ServiceChannelResolver {
         return null;
     }
   }
+  
+  private ObjectMapper createObjectMapper() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.registerModule(new JavaTimeModule());
+    return objectMapper;
+  }
+  
 
 }
