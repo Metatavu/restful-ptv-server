@@ -10,6 +10,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import fi.otavanopisto.restfulptv.server.organizations.OrganizationCache;
+import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
 import fi.metatavu.restfulptv.server.rest.model.Organization;
 
 @RequestScoped
@@ -22,10 +25,25 @@ public class OrganizationController implements Serializable {
   private transient Logger logger;
 
   @Inject
+  private PtvApi ptvApi;
+  
+  @Inject
+  private PtvTranslator ptvTranslator;
+
+  @Inject
   private OrganizationCache organizationCache;
 
   public Organization findOrganizationById(String id) {
-    return organizationCache.get(id);
+    if (organizationCache.has(id)) {
+      return organizationCache.get(id);
+    }
+    
+    ApiResponse<VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiOrganizationByIdGet(id);
+    if (response.isOk()) {
+      return ptvTranslator.translateOrganization(response.getResponse());
+    }
+    
+    return null;
   }
   
   public List<Organization> listOrganizations(Long firstResult, Long maxResults) {

@@ -10,6 +10,11 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
 import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
 import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
 import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
@@ -19,6 +24,7 @@ import fi.otavanopisto.restfulptv.server.servicechannels.ElectronicServiceChanne
 import fi.otavanopisto.restfulptv.server.servicechannels.LocationServiceChannelCache;
 import fi.otavanopisto.restfulptv.server.servicechannels.PhoneServiceChannelCache;
 import fi.otavanopisto.restfulptv.server.servicechannels.PrintableFormServiceChannelCache;
+import fi.otavanopisto.restfulptv.server.servicechannels.ServiceChannelResolver;
 import fi.otavanopisto.restfulptv.server.servicechannels.WebPageChannelCache;
 import fi.otavanopisto.restfulptv.server.services.ServiceChannelIds;
 import fi.otavanopisto.restfulptv.server.services.ServiceChannelsCache;
@@ -32,6 +38,12 @@ public class ServiceChannelController implements Serializable {
   @Inject
   private transient Logger logger;
 
+  @Inject
+  private PtvTranslator ptvTranslator;
+
+  @Inject
+  private ServiceChannelResolver serviceChannelResolver;
+  
   @Inject
   private ServiceChannelsCache serviceChannelsCache;
   
@@ -51,23 +63,68 @@ public class ServiceChannelController implements Serializable {
   private WebPageChannelCache webPageChannelCache;
 
   public ElectronicChannel findElectronicChannelById(String id) {
-    return electronicServiceChannelCache.get(id);
+    if (electronicServiceChannelCache.has(id)) {
+      return electronicServiceChannelCache.get(id);
+    }
+    
+    VmOpenApiElectronicChannel channel = serviceChannelResolver.findElectronicChannel(id);
+    if (channel != null) {
+      return ptvTranslator.translateElectronicChannel(channel);
+    }
+    
+    return null;
   }
   
   public ServiceLocationChannel findServiceLocationChannelById(String id) {
-    return locationServiceChannelCache.get(id);
+    if (locationServiceChannelCache.has(id)) {
+      return locationServiceChannelCache.get(id);
+    }
+    
+    VmOpenApiServiceLocationChannel channel = serviceChannelResolver.findServiceLocationChannel(id);
+    if (channel != null) {
+      return ptvTranslator.translateServiceLocationChannel(channel);
+    }
+    
+    return null;
   }
   
   public PrintableFormChannel findPrintableFormChannelById(String id) {
-    return printableFormServiceChannelCache.get(id);
+    if (printableFormServiceChannelCache.has(id)) {
+      return printableFormServiceChannelCache.get(id);
+    }
+    
+    VmOpenApiPrintableFormChannel channel = serviceChannelResolver.findPrintableFormChannel(id);
+    if (channel != null) {
+      return ptvTranslator.translatePrintableFormChannel(channel);
+    }
+    
+    return null;
   }
   
   public PhoneChannel findPhoneChannelById(String id) {
-    return phoneServiceChannelCache.get(id);
+    if (phoneServiceChannelCache.has(id)) {
+      return phoneServiceChannelCache.get(id);
+    }
+    
+    VmOpenApiPhoneChannel channel = serviceChannelResolver.findPhoneChannel(id);
+    if (channel != null) {
+      return ptvTranslator.translatePhoneChannel(channel);
+    }
+    
+    return null;
   }
   
   public WebPageChannel findWebPageChannelById(String id) {
-    return webPageChannelCache.get(id);
+    if (webPageChannelCache.has(id)) {
+      return webPageChannelCache.get(id);
+    }
+
+    VmOpenApiWebPageChannel channel = serviceChannelResolver.findWebPageChannel(id);
+    if (channel != null) {
+      return ptvTranslator.translateWebPageChannel(channel);
+    }
+    
+    return null;
   }
   
   public List<ElectronicChannel> listElectronicChannels(String serviceId, Long firstResult, Long maxResults) {
