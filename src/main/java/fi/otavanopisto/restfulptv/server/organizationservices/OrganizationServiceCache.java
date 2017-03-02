@@ -22,5 +22,8 @@ public class OrganizationServiceCache extends AbstractEntityCache <OrganizationS
   public List<String> getOrganizationIds(String organizationId) {
     return getIdsStartsWith(String.format("%s+", organizationId));
   }
-
+  
+  public List<String> getServiceIds(String serviceId) {
+    return getIdsEndsWith(String.format("+%s", serviceId));
+  }
 }

@@ -120,6 +120,17 @@ public abstract class AbstractEntityCache <T> implements Serializable {
   /**
    * Removes elements from the cache
    * 
+   * @param ids entity ids
+   */
+  public void clear(List<String> ids) {
+    for (String id : ids) {
+      clear(id);
+    }
+  }
+  
+  /**
+   * Removes elements from the cache
+   * 
    * @param id entity id
    */
   public void clear(String id) {
@@ -147,6 +158,21 @@ public abstract class AbstractEntityCache <T> implements Serializable {
     
     for (String key : cache.keySet()) {
       if (StringUtils.startsWith(key, prefix)) {
+        result.add(key);
+      }
+    }
+    
+    Collections.sort(result, new KeyComparator());
+    
+    return result;
+  }
+  
+  public List<String> getIdsEndsWith(String postfix) {
+    Cache<String, String> cache = getCache();
+    List<String> result = new ArrayList<>();
+    
+    for (String key : cache.keySet()) {
+      if (StringUtils.endsWith(key, postfix)) {
         result.add(key);
       }
     }
