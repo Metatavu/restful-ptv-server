@@ -40,7 +40,7 @@ public class OrganizationController implements Serializable {
     
     ApiResponse<VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiOrganizationByIdGet(id);
     if (response.isOk()) {
-      ptvTranslator.translateOrganization(response.getResponse());
+      return ptvTranslator.translateOrganization(response.getResponse());
     }
     
     return null;
