@@ -9,8 +9,14 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
+import org.apache.commons.lang3.StringUtils;
+
+import fi.metatavu.ptv.client.ApiResponse;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
+import fi.metatavu.ptv.client.model.VmOpenApiOrganizationService;
 import fi.metatavu.restfulptv.server.rest.model.OrganizationService;
+import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
+import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 
 @RequestScoped
 @SuppressWarnings ("squid:S3306")
@@ -22,10 +28,27 @@ public class OrganizationServiceController implements Serializable {
   private transient Logger logger;
 
   @Inject
+  private PtvApi ptvApi;
+  
+  @Inject
+  private PtvTranslator ptvTranslator;
+  
+  @Inject
   private OrganizationServiceCache organizationServiceCache;
 
   public OrganizationService findOrganizationServiceById(String id) {
-    return organizationServiceCache.get(id);
+    if (organizationServiceCache.has(id)) {
+      return organizationServiceCache.get(id);
+    }
+    
+    String[] idParts = StringUtils.split(id, '+');
+    if (idParts.length == 2) {
+      String organizationId = idParts[0];
+      String serviceId = idParts[1];
+      return findOrganizationServiceFromPtv(organizationId, serviceId);
+    }
+     
+    return null;
   }
   
   public List<OrganizationService> listOrganizationServices(String organizationId, Long firstResult, Long maxResults) {
@@ -46,6 +69,19 @@ public class OrganizationServiceController implements Serializable {
     }
     
     return result;
+  }
+
+  private OrganizationService findOrganizationServiceFromPtv(String organizationId, String serviceId) {
+    ApiResponse<VmOpenApiOrganization> organizationResponse = ptvApi.getOrganizationApi().apiOrganizationByIdGet(organizationId);
+    if (organizationResponse.isOk()) {
+      for (VmOpenApiOrganizationService organizationService : organizationResponse.getResponse().getServices()) {
+        if (StringUtils.equals(organizationService.getServiceId(), serviceId)) {
+          return ptvTranslator.translateOrganizationService(organizationService);
+        }
+      }
+    }
+    
+    return null;
   }
   
 }

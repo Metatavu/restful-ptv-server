@@ -30,6 +30,7 @@ import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.path.json.exception.JsonPathException;
 
 /**
  * Abstract base class for integration tests
@@ -397,19 +398,29 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
 
   }
   
+  @SuppressWarnings ({"squid:S1166", "squid:S00108", "squid:S2925", "squid:S106"})
   protected void waitApiListCount(String path, int count) throws InterruptedException {
+    int counter = 0;
     long timeout = System.currentTimeMillis() + (120 * 1000);
-    
     while (true) {
+      counter++;
       Thread.sleep(1000);
-      
-      int listCount = countApiList(path);
-      if (listCount == count) {
-        return;
-      }
-      
-      if (System.currentTimeMillis() > timeout) {
-        fail(String.format("Timeout waiting for %s to have count %d", path, count));
+      try {
+        int listCount = countApiList(path);
+        if (listCount == count) {
+          return;
+        }
+        
+        if (System.currentTimeMillis() > timeout) {
+          fail(String.format("Timeout waiting for %s to have count %d", path, count));
+        }
+        
+        if ((counter % 10) == 0) {
+          System.out.println(String.format("... still waiting %d items in %s, current count %d", count, path, listCount));
+        }
+        
+      } catch (JsonPathException e) {
+        
       }
     }
   }
