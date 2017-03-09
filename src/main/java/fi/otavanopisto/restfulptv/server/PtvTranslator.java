@@ -240,7 +240,7 @@ public class PtvTranslator implements Serializable {
     List<ServiceHour> result = new ArrayList<>();
     for (VmOpenApiServiceHour ptvServiceHour : ptvServiceHours) {
       if (ptvServiceHour != null) {
-        translateServiceHour(result, ptvServiceHour);
+        result.add(translateServiceHour(ptvServiceHour));
       }
     }
 
@@ -533,57 +533,32 @@ public class PtvTranslator implements Serializable {
 
     return result;
   }
-  
-  private void translateServiceHour(List<ServiceHour> result, VmOpenApiServiceHour ptvServiceHour) {
-    boolean[] dayBools = {
-      ptvServiceHour.getMonday(),
-      ptvServiceHour.getTuesday(),
-      ptvServiceHour.getWednesday(),
-      ptvServiceHour.getThursday(),
-      ptvServiceHour.getFriday(),
-      ptvServiceHour.getSaturday(),
-      ptvServiceHour.getSunday()
-    };
-   
-    int dayIndex = 0;
-    List<Integer> days = new ArrayList<>();
-    boolean currentOpen = dayBools[0];
-   
-    while (dayIndex < dayBools.length) {
-      if ((dayBools[dayIndex] != currentOpen) && (!days.isEmpty())) {
-        result.add(createServiceHourObject(ptvServiceHour, days, currentOpen));
-        days.clear();
-        currentOpen = dayBools[dayIndex];
-      }
-     
-      days.add((dayIndex + 1) % 7);
-      dayIndex++;
-    }
-   
-    if (!days.isEmpty()) {
-      result.add(createServiceHourObject(ptvServiceHour, days, currentOpen));
-    }
-  }
- 
-  private ServiceHour createServiceHourObject(VmOpenApiServiceHour ptvServiceHour, List<Integer> days, boolean currentOpen) {
-    ServiceHour serviceHour = new ServiceHour();
-    ArrayList<Integer> openDays = new ArrayList<>(days);
-   
-    serviceHour.setDays(openDays);
-    if (currentOpen) {
-      serviceHour.setOpens(ptvServiceHour.getOpens());
-      serviceHour.setCloses(ptvServiceHour.getCloses());
-      serviceHour.setAdditionalInformation(translateLanguageItems(ptvServiceHour.getAdditionalInformation()));
-    }
-   
-    serviceHour.setStatus(currentOpen ? "OPEN": "CLOSED");
-    serviceHour.setType(ptvServiceHour.getServiceHourType());
-    serviceHour.setValidFrom(ptvServiceHour.getValidFrom());
-    serviceHour.setValidTo(ptvServiceHour.getValidTo());
-    
-    return serviceHour;
-  }
 
+  private ServiceHour translateServiceHour(VmOpenApiServiceHour ptvServiceHour) {
+    if (ptvServiceHour == null) {
+      return null;
+    }
+    
+    ServiceHour result = new ServiceHour();
+    
+    result.setAdditionalInformation(translateLanguageItems(ptvServiceHour.getAdditionalInformation()));
+    result.setCloses(ptvServiceHour.getCloses());
+    result.setExceptionHourType(ptvServiceHour.getExceptionHourType());
+    result.setFriday(ptvServiceHour.getFriday());
+    result.setMonday(ptvServiceHour.getMonday());
+    result.setOpens(ptvServiceHour.getOpens());
+    result.setSaturday(ptvServiceHour.getSaturday());
+    result.setSunday(ptvServiceHour.getSunday());
+    result.setThursday(ptvServiceHour.getThursday());
+    result.setTuesday(ptvServiceHour.getTuesday());
+    result.setType(ptvServiceHour.getServiceHourType());
+    result.setValidFrom(ptvServiceHour.getValidFrom());
+    result.setValidTo(ptvServiceHour.getValidTo());
+    result.setWednesday(ptvServiceHour.getWednesday());
+    
+    return result;
+  }
+  
   public ServiceLocationChannel translateServiceLocationChannel(VmOpenApiServiceLocationChannel ptvServiceLocationChannel) {
     if (ptvServiceLocationChannel == null) {
       return null;
