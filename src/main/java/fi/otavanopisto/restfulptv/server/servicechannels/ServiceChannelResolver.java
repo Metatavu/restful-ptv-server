@@ -17,9 +17,11 @@ import fi.metatavu.ptv.client.ResultType;
 import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.VmOpenApiService;
 import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
 import fi.otavanopisto.restfulptv.server.ptv.PtvClient;
+import fi.otavanopisto.restfulptv.server.services.ServiceChannelIds;
 
 @ApplicationScoped
 @SuppressWarnings ("squid:S3306")
@@ -206,13 +208,45 @@ public class ServiceChannelResolver {
     return resolveServiceChannelType(id, (String) type);
   }
   
-  public ServiceChannelType resolveServiceChannelTupe(String serviceChannelId) {
+  public ServiceChannelType resolveServiceChannelType(String serviceChannelId) {
     Map<String, Object> serviceChannelData = loadServiceChannelData(serviceChannelId);
     if (serviceChannelData != null) {
       return resolveServiceChannelType(serviceChannelData);
     }
     
     return null;
+  }
+
+  public ServiceChannelIds resolveServiceChannelIds(VmOpenApiService ptvService) {
+    ServiceChannelIds channelIds = new ServiceChannelIds();
+
+    for (String channelId : ptvService.getServiceChannels()) {
+      ServiceChannelType serviceChannelType = resolveServiceChannelType(channelId);
+      if (serviceChannelType != null) {
+        switch (serviceChannelType) {
+        case ELECTRONIC_CHANNEL:
+          channelIds.getElectricChannels().add(channelId);
+          break;
+        case SERVICE_LOCATION:
+          channelIds.getLocationServiceChannels().add(channelId);
+          break;
+        case PRINTABLE_FORM:
+          channelIds.getPrintableFormChannels().add(channelId);
+          break;
+        case PHONE:
+          channelIds.getPhoneChannels().add(channelId);
+          break;
+        case WEB_PAGE:
+          channelIds.getWebPageChannels().add(channelId);
+          break;
+        default:
+          logger.log(Level.SEVERE, () -> String.format("Unknown service channel type %s", serviceChannelType));
+          break;
+        }
+      }
+    }
+
+    return channelIds;
   }
 
   @SuppressWarnings ("squid:MethodCyclomaticComplexity")
