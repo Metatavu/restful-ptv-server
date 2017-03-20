@@ -2,7 +2,6 @@ package fi.otavanopisto.restfulptv.server;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,11 +14,11 @@ import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
-import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
-import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
-import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
-import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
-import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.PhoneServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.WebPageServiceChannel;
 import fi.otavanopisto.restfulptv.server.servicechannels.ElectronicServiceChannelCache;
 import fi.otavanopisto.restfulptv.server.servicechannels.LocationServiceChannelCache;
 import fi.otavanopisto.restfulptv.server.servicechannels.PhoneServiceChannelCache;
@@ -62,7 +61,7 @@ public class ServiceChannelController implements Serializable {
   @Inject
   private WebPageChannelCache webPageChannelCache;
 
-  public ElectronicChannel findElectronicChannelById(String id) {
+  public ElectronicServiceChannel findElectronicChannelById(String id) {
     if (electronicServiceChannelCache.has(id)) {
       return electronicServiceChannelCache.get(id);
     }
@@ -75,7 +74,7 @@ public class ServiceChannelController implements Serializable {
     return null;
   }
   
-  public ServiceLocationChannel findServiceLocationChannelById(String id) {
+  public ServiceLocationServiceChannel findServiceLocationChannelById(String id) {
     if (locationServiceChannelCache.has(id)) {
       return locationServiceChannelCache.get(id);
     }
@@ -88,7 +87,7 @@ public class ServiceChannelController implements Serializable {
     return null;
   }
   
-  public PrintableFormChannel findPrintableFormChannelById(String id) {
+  public PrintableFormServiceChannel findPrintableFormChannelById(String id) {
     if (printableFormServiceChannelCache.has(id)) {
       return printableFormServiceChannelCache.get(id);
     }
@@ -101,7 +100,7 @@ public class ServiceChannelController implements Serializable {
     return null;
   }
   
-  public PhoneChannel findPhoneChannelById(String id) {
+  public PhoneServiceChannel findPhoneChannelById(String id) {
     if (phoneServiceChannelCache.has(id)) {
       return phoneServiceChannelCache.get(id);
     }
@@ -114,7 +113,7 @@ public class ServiceChannelController implements Serializable {
     return null;
   }
   
-  public WebPageChannel findWebPageChannelById(String id) {
+  public WebPageServiceChannel findWebPageChannelById(String id) {
     if (webPageChannelCache.has(id)) {
       return webPageChannelCache.get(id);
     }
@@ -127,24 +126,15 @@ public class ServiceChannelController implements Serializable {
     return null;
   }
   
-  public List<ElectronicChannel> listElectronicChannels(String serviceId, Long firstResult, Long maxResults) {
-    ServiceChannelIds serviceChannelIds = serviceChannelsCache.get(serviceId);
-    if (serviceChannelIds == null || serviceChannelIds.getElectricChannels() == null) {
-      return Collections.emptyList();
-    }
-    
-    List<String> ids = serviceChannelIds.getElectricChannels();
-    if (ids.isEmpty()) {
-      return Collections.emptyList();
-    }
-    
+  public List<ElectronicServiceChannel> listElectronicChannels(Long firstResult, Long maxResults) {
+    List<String> ids = electronicServiceChannelCache.getIds();
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
     int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
-    List<ElectronicChannel> result = new ArrayList<>(toIndex - firstIndex);
+    List<ElectronicServiceChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
-      ElectronicChannel electronicChannel = findElectronicChannelById(id);
+      ElectronicServiceChannel electronicChannel = findElectronicChannelById(id);
       if (electronicChannel != null) {
         result.add(electronicChannel);
       } else {
@@ -155,24 +145,15 @@ public class ServiceChannelController implements Serializable {
     return result;
   }
   
-  public List<ServiceLocationChannel> listServiceLocationChannels(String serviceId, Long firstResult, Long maxResults) {
-    ServiceChannelIds serviceChannelIds = serviceChannelsCache.get(serviceId);
-    if (serviceChannelIds == null || serviceChannelIds.getElectricChannels() == null) {
-      return Collections.emptyList();
-    }
-    
-    List<String> ids = serviceChannelIds.getLocationServiceChannels();
-    if (ids.isEmpty()) {
-      return Collections.emptyList();
-    }
-    
+  public List<ServiceLocationServiceChannel> listServiceLocationChannels(Long firstResult, Long maxResults) {
+    List<String> ids = locationServiceChannelCache.getIds();
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
     int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
-    List<ServiceLocationChannel> result = new ArrayList<>(toIndex - firstIndex);
+    List<ServiceLocationServiceChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
-      ServiceLocationChannel serviceLocationChannel = findServiceLocationChannelById(id);
+      ServiceLocationServiceChannel serviceLocationChannel = findServiceLocationChannelById(id);
       if (serviceLocationChannel != null) {
         result.add(serviceLocationChannel);
       } else {
@@ -183,24 +164,15 @@ public class ServiceChannelController implements Serializable {
     return result;
   }
   
-  public List<PrintableFormChannel> listPrintableFormChannels(String serviceId, Long firstResult, Long maxResults) {
-    ServiceChannelIds serviceChannelIds = serviceChannelsCache.get(serviceId);
-    if (serviceChannelIds == null || serviceChannelIds.getElectricChannels() == null) {
-      return Collections.emptyList();
-    }
-    
-    List<String> ids = serviceChannelIds.getPrintableFormChannels();
-    if (ids.isEmpty()) {
-      return Collections.emptyList();
-    }
-    
+  public List<PrintableFormServiceChannel> listPrintableFormChannels(Long firstResult, Long maxResults) {
+    List<String> ids = printableFormServiceChannelCache.getIds();
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
     int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
-    List<PrintableFormChannel> result = new ArrayList<>(toIndex - firstIndex);
+    List<PrintableFormServiceChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
-      PrintableFormChannel printableFormChannel = findPrintableFormChannelById(id);
+      PrintableFormServiceChannel printableFormChannel = findPrintableFormChannelById(id);
       if (printableFormChannel != null) {
         result.add(printableFormChannel);
       } else {
@@ -211,24 +183,15 @@ public class ServiceChannelController implements Serializable {
     return result;
   }
   
-  public List<PhoneChannel> listPhoneChannels(String serviceId, Long firstResult, Long maxResults) {
-    ServiceChannelIds serviceChannelIds = serviceChannelsCache.get(serviceId);
-    if (serviceChannelIds == null || serviceChannelIds.getElectricChannels() == null) {
-      return Collections.emptyList();
-    }
-    
-    List<String> ids = serviceChannelIds.getPhoneChannels();
-    if (ids.isEmpty()) {
-      return Collections.emptyList();
-    }
-    
+  public List<PhoneServiceChannel> listPhoneChannels(Long firstResult, Long maxResults) {
+    List<String> ids = phoneServiceChannelCache.getIds();
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
     int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
-    List<PhoneChannel> result = new ArrayList<>(toIndex - firstIndex);
+    List<PhoneServiceChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
-      PhoneChannel phoneServiceChannel = findPhoneChannelById(id);
+      PhoneServiceChannel phoneServiceChannel = findPhoneChannelById(id);
       if (phoneServiceChannel != null) {
         result.add(phoneServiceChannel);
       } else {
@@ -239,24 +202,15 @@ public class ServiceChannelController implements Serializable {
     return result;
   }
   
-  public List<WebPageChannel> listWebPageChannels(String serviceId, Long firstResult, Long maxResults) {
-    ServiceChannelIds serviceChannelIds = serviceChannelsCache.get(serviceId);
-    if (serviceChannelIds == null || serviceChannelIds.getElectricChannels() == null) {
-      return Collections.emptyList();
-    }
-    
-    List<String> ids = serviceChannelIds.getWebPageChannels();
-    if (ids.isEmpty()) {
-      return Collections.emptyList();
-    }
-    
+  public List<WebPageServiceChannel> listWebPageChannels(Long firstResult, Long maxResults) {
+    List<String> ids = webPageChannelCache.getIds();
     int idCount = ids.size();
     int firstIndex = firstResult == null ? 0 : Math.min(firstResult.intValue(), idCount);
     int toIndex = maxResults == null ? idCount : Math.min(firstIndex + maxResults.intValue(), idCount);
     
-    List<WebPageChannel> result = new ArrayList<>(toIndex - firstIndex);
+    List<WebPageServiceChannel> result = new ArrayList<>(toIndex - firstIndex);
     for (String id : ids.subList(firstIndex, toIndex)) {
-      WebPageChannel webPageChannel = findWebPageChannelById(id);
+      WebPageServiceChannel webPageChannel = findWebPageChannelById(id);
       if (webPageChannel != null) {
         result.add(webPageChannel);
       } else {

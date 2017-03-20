@@ -6,16 +6,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
 import fi.metatavu.ptv.client.model.VmOpenApiService;
 import fi.metatavu.restfulptv.server.rest.model.Service;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
+import fi.otavanopisto.restfulptv.server.servicechannels.ServiceChannelResolver;
 import fi.otavanopisto.restfulptv.server.services.ServiceCache;
+import fi.otavanopisto.restfulptv.server.services.ServiceChannelIds;
 
-@RequestScoped
+@ApplicationScoped
 @SuppressWarnings ("squid:S3306")
 public class ServiceController implements Serializable {
   
@@ -29,6 +31,9 @@ public class ServiceController implements Serializable {
   
   @Inject
   private PtvTranslator ptvTranslator;
+  
+  @Inject
+  private ServiceChannelResolver serviceChannelResolver;
 
   @Inject
   private ServiceCache serviceCache;
@@ -40,7 +45,9 @@ public class ServiceController implements Serializable {
 
     ApiResponse<VmOpenApiService> response = ptvApi.getServiceApi().apiServiceByIdGet(id);
     if (response.isOk()) {
-      return ptvTranslator.translateService(response.getResponse());
+      VmOpenApiService ptvService = response.getResponse();
+      ServiceChannelIds serviceChannelIds = serviceChannelResolver.resolveServiceChannelIds(ptvService);
+      return ptvTranslator.translateService(ptvService, serviceChannelIds);
     }
     
     return null;
