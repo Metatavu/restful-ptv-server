@@ -7,11 +7,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
-import fi.metatavu.restfulptv.server.rest.ServicesApi;
-import fi.metatavu.restfulptv.server.rest.model.Service;
+import fi.metatavu.restfulptv.server.rest.WebPageServiceChannelsApi;
+import fi.metatavu.restfulptv.server.rest.model.WebPageServiceChannel;
 
 /**
- * Services REST Service implementation
+ * WebPage service channels REST Service implementation
  * 
  * @author Antti Leppä
  * @author Heikki Kurhinen
@@ -19,34 +19,28 @@ import fi.metatavu.restfulptv.server.rest.model.Service;
 @RequestScoped
 @Stateful
 @SuppressWarnings ("squid:S3306")
-public class ServicesApiImpl extends ServicesApi {
+public class WebPageServiceChannelsApiImpl extends WebPageServiceChannelsApi {
 
   private static final String MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER = "maxResults must by a positive integer";
   private static final String FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER = "firstResult must by a positive integer";
   private static final String NOT_FOUND = "Not found";
-  private static final String NOT_IMPLEMENTED = "Not implemented";
   
   @Inject
-  private ServiceController serviceController;
+  private ServiceChannelController serviceChannelController;
 
   @Override
-  public Response createService(Service body) {
-    return createNotImplemented(NOT_IMPLEMENTED);
-  }
-
-  @Override
-  public Response findService(String serviceId) {
-    Service service = serviceController.findServiceById(serviceId);
-    if (service == null) {
+  public Response findWebPageServiceChannel(String webPageServiceChannelId) {
+    WebPageServiceChannel webPageChannel = serviceChannelController.findWebPageChannelById(webPageServiceChannelId);
+    if (webPageChannel == null) {
       return createNotFound(NOT_FOUND);
     }
     
-    return Response.ok(service)
+    return Response.ok(webPageChannel)
       .build();
   }
-
+  
   @Override
-  public Response listServices(String organizationId, Long firstResult, Long maxResults) {
+  public Response listWebPageServiceChannels(Long firstResult, Long maxResults) {
     if (firstResult != null && firstResult < 0) {
       return createBadRequest(FIRST_RESULT_MUST_BY_A_POSITIVE_INTEGER);
     }
@@ -55,15 +49,10 @@ public class ServicesApiImpl extends ServicesApi {
       return createBadRequest(MAX_RESULTS_MUST_BY_A_POSITIVE_INTEGER);
     }
     
-    List<Service> services = serviceController.listServices(organizationId, firstResult, maxResults);
-    return Response.ok(services)
+    List<WebPageServiceChannel> channels = serviceChannelController.listWebPageChannels(firstResult, maxResults);
+    return Response.ok(channels)
       .build();
   }
   
-  @Override
-  public Response updateService(String serviceId, Service body) {
-    return createNotImplemented(NOT_IMPLEMENTED);
-  }
-
 }
 
