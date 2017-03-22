@@ -26,11 +26,11 @@ import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
 import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
-import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
-import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
-import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
-import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
-import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.PhoneServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.WebPageServiceChannel;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
@@ -189,7 +189,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
   private void cacheElectronicChannel(VmOpenApiElectronicChannel ptvElectronicChannel) {
     logger.log(Level.FINE, () -> String.format("Updating electronic service channel %s", ptvElectronicChannel.getId()));
 
-    ElectronicChannel electronicChannel = ptvTranslator.translateElectronicChannel(ptvElectronicChannel);
+    ElectronicServiceChannel electronicChannel = ptvTranslator.translateElectronicChannel(ptvElectronicChannel);
     if (electronicChannel != null) {
       electronicServiceChannelCache.put(electronicChannel.getId(), electronicChannel);
     } else {
@@ -200,7 +200,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
   private void cacheServiceLocationChannel(VmOpenApiServiceLocationChannel ptvServiceLocationChannel) {
     logger.log(Level.FINE, () -> String.format("Updating serviceLocation service channel %s", ptvServiceLocationChannel.getId()));
 
-    ServiceLocationChannel serviceLocationChannel = ptvTranslator
+    ServiceLocationServiceChannel serviceLocationChannel = ptvTranslator
         .translateServiceLocationChannel(ptvServiceLocationChannel);
     if (serviceLocationChannel != null) {
       locationServiceChannelCache.put(serviceLocationChannel.getId(), serviceLocationChannel);
@@ -212,7 +212,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
   private void cachePrintableFormChannel(VmOpenApiPrintableFormChannel ptvPrintableFormChannel) {
     logger.log(Level.FINE, () -> String.format("Updating printableForm service channel %s", ptvPrintableFormChannel.getId()));
 
-    PrintableFormChannel printableFormChannel = ptvTranslator.translatePrintableFormChannel(ptvPrintableFormChannel);
+    PrintableFormServiceChannel printableFormChannel = ptvTranslator.translatePrintableFormChannel(ptvPrintableFormChannel);
     if (printableFormChannel != null) {
       printableFormServiceChannelCache.put(printableFormChannel.getId(), printableFormChannel);
     } else {
@@ -223,7 +223,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
   private void cachePhoneChannel(VmOpenApiPhoneChannel ptvPhoneChannel) {
     logger.log(Level.FINE, () -> String.format("Updating phone service channel %s", ptvPhoneChannel.getId()));
 
-    PhoneChannel phoneChannel = ptvTranslator.translatePhoneChannel(ptvPhoneChannel);
+    PhoneServiceChannel phoneChannel = ptvTranslator.translatePhoneChannel(ptvPhoneChannel);
     if (phoneChannel != null) {
       phoneServiceChannelCache.put(phoneChannel.getId(), phoneChannel);
     } else {
@@ -234,7 +234,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
   private void cacheWebPageChannel(VmOpenApiWebPageChannel ptvWebPageChannel) {
     logger.log(Level.FINE, () -> String.format("Updating webPage service channel %s", ptvWebPageChannel.getId()));
 
-    WebPageChannel webPageChannel = ptvTranslator.translateWebPageChannel(ptvWebPageChannel);
+    WebPageServiceChannel webPageChannel = ptvTranslator.translateWebPageChannel(ptvWebPageChannel);
     if (webPageChannel != null) {
       webPageChannelCache.put(webPageChannel.getId(), webPageChannel);
     } else {

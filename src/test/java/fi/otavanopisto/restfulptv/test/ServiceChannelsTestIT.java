@@ -2,6 +2,7 @@ package fi.otavanopisto.restfulptv.test;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.fail;
 
 import org.junit.After;
@@ -35,7 +36,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/electronicChannels/{serviceChannelId}", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67", "20d1299f-d606-4ced-ad22-ba429252c43c")
+      .get("/electronicServiceChannels/{serviceChannelId}", "20d1299f-d606-4ced-ad22-ba429252c43c")
       .then()
       .assertThat()
       .statusCode(200)
@@ -59,11 +60,9 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
       .body("supportContacts[0].language", is("fi"))
       .body("supportContacts[0].serviceChargeTypes.size()", is(0))
       .body("requiresAuthentication", is(false))
-      
       .body("urls.size()", is(1))
       .body("urls[0].language", is("fi"))
       .body("urls[0].value", is("http://kansalaisneuvonta.fi/kansalaisneuvonta/fi/palaute/index.html"))
-      
       .body("languages.size()", is(3))
       .body("languages[0]", is("sv"))
       .body("languages[1]", is("en"))
@@ -78,19 +77,15 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   @Test
   public void findElectronicChannelNotFound() throws InterruptedException {
     waitElectronicChannels();
-    
-    String serviceId = "04c01602-cd3a-4ef5-92e4-6a4ee2723e67";
-    String incorrectServiceId = "14c01602-cd3a-4ef5-92e4-6a4ee2723e67";
+
     String channelId = "20d1299f-d606-4ced-ad22-ba429252c43c";
     String[] malformedIds = new String[] {"evil", "*", "/", "1", "-1", "~"};
     
-    assertFound(String.format("/services/%s/electronicChannels/%s", serviceId, channelId));
+    assertFound(String.format("/electronicServiceChannels/%s", channelId));
     
     for (String malformedId : malformedIds) {
-      assertNotFound(String.format("/services/%s/electronicChannels/%s", serviceId, malformedId));
+      assertNotFound(String.format("/electronicServiceChannels/%s", malformedId));
     }
-    
-    assertNotFound(String.format("/electronicChannels/%s/electronicChannels/%s", incorrectServiceId, channelId));
   }
   
   @Test
@@ -100,7 +95,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/phoneChannels/{serviceChannelId}", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67", "01d743b8-8a1f-4e55-8e78-1061b3d96d2a")
+      .get("/phoneServiceChannels/{serviceChannelId}", "01d743b8-8a1f-4e55-8e78-1061b3d96d2a")
       .then()
       .assertThat()
       .statusCode(200)
@@ -126,33 +121,23 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
       .body("phoneChargeDescriptions[0].language", is("fi"))
       .body("phoneChargeDescriptions[0].value", is("paikallisverkkomaksu (pvm), matkapuhelinmaksu (mpm), ulkomaanpuhelumaksu"))
       .body("webPages.size()", is(0))
-      
-      .body("serviceHours.size()", is(2))
+      .body("serviceHours.size()", is(1))
       .body("serviceHours[0].type", is("Standard"))
-      .body("serviceHours[0].validFrom", is((String) null))
-      .body("serviceHours[0].validTo", is((String) null))
+      .body("serviceHours[0].exceptionHourType", nullValue())
+      .body("serviceHours[0].validFrom", nullValue())
+      .body("serviceHours[0].validTo", nullValue())
+      .body("serviceHours[0].monday", is(true))
+      .body("serviceHours[0].tuesday", is(true))
+      .body("serviceHours[0].wednesday", is(true))
+      .body("serviceHours[0].thursday", is(true))
+      .body("serviceHours[0].friday", is(true))
+      .body("serviceHours[0].saturday", is(false))
+      .body("serviceHours[0].sunday", is(false))
       .body("serviceHours[0].opens", is("08:00"))
       .body("serviceHours[0].closes", is("10:00"))
-      .body("serviceHours[0].status", is("OPEN"))
-      .body("serviceHours[0].days.size()", is(5))
-      .body("serviceHours[0].days[0]", is(1))
-      .body("serviceHours[0].days[1]", is(2))
-      .body("serviceHours[0].days[2]", is(3))
-      .body("serviceHours[0].days[3]", is(4))
-      .body("serviceHours[0].days[4]", is(5))
       .body("serviceHours[0].additionalInformation.size()", is(1))
       .body("serviceHours[0].additionalInformation[0].value", is("Arkipyhinä suljettu."))
       .body("serviceHours[0].additionalInformation[0].language", is("fi"))
-      .body("serviceHours[1].type", is("Standard"))
-      .body("serviceHours[1].validFrom", is((String) null))
-      .body("serviceHours[1].validTo", is((String) null))
-      .body("serviceHours[1].opens", is((String) null))
-      .body("serviceHours[1].closes", is((String) null))
-      .body("serviceHours[1].status", is("CLOSED"))
-      .body("serviceHours[1].days.size()", is(2))
-      .body("serviceHours[1].days[0]", is(6))
-      .body("serviceHours[1].days[1]", is(0))
-      .body("serviceHours[1].additionalInformation.size()", is(0))      
       .body("publishingStatus", is("Published"));
   }
 
@@ -160,18 +145,14 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   public void findPhoneChannelNotFound() throws InterruptedException {
     waitPhoneChannels();
 
-    String serviceId = "04c01602-cd3a-4ef5-92e4-6a4ee2723e67";
-    String incorrectServiceId = "14c01602-cd3a-4ef5-92e4-6a4ee2723e67";
     String channelId = "01d743b8-8a1f-4e55-8e78-1061b3d96d2a";
     String[] malformedIds = new String[] {"evil", "*", "/", "1", "-1", "~"};
     
-    assertFound(String.format("/services/%s/phoneChannels/%s", serviceId, channelId));
+    assertFound(String.format("/phoneServiceChannels/%s", channelId));
     
     for (String malformedId : malformedIds) {
-      assertNotFound(String.format("/services/%s/phoneChannels/%s", serviceId, malformedId));
+      assertNotFound(String.format("/phoneServiceChannels/%s", malformedId));
     }
-    
-    assertNotFound(String.format("/electronicChannels/%s/phoneChannels/%s", incorrectServiceId, channelId));
   }
   
   @Test
@@ -181,7 +162,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/printableFormChannels/{serviceChannelId}", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67", "032e391b-8b15-4ba3-9239-f9523687fe35")
+      .get("/printableFormServiceChannels/{serviceChannelId}", "032e391b-8b15-4ba3-9239-f9523687fe35")
       .then()
       .assertThat()
       .statusCode(200)
@@ -241,18 +222,14 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   public void findPrintableFormChannelNotFound() throws InterruptedException {
     waitPrintableFormChannels();
 
-    String serviceId = "04c01602-cd3a-4ef5-92e4-6a4ee2723e67";
-    String incorrectServiceId = "14c01602-cd3a-4ef5-92e4-6a4ee2723e67";
     String channelId = "032e391b-8b15-4ba3-9239-f9523687fe35";
     String[] malformedIds = new String[] {"evil", "*", "/", "1", "-1", "~"};
     
-    assertFound(String.format("/services/%s/printableFormChannels/%s", serviceId, channelId));
+    assertFound(String.format("/printableFormServiceChannels/%s", channelId));
     
     for (String malformedId : malformedIds) {
-      assertNotFound(String.format("/services/%s/printableFormChannels/%s", serviceId, malformedId));
+      assertNotFound(String.format("/printableFormServiceChannels/%s", malformedId));
     }
-    
-    assertNotFound(String.format("/electronicChannels/%s/printableFormChannels/%s", incorrectServiceId, channelId));
   }
   
   @Test
@@ -262,7 +239,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/serviceLocationChannels/{serviceChannelId}", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67", "1646ff9a-b111-48aa-b261-be333d144d95")
+      .get("/serviceLocationServiceChannels/{serviceChannelId}", "1646ff9a-b111-48aa-b261-be333d144d95")
       .then()
       .assertThat()
       .statusCode(200)
@@ -310,19 +287,18 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
       .body("chargeTypes.size()", is(0))
       .body("serviceHours.size()", is(1))
       .body("serviceHours[0].type", is("Standard"))
-      .body("serviceHours[0].validFrom", is((String) null))
-      .body("serviceHours[0].validTo", is((String) null))
+      .body("serviceHours[0].exceptionHourType", nullValue())
+      .body("serviceHours[0].validFrom", nullValue())
+      .body("serviceHours[0].validTo", nullValue())
+      .body("serviceHours[0].monday", is(true))
+      .body("serviceHours[0].tuesday", is(true))
+      .body("serviceHours[0].wednesday", is(true))
+      .body("serviceHours[0].thursday", is(true))
+      .body("serviceHours[0].friday", is(true))
+      .body("serviceHours[0].saturday", is(true))
+      .body("serviceHours[0].sunday", is(true))
       .body("serviceHours[0].opens", is("10:00"))
       .body("serviceHours[0].closes", is("17:00"))
-      .body("serviceHours[0].status", is("OPEN"))
-      .body("serviceHours[0].days.size()", is(7))
-      .body("serviceHours[0].days[0]", is(1))
-      .body("serviceHours[0].days[1]", is(2))
-      .body("serviceHours[0].days[2]", is(3))
-      .body("serviceHours[0].days[3]", is(4))
-      .body("serviceHours[0].days[4]", is(5))
-      .body("serviceHours[0].days[5]", is(6))
-      .body("serviceHours[0].days[6]", is(0))
       .body("serviceHours[0].additionalInformation.size()", is(1))
       .body("serviceHours[0].additionalInformation[0].value", is("Juhlapyhinä suljettu."))
       .body("serviceHours[0].additionalInformation[0].language", is("fi"))
@@ -333,18 +309,14 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   public void findServiceLocationChannelNotFound() throws InterruptedException {
     waitServiceLocationChannels();
 
-    String serviceId = "04c01602-cd3a-4ef5-92e4-6a4ee2723e67";
-    String incorrectServiceId = "14c01602-cd3a-4ef5-92e4-6a4ee2723e67";
     String channelId = "1646ff9a-b111-48aa-b261-be333d144d95";
     String[] malformedIds = new String[] {"evil", "*", "/", "1", "-1", "~"};
     
-    assertFound(String.format("/services/%s/serviceLocationChannels/%s", serviceId, channelId));
+    assertFound(String.format("/serviceLocationServiceChannels/%s", channelId));
     
     for (String malformedId : malformedIds) {
-      assertNotFound(String.format("/services/%s/serviceLocationChannels/%s", serviceId, malformedId));
+      assertNotFound(String.format("/serviceLocationServiceChannels/%s", malformedId));
     }
-    
-    assertNotFound(String.format("/electronicChannels/%s/serviceLocationChannels/%s", incorrectServiceId, channelId));
   }
   
   @Test
@@ -354,7 +326,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/webPageChannels/{serviceChannelId}", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67", "d487de8b-bd31-4b04-8403-f93e39e98510")
+      .get("/webPageServiceChannels/{serviceChannelId}", "d487de8b-bd31-4b04-8403-f93e39e98510")
       .then()
       .assertThat()
       .statusCode(200)
@@ -390,18 +362,14 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   public void findWebPageChannelNotFound() throws InterruptedException {
     waitServiceLocationChannels();
 
-    String serviceId = "04c01602-cd3a-4ef5-92e4-6a4ee2723e67";
-    String incorrectServiceId = "14c01602-cd3a-4ef5-92e4-6a4ee2723e67";
     String channelId = "d487de8b-bd31-4b04-8403-f93e39e98510";
     String[] malformedIds = new String[] {"evil", "*", "/", "1", "-1", "~"};
     
-    assertFound(String.format("/services/%s/webPageChannels/%s", serviceId, channelId));
+    assertFound(String.format("/webPageServiceChannels/%s", channelId));
     
     for (String malformedId : malformedIds) {
-      assertNotFound(String.format("/services/%s/webPageChannels/%s", serviceId, malformedId));
+      assertNotFound(String.format("//webPageServiceChannels/%s", malformedId));
     }
-    
-    assertNotFound(String.format("/electronicChannels/%s/webPageChannels/%s", incorrectServiceId, channelId));
   }
 
   @Test
@@ -411,7 +379,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/electronicChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67")
+      .get("/electronicServiceChannels")
       .then()
       .assertThat()
       .statusCode(200)
@@ -463,7 +431,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/phoneChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67")
+      .get("/phoneServiceChannels")
       .then()
       .assertThat()
       .statusCode(200)
@@ -493,19 +461,18 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
       .body("webPages[1].size()", is(0))
       .body("serviceHours[1].size()", is(1))
       .body("serviceHours[1][0].type", is("Standard"))
-      .body("serviceHours[1][0].validFrom", is((String) null))
-      .body("serviceHours[1][0].validTo", is((String) null))
+      .body("serviceHours[1][0].exceptionHourType", nullValue())
+      .body("serviceHours[1][0].validFrom", nullValue())
+      .body("serviceHours[1][0].validTo", nullValue())
+      .body("serviceHours[1][0].monday", is(true))
+      .body("serviceHours[1][0].tuesday", is(true))
+      .body("serviceHours[1][0].wednesday", is(true))
+      .body("serviceHours[1][0].thursday", is(true))
+      .body("serviceHours[1][0].friday", is(true))
+      .body("serviceHours[1][0].saturday", is(true))
+      .body("serviceHours[1][0].sunday", is(true))
       .body("serviceHours[1][0].opens", is(""))
       .body("serviceHours[1][0].closes", is(""))
-      .body("serviceHours[1][0].status", is("OPEN"))
-      .body("serviceHours[1][0].days.size()", is(7))
-      .body("serviceHours[1][0].days[0]", is(1))
-      .body("serviceHours[1][0].days[1]", is(2))
-      .body("serviceHours[1][0].days[2]", is(3))
-      .body("serviceHours[1][0].days[3]", is(4))
-      .body("serviceHours[1][0].days[4]", is(5))
-      .body("serviceHours[1][0].days[5]", is(6))
-      .body("serviceHours[1][0].days[6]", is(0))
       .body("serviceHours[1][0].additionalInformation.size()", is(0))
       .body("publishingStatus[1]", is("Published"));
   }
@@ -517,7 +484,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/printableFormChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67")
+      .get("/printableFormServiceChannels")
       .then()
       .assertThat()
       .statusCode(200)
@@ -576,7 +543,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/serviceLocationChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67")
+      .get("/serviceLocationServiceChannels")
       .then()
       .assertThat()
       .statusCode(200)
@@ -625,26 +592,23 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
       .body("addresses[1][0].streetAddress[0].language", is("fi"))
       .body("addresses[1][0].additionalInformations.size()", is(0))
       .body("chargeTypes[1].size()", is(0))
-      .body("serviceHours[1].size()", is(2))
+      .body("serviceHours[1].size()", is(1))
       .body("serviceHours[1][0].type", is("Standard"))
-      .body("serviceHours[1][0].validFrom", is((String) null))
-      .body("serviceHours[1][0].validTo", is((String) null))
+      .body("serviceHours[1][0].exceptionHourType", nullValue())
+      .body("serviceHours[1][0].validFrom", nullValue())
+      .body("serviceHours[1][0].validTo", nullValue())
+      .body("serviceHours[1][0].monday", is(true))
+      .body("serviceHours[1][0].tuesday", is(true))
+      .body("serviceHours[1][0].wednesday", is(true))
+      .body("serviceHours[1][0].thursday", is(true))
+      .body("serviceHours[1][0].friday", is(true))
+      .body("serviceHours[1][0].saturday", is(false))
+      .body("serviceHours[1][0].sunday", is(false))
       .body("serviceHours[1][0].opens", is("09:00"))
       .body("serviceHours[1][0].closes", is("16:00"))
-      .body("serviceHours[1][0].status", is("OPEN"))
-      .body("serviceHours[1][0].days.size()", is(5))
-      .body("serviceHours[1][0].days[0]", is(1))
-      .body("serviceHours[1][0].days[1]", is(2))
-      .body("serviceHours[1][0].days[2]", is(3))
-      .body("serviceHours[1][0].days[3]", is(4))
-      .body("serviceHours[1][0].days[4]", is(5))
       .body("serviceHours[1][0].additionalInformation.size()", is(1))
       .body("serviceHours[1][0].additionalInformation[0].value", is("Opetustilat ovat avoinna opetusaikoina."))
       .body("serviceHours[1][0].additionalInformation[0].language", is("fi"))
-      .body("serviceHours[1][1].days.size()", is(2))
-      .body("serviceHours[1][1].days[0]", is(6))
-      .body("serviceHours[1][1].days[1]", is(0))
-      .body("serviceHours[1][1].status", is("CLOSED"))
       .body("publishingStatus[1]", is("Published"));
   }
   
@@ -655,7 +619,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
     given() 
       .baseUri(getApiBasePath())
       .contentType(ContentType.JSON)
-      .get("/services/{serviceId}/webPageChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67")
+      .get("/webPageServiceChannels")
       .then()
       .assertThat()
       .statusCode(200)
@@ -691,36 +655,36 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   @Test
   public void testListElectronicChannelsLimits() {
     waitElectronicChannels();
-    assertListLimits(String.format("/services/%s/electronicChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67"), 3);
+    assertListLimits("/electronicServiceChannels", 3);
   }
   
   @Test
   public void testListPhoneChannelsLimits() {
     waitPhoneChannels();
-    assertListLimits(String.format("/services/%s/phoneChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67"), 3);
+    assertListLimits("/phoneServiceChannels", 3);
   }
   
   @Test
   public void testListPrintableFormChannelsLimits() {
     waitPrintableFormChannels();
-    assertListLimits(String.format("/services/%s/printableFormChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67"), 3);
+    assertListLimits("/printableFormServiceChannels", 3);
   }
   
   @Test
   public void testListServiceLocationChannelsLimits() {
     waitPrintableFormChannels();
-    assertListLimits(String.format("/services/%s/serviceLocationChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67"), 3);
+    assertListLimits("/serviceLocationServiceChannels", 3);
   }
   
   @Test
   public void testListWebPageChannelsLimits() {
     waitPrintableFormChannels();
-    assertListLimits(String.format("/services/%s/webPageChannels", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67"), 3);
+    assertListLimits("/webPageServiceChannels", 3);
   }
   
   private void waitElectronicChannels() {
     try {
-      waitApiListCount("/services/04c01602-cd3a-4ef5-92e4-6a4ee2723e67/electronicChannels", 3);
+      waitApiListCount("/electronicServiceChannels", 3);
     } catch (InterruptedException e) {
       fail(e.getMessage());
     }
@@ -728,7 +692,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   
   private void waitPhoneChannels() {
     try {
-      waitApiListCount("/services/04c01602-cd3a-4ef5-92e4-6a4ee2723e67/phoneChannels", 3);
+      waitApiListCount("/phoneServiceChannels", 3);
     } catch (InterruptedException e) {
       fail(e.getMessage());
     }
@@ -736,7 +700,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   
   private void waitPrintableFormChannels() {
     try {
-      waitApiListCount("/services/04c01602-cd3a-4ef5-92e4-6a4ee2723e67/printableFormChannels", 3);
+      waitApiListCount("/printableFormServiceChannels", 3);
     } catch (InterruptedException e) {
       fail(e.getMessage());
     }
@@ -744,7 +708,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   
   private void waitServiceLocationChannels() {
     try {
-      waitApiListCount("/services/04c01602-cd3a-4ef5-92e4-6a4ee2723e67/serviceLocationChannels", 3);
+      waitApiListCount("/serviceLocationServiceChannels", 3);
     } catch (InterruptedException e) {
       fail(e.getMessage());
     }
@@ -752,7 +716,7 @@ public class ServiceChannelsTestIT extends AbstractIntegrationTest {
   
   private void waitWebPageChannels() {
     try {
-      waitApiListCount("/services/04c01602-cd3a-4ef5-92e4-6a4ee2723e67/webPageChannels", 3);
+      waitApiListCount("/webPageServiceChannels", 3);
     } catch (InterruptedException e) {
       fail(e.getMessage());
     }
