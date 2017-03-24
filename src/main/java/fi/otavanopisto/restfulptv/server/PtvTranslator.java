@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -33,7 +33,7 @@ import fi.metatavu.ptv.client.model.VmOpenApiWebPage;
 import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
 import fi.metatavu.restfulptv.server.rest.model.Address;
 import fi.metatavu.restfulptv.server.rest.model.Attachment;
-import fi.metatavu.restfulptv.server.rest.model.ElectronicChannel;
+import fi.metatavu.restfulptv.server.rest.model.ElectronicServiceChannel;
 import fi.metatavu.restfulptv.server.rest.model.FintoItem;
 import fi.metatavu.restfulptv.server.rest.model.LanguageItem;
 import fi.metatavu.restfulptv.server.rest.model.LocalizedListItem;
@@ -41,17 +41,18 @@ import fi.metatavu.restfulptv.server.rest.model.Organization;
 import fi.metatavu.restfulptv.server.rest.model.OrganizationEmail;
 import fi.metatavu.restfulptv.server.rest.model.OrganizationPhone;
 import fi.metatavu.restfulptv.server.rest.model.OrganizationService;
-import fi.metatavu.restfulptv.server.rest.model.PhoneChannel;
-import fi.metatavu.restfulptv.server.rest.model.PrintableFormChannel;
+import fi.metatavu.restfulptv.server.rest.model.PhoneServiceChannel;
+import fi.metatavu.restfulptv.server.rest.model.PrintableFormServiceChannel;
 import fi.metatavu.restfulptv.server.rest.model.Service;
 import fi.metatavu.restfulptv.server.rest.model.ServiceHour;
-import fi.metatavu.restfulptv.server.rest.model.ServiceLocationChannel;
+import fi.metatavu.restfulptv.server.rest.model.ServiceLocationServiceChannel;
 import fi.metatavu.restfulptv.server.rest.model.StatutoryDescription;
 import fi.metatavu.restfulptv.server.rest.model.Support;
 import fi.metatavu.restfulptv.server.rest.model.WebPage;
-import fi.metatavu.restfulptv.server.rest.model.WebPageChannel;
+import fi.metatavu.restfulptv.server.rest.model.WebPageServiceChannel;
+import fi.otavanopisto.restfulptv.server.services.ServiceChannelIds;
 
-@RequestScoped
+@ApplicationScoped
 public class PtvTranslator implements Serializable {
 
   private static final long serialVersionUID = 8345479101834674145L;
@@ -240,7 +241,7 @@ public class PtvTranslator implements Serializable {
     List<ServiceHour> result = new ArrayList<>();
     for (VmOpenApiServiceHour ptvServiceHour : ptvServiceHours) {
       if (ptvServiceHour != null) {
-        translateServiceHour(result, ptvServiceHour);
+        result.add(translateServiceHour(ptvServiceHour));
       }
     }
 
@@ -379,7 +380,7 @@ public class PtvTranslator implements Serializable {
     return result;
   }
 
-  public Service translateService(VmOpenApiService ptvService) {
+  public Service translateService(VmOpenApiService ptvService, ServiceChannelIds serviceChannelIds) {
     if (ptvService == null) {
       return null;
     }
@@ -405,6 +406,11 @@ public class PtvTranslator implements Serializable {
     result.setAdditionalInformations(translateLocalizedListItems(ptvService.getServiceAdditionalInformations()));
     result.setTargetGroups(translateFintoItems(ptvService.getTargetGroups()));
     result.setOrganizationIds(getOrganizationIds(ptvService.getOrganizations()));
+    result.setElectronicServiceChannelIds(serviceChannelIds.getElectricChannels());
+    result.setServiceLocationServiceChannelIds(serviceChannelIds.getLocationServiceChannels());
+    result.setPhoneServiceChannelIds(serviceChannelIds.getPhoneChannels());
+    result.setWebPageServiceChannelIds(serviceChannelIds.getWebPageChannels());
+    result.setPrintableFormServiceChannelIds(serviceChannelIds.getPrintableFormChannels());
     
     return result;
   }
@@ -441,12 +447,12 @@ public class PtvTranslator implements Serializable {
     return result;
   }
 
-  public ElectronicChannel translateElectronicChannel(VmOpenApiElectronicChannel ptvElectronicChannel) {
+  public ElectronicServiceChannel translateElectronicChannel(VmOpenApiElectronicChannel ptvElectronicChannel) {
     if (ptvElectronicChannel == null) {
       return null;
     }
     
-    ElectronicChannel result = new ElectronicChannel();
+    ElectronicServiceChannel result = new ElectronicServiceChannel();
     result.setId(ptvElectronicChannel.getId());
     result.setType(ptvElectronicChannel.getServiceChannelType());
     result.setOrganizationId(ptvElectronicChannel.getOrganizationId());
@@ -533,63 +539,38 @@ public class PtvTranslator implements Serializable {
 
     return result;
   }
-  
-  private void translateServiceHour(List<ServiceHour> result, VmOpenApiServiceHour ptvServiceHour) {
-    boolean[] dayBools = {
-      ptvServiceHour.getMonday(),
-      ptvServiceHour.getTuesday(),
-      ptvServiceHour.getWednesday(),
-      ptvServiceHour.getThursday(),
-      ptvServiceHour.getFriday(),
-      ptvServiceHour.getSaturday(),
-      ptvServiceHour.getSunday()
-    };
-   
-    int dayIndex = 0;
-    List<Integer> days = new ArrayList<>();
-    boolean currentOpen = dayBools[0];
-   
-    while (dayIndex < dayBools.length) {
-      if ((dayBools[dayIndex] != currentOpen) && (!days.isEmpty())) {
-        result.add(createServiceHourObject(ptvServiceHour, days, currentOpen));
-        days.clear();
-        currentOpen = dayBools[dayIndex];
-      }
-     
-      days.add((dayIndex + 1) % 7);
-      dayIndex++;
-    }
-   
-    if (!days.isEmpty()) {
-      result.add(createServiceHourObject(ptvServiceHour, days, currentOpen));
-    }
-  }
- 
-  private ServiceHour createServiceHourObject(VmOpenApiServiceHour ptvServiceHour, List<Integer> days, boolean currentOpen) {
-    ServiceHour serviceHour = new ServiceHour();
-    ArrayList<Integer> openDays = new ArrayList<>(days);
-   
-    serviceHour.setDays(openDays);
-    if (currentOpen) {
-      serviceHour.setOpens(ptvServiceHour.getOpens());
-      serviceHour.setCloses(ptvServiceHour.getCloses());
-      serviceHour.setAdditionalInformation(translateLanguageItems(ptvServiceHour.getAdditionalInformation()));
-    }
-   
-    serviceHour.setStatus(currentOpen ? "OPEN": "CLOSED");
-    serviceHour.setType(ptvServiceHour.getServiceHourType());
-    serviceHour.setValidFrom(ptvServiceHour.getValidFrom());
-    serviceHour.setValidTo(ptvServiceHour.getValidTo());
-    
-    return serviceHour;
-  }
 
-  public ServiceLocationChannel translateServiceLocationChannel(VmOpenApiServiceLocationChannel ptvServiceLocationChannel) {
+  private ServiceHour translateServiceHour(VmOpenApiServiceHour ptvServiceHour) {
+    if (ptvServiceHour == null) {
+      return null;
+    }
+    
+    ServiceHour result = new ServiceHour();
+    
+    result.setAdditionalInformation(translateLanguageItems(ptvServiceHour.getAdditionalInformation()));
+    result.setCloses(ptvServiceHour.getCloses());
+    result.setExceptionHourType(ptvServiceHour.getExceptionHourType());
+    result.setFriday(ptvServiceHour.getFriday());
+    result.setMonday(ptvServiceHour.getMonday());
+    result.setOpens(ptvServiceHour.getOpens());
+    result.setSaturday(ptvServiceHour.getSaturday());
+    result.setSunday(ptvServiceHour.getSunday());
+    result.setThursday(ptvServiceHour.getThursday());
+    result.setTuesday(ptvServiceHour.getTuesday());
+    result.setType(ptvServiceHour.getServiceHourType());
+    result.setValidFrom(ptvServiceHour.getValidFrom());
+    result.setValidTo(ptvServiceHour.getValidTo());
+    result.setWednesday(ptvServiceHour.getWednesday());
+    
+    return result;
+  }
+  
+  public ServiceLocationServiceChannel translateServiceLocationChannel(VmOpenApiServiceLocationChannel ptvServiceLocationChannel) {
     if (ptvServiceLocationChannel == null) {
       return null;
     }
     
-    ServiceLocationChannel result = new ServiceLocationChannel();
+    ServiceLocationServiceChannel result = new ServiceLocationServiceChannel();
     result.setId(ptvServiceLocationChannel.getId());
     result.setType(ptvServiceLocationChannel.getServiceChannelType());
     result.setOrganizationId(ptvServiceLocationChannel.getOrganizationId());
@@ -617,12 +598,12 @@ public class PtvTranslator implements Serializable {
     return result;
   }
 
-  public PrintableFormChannel translatePrintableFormChannel(VmOpenApiPrintableFormChannel ptvPrintableFormChannel) {
+  public PrintableFormServiceChannel translatePrintableFormChannel(VmOpenApiPrintableFormChannel ptvPrintableFormChannel) {
     if (ptvPrintableFormChannel == null) {
       return null;
     }
     
-    PrintableFormChannel result = new PrintableFormChannel();
+    PrintableFormServiceChannel result = new PrintableFormServiceChannel();
     
     result.setId(ptvPrintableFormChannel.getId());
     result.setType(ptvPrintableFormChannel.getServiceChannelType());
@@ -644,12 +625,12 @@ public class PtvTranslator implements Serializable {
     return result;
   }
 
-  public PhoneChannel translatePhoneChannel(VmOpenApiPhoneChannel ptvPhoneChannel) {
+  public PhoneServiceChannel translatePhoneChannel(VmOpenApiPhoneChannel ptvPhoneChannel) {
     if (ptvPhoneChannel == null) {
       return null;
     }
     
-    PhoneChannel result = new PhoneChannel();
+    PhoneServiceChannel result = new PhoneServiceChannel();
     
     result.setId(ptvPhoneChannel.getId());
     result.setType(ptvPhoneChannel.getServiceChannelType());
@@ -669,12 +650,12 @@ public class PtvTranslator implements Serializable {
     return result;
   }
 
-  public WebPageChannel translateWebPageChannel(VmOpenApiWebPageChannel ptvWebPageChannel) {
+  public WebPageServiceChannel translateWebPageChannel(VmOpenApiWebPageChannel ptvWebPageChannel) {
     if (ptvWebPageChannel == null) {
       return null;
     }
     
-    WebPageChannel result = new WebPageChannel();
+    WebPageServiceChannel result = new WebPageServiceChannel();
     
     result.setId(ptvWebPageChannel.getId());
     result.setType(ptvWebPageChannel.getServiceChannelType());

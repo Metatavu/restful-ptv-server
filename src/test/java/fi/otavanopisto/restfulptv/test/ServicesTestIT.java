@@ -106,6 +106,41 @@ public class ServicesTestIT extends AbstractIntegrationTest {
   }
   
   @Test
+  public void testServiceChannels() {
+  given() 
+    .baseUri(getApiBasePath())
+    .contentType(ContentType.JSON)
+    .get("/services/{serviceId}", "04c01602-cd3a-4ef5-92e4-6a4ee2723e67")
+    .then()
+    .assertThat()
+    .statusCode(200)
+    .body("electronicServiceChannelIds.size()", is(3))
+    .body("electronicServiceChannelIds[0]", is("20d1299f-d606-4ced-ad22-ba429252c43c"))
+    .body("electronicServiceChannelIds[1]", is("cd459bcf-1fd3-47b5-9765-c5b29a7d2efb"))
+    .body("electronicServiceChannelIds[2]", is("ea76ce08-6898-4741-a17e-4f197e95656f"))
+    
+    .body("phoneServiceChannelIds.size()", is(3))
+    .body("phoneServiceChannelIds[0]", is("01d743b8-8a1f-4e55-8e78-1061b3d96d2a"))
+    .body("phoneServiceChannelIds[1]", is("61a3dd0b-0bae-4110-ba5a-f1662dc55c4d"))
+    .body("phoneServiceChannelIds[2]", is("f75db250-6228-4e7a-9194-855cddc561f6"))
+    
+    .body("printableFormServiceChannelIds.size()", is(3))
+    .body("printableFormServiceChannelIds[0]", is("032e391b-8b15-4ba3-9239-f9523687fe35"))
+    .body("printableFormServiceChannelIds[1]", is("a7b244fa-9e78-4d06-950a-e5fba3847ad6"))
+    .body("printableFormServiceChannelIds[2]", is("e70b23f6-2552-46d4-96b5-a42c355e1d3f"))
+    
+    .body("serviceLocationServiceChannelIds.size()", is(3))
+    .body("serviceLocationServiceChannelIds[0]", is("1646ff9a-b111-48aa-b261-be333d144d95"))
+    .body("serviceLocationServiceChannelIds[1]", is("326ae77e-9c19-4600-995b-0c77ae88e450"))
+    .body("serviceLocationServiceChannelIds[2]", is("fe58aa59-9d43-402f-aaed-26ec5a6dc755"))
+    
+    .body("webPageServiceChannelIds.size()", is(3))
+    .body("webPageServiceChannelIds[0]", is("d487de8b-bd31-4b04-8403-f93e39e98510"))
+    .body("webPageServiceChannelIds[1]", is("f08651b8-29ff-4883-818a-890fc7291988"))
+    .body("webPageServiceChannelIds[2]", is("f4f910b3-a7b6-4d65-bfd2-aa5011efe2fa"));
+  }
+  
+  @Test
   public void testListServices() {
     given() 
       .baseUri(getApiBasePath())
