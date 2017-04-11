@@ -21,7 +21,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiService;
+import fi.metatavu.ptv.client.model.V4VmOpenApiService;
 import fi.metatavu.restfulptv.server.rest.model.Service;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
@@ -133,7 +133,7 @@ public class ServiceEntityUpdater extends EntityUpdater {
       logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
 
-    ApiResponse<VmOpenApiService> response = ptvApi.getServiceApi().apiServiceByIdGet(entityId);
+    ApiResponse<V4VmOpenApiService> response = ptvApi.getServiceApi().apiV4ServiceByIdGet(entityId);
     if (response.isOk()) {
       cacheResponse(entityId, response.getResponse());
     } else {
@@ -141,7 +141,7 @@ public class ServiceEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cacheResponse(String entityId, VmOpenApiService ptvService) {
+  private void cacheResponse(String entityId, V4VmOpenApiService ptvService) {
     ServiceChannelIds serviceChannelIds = serviceChannelResolver.resolveServiceChannelIds(ptvService);
     Service service = ptvTranslator.translateService(ptvService, serviceChannelIds);
     if (service != null) {

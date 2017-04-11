@@ -1,6 +1,7 @@
 package fi.otavanopisto.restfulptv.server.services;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,7 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiGuidPage;
+import fi.metatavu.ptv.client.model.V3VmOpenApiGuidPage;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.schedulers.IdUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
@@ -26,7 +27,7 @@ import fi.otavanopisto.restfulptv.server.system.SystemUtils;
 @Singleton
 @AccessTimeout (unit = TimeUnit.HOURS, value = 1l)
 @SuppressWarnings("squid:S3306")
-public class ServiceIdUpdater implements IdUpdater {
+public class ServiceIdUpdater extends IdUpdater {
 
   private static final int WARMUP_TIME = 1000 * 10;
   private static final int TIMER_INTERVAL = 30000;
@@ -101,11 +102,13 @@ public class ServiceIdUpdater implements IdUpdater {
       logger.log(Level.FINE, () -> String.format("Updating services page %d", page + 1));
     }
 
-    ApiResponse<VmOpenApiGuidPage> response = ptvApi.getServiceApi().apiServiceGet(null, page);
+    ApiResponse<V3VmOpenApiGuidPage> response = ptvApi.getServiceApi().apiV4ServiceGet(null, page);
     if (response.isOk()) {
-      VmOpenApiGuidPage pageData = response.getResponse();
-      updateRequest.fire(new ServiceIdUpdateRequest(pageData.getGuidList(), false));
-      discoverCount += pageData.getGuidList().size();
+      V3VmOpenApiGuidPage pageData = response.getResponse();
+      List<String> ids = getItemListIds(pageData.getItemList());
+      
+      updateRequest.fire(new ServiceIdUpdateRequest(ids, false));
+      discoverCount += ids.size();
 
       pageCount = pageData.getPageCount();
       hasMore = pageCount > page + 1;
@@ -129,11 +132,13 @@ public class ServiceIdUpdater implements IdUpdater {
     int discoverCount = 0;
     logger.fine("Updating priority services");
 
-    ApiResponse<VmOpenApiGuidPage> response = ptvApi.getServiceApi().apiServiceGet(priortyScanTime, 0);
+    ApiResponse<V3VmOpenApiGuidPage> response = ptvApi.getServiceApi().apiV4ServiceGet(priortyScanTime, 0);
     if (response.isOk()) {
-      VmOpenApiGuidPage pageData = response.getResponse();
-      updateRequest.fire(new ServiceIdUpdateRequest(pageData.getGuidList(), true));
-      discoverCount += pageData.getGuidList().size();
+      V3VmOpenApiGuidPage pageData = response.getResponse();
+      List<String> ids = getItemListIds(pageData.getItemList());
+      
+      updateRequest.fire(new ServiceIdUpdateRequest(ids, true));
+      discoverCount += ids.size();
 
       pageCount = pageData.getPageCount();
 

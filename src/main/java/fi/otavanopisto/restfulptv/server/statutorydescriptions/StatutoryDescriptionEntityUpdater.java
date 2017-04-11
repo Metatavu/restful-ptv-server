@@ -21,7 +21,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiGeneralDescription;
+import fi.metatavu.ptv.client.model.V4VmOpenApiGeneralDescription;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.metatavu.restfulptv.server.rest.model.StatutoryDescription;
@@ -126,8 +126,8 @@ public class StatutoryDescriptionEntityUpdater extends EntityUpdater {
       logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
 
-    ApiResponse<VmOpenApiGeneralDescription> response = ptvApi.getGeneralDescriptionApi()
-        .apiGeneralDescriptionByIdGet(entityId);
+    ApiResponse<V4VmOpenApiGeneralDescription> response = ptvApi.getGeneralDescriptionApi()
+        .apiV4GeneralDescriptionByIdGet(entityId);
     if (response.isOk()) {
       cacheResponse(entityId, response.getResponse());
     } else {
@@ -136,7 +136,7 @@ public class StatutoryDescriptionEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cacheResponse(String entityId, VmOpenApiGeneralDescription ptvStatutoryDescription) {
+  private void cacheResponse(String entityId, V4VmOpenApiGeneralDescription ptvStatutoryDescription) {
     StatutoryDescription statutoryDescription = ptvTranslator.translateStatutoryDescription(ptvStatutoryDescription);
     if (statutoryDescription != null) {
       statutoryDescriptionCache.put(entityId, statutoryDescription);

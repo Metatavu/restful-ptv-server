@@ -14,12 +14,13 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import fi.metatavu.ptv.client.ApiResponse;
 import fi.metatavu.ptv.client.ResultType;
-import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiService;
-import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiElectronicChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiPhoneChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiService;
+import fi.metatavu.ptv.client.model.V4VmOpenApiServiceLocationChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiServiceServiceChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiWebPageChannel;
 import fi.otavanopisto.restfulptv.server.ptv.PtvClient;
 import fi.otavanopisto.restfulptv.server.services.ServiceChannelIds;
 
@@ -33,7 +34,7 @@ public class ServiceChannelResolver {
   @Inject
   private PtvClient ptvClient;
   
-  public VmOpenApiElectronicChannel findElectronicChannel(String id) {
+  public V4VmOpenApiElectronicChannel findElectronicChannel(String id) {
     Map<String, Object> serviceChannelData = loadServiceChannelData(id);
     if (serviceChannelData != null) {
       ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
@@ -45,7 +46,7 @@ public class ServiceChannelResolver {
     return null;
   }
   
-  public VmOpenApiServiceLocationChannel findServiceLocationChannel(String id) {
+  public V4VmOpenApiServiceLocationChannel findServiceLocationChannel(String id) {
     Map<String, Object> serviceChannelData = loadServiceChannelData(id);
     if (serviceChannelData != null) {
       ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
@@ -57,7 +58,7 @@ public class ServiceChannelResolver {
     return null;
   }
   
-  public VmOpenApiPrintableFormChannel findPrintableFormChannel(String id) {
+  public V4VmOpenApiPrintableFormChannel findPrintableFormChannel(String id) {
     Map<String, Object> serviceChannelData = loadServiceChannelData(id);
     if (serviceChannelData != null) {
       ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
@@ -69,7 +70,7 @@ public class ServiceChannelResolver {
     return null;
   }
   
-  public VmOpenApiPhoneChannel findPhoneChannel(String id) {
+  public V4VmOpenApiPhoneChannel findPhoneChannel(String id) {
     Map<String, Object> serviceChannelData = loadServiceChannelData(id);
     if (serviceChannelData != null) {
       ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
@@ -81,7 +82,7 @@ public class ServiceChannelResolver {
     return null;
   }
   
-  public VmOpenApiWebPageChannel findWebPageChannel(String id) {
+  public V4VmOpenApiWebPageChannel findWebPageChannel(String id) {
     Map<String, Object> serviceChannelData = loadServiceChannelData(id);
     if (serviceChannelData != null) {
       ServiceChannelType type = resolveServiceChannelType(serviceChannelData);
@@ -110,14 +111,14 @@ public class ServiceChannelResolver {
     return null;
   }
   
-  public VmOpenApiElectronicChannel unserializeElectronicChannel(byte[] channelData) {
+  public V4VmOpenApiElectronicChannel unserializeElectronicChannel(byte[] channelData) {
     if (channelData == null) {
       return null;
     }
     
     ObjectMapper objectMapper = createObjectMapper();
     try {
-      return objectMapper.readValue(channelData, VmOpenApiElectronicChannel.class);
+      return objectMapper.readValue(channelData, V4VmOpenApiElectronicChannel.class);
     } catch (IOException e) {
       logger.log(Level.SEVERE, "Failed to unserialize electronic service channel", e);
     }
@@ -125,14 +126,14 @@ public class ServiceChannelResolver {
     return null;
   }
 
-  public VmOpenApiServiceLocationChannel unserializeServiceLocationChannel(byte[] channelData) {
+  public V4VmOpenApiServiceLocationChannel unserializeServiceLocationChannel(byte[] channelData) {
     if (channelData == null) {
       return null;
     }
     
     ObjectMapper objectMapper = createObjectMapper();
     try {
-      return objectMapper.readValue(channelData, VmOpenApiServiceLocationChannel.class);
+      return objectMapper.readValue(channelData, V4VmOpenApiServiceLocationChannel.class);
     } catch (IOException e) {
       logger.log(Level.SEVERE, "Failed to unserialize service location channel", e);
     }
@@ -140,7 +141,7 @@ public class ServiceChannelResolver {
     return null;
   }
   
-  public VmOpenApiPrintableFormChannel unserializePrintableFormChannel(byte[] channelData) {
+  public V4VmOpenApiPrintableFormChannel unserializePrintableFormChannel(byte[] channelData) {
     if (channelData == null) {
       return null;
     }
@@ -148,7 +149,7 @@ public class ServiceChannelResolver {
     ObjectMapper objectMapper = createObjectMapper();
 
     try {
-      return objectMapper.readValue(channelData, VmOpenApiPrintableFormChannel.class);
+      return objectMapper.readValue(channelData, V4VmOpenApiPrintableFormChannel.class);
     } catch (IOException e) {
       logger.log(Level.SEVERE, "Failed to unserialize printable form service channel", e);
     }
@@ -156,7 +157,7 @@ public class ServiceChannelResolver {
     return null;
   }
   
-  public VmOpenApiPhoneChannel unserializePhoneChannel(byte[] channelData) {
+  public V4VmOpenApiPhoneChannel unserializePhoneChannel(byte[] channelData) {
     if (channelData == null) {
       return null;
     }
@@ -164,7 +165,7 @@ public class ServiceChannelResolver {
     ObjectMapper objectMapper = createObjectMapper();
 
     try {
-      return objectMapper.readValue(channelData, VmOpenApiPhoneChannel.class);
+      return objectMapper.readValue(channelData, V4VmOpenApiPhoneChannel.class);
     } catch (IOException e) {
       logger.log(Level.SEVERE, "Failed to unserialize phone service channel", e);
     }
@@ -172,11 +173,11 @@ public class ServiceChannelResolver {
     return null;
   }
   
-  public VmOpenApiWebPageChannel unserializeWebPageChannel(byte[] channelData) {
+  public V4VmOpenApiWebPageChannel unserializeWebPageChannel(byte[] channelData) {
     ObjectMapper objectMapper = createObjectMapper();
 
     try {
-      return objectMapper.readValue(channelData, VmOpenApiWebPageChannel.class);
+      return objectMapper.readValue(channelData, V4VmOpenApiWebPageChannel.class);
     } catch (IOException e) {
       logger.log(Level.SEVERE, "Failed to unserialize web page service channel", e);
     }
@@ -217,27 +218,27 @@ public class ServiceChannelResolver {
     return null;
   }
 
-  public ServiceChannelIds resolveServiceChannelIds(VmOpenApiService ptvService) {
+  public ServiceChannelIds resolveServiceChannelIds(V4VmOpenApiService ptvService) {
     ServiceChannelIds channelIds = new ServiceChannelIds();
 
-    for (String channelId : ptvService.getServiceChannels()) {
-      ServiceChannelType serviceChannelType = resolveServiceChannelType(channelId);
+    for (V4VmOpenApiServiceServiceChannel ptvChannel : ptvService.getServiceChannels()) {
+      ServiceChannelType serviceChannelType = resolveServiceChannelType(ptvChannel.getServiceChannelId());
       if (serviceChannelType != null) {
         switch (serviceChannelType) {
         case ELECTRONIC_CHANNEL:
-          channelIds.getElectricChannels().add(channelId);
+          channelIds.getElectricChannels().add(ptvChannel.getServiceChannelId());
           break;
         case SERVICE_LOCATION:
-          channelIds.getLocationServiceChannels().add(channelId);
+          channelIds.getLocationServiceChannels().add(ptvChannel.getServiceChannelId());
           break;
         case PRINTABLE_FORM:
-          channelIds.getPrintableFormChannels().add(channelId);
+          channelIds.getPrintableFormChannels().add(ptvChannel.getServiceChannelId());
           break;
         case PHONE:
-          channelIds.getPhoneChannels().add(channelId);
+          channelIds.getPhoneChannels().add(ptvChannel.getServiceChannelId());
           break;
         case WEB_PAGE:
-          channelIds.getWebPageChannels().add(channelId);
+          channelIds.getWebPageChannels().add(ptvChannel.getServiceChannelId());
           break;
         default:
           logger.log(Level.SEVERE, () -> String.format("Unknown service channel type %s", serviceChannelType));

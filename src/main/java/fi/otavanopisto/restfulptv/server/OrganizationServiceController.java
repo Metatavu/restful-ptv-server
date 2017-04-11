@@ -12,8 +12,8 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
-import fi.metatavu.ptv.client.model.VmOpenApiOrganizationService;
+import fi.metatavu.ptv.client.model.V4VmOpenApiOrganization;
+import fi.metatavu.ptv.client.model.V4VmOpenApiOrganizationService;
 import fi.metatavu.restfulptv.server.rest.model.OrganizationService;
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
@@ -72,9 +72,9 @@ public class OrganizationServiceController implements Serializable {
   }
 
   private OrganizationService findOrganizationServiceFromPtv(String organizationId, String serviceId) {
-    ApiResponse<VmOpenApiOrganization> organizationResponse = ptvApi.getOrganizationApi().apiOrganizationByIdGet(organizationId);
+    ApiResponse<V4VmOpenApiOrganization> organizationResponse = ptvApi.getOrganizationApi().apiV4OrganizationByIdGet(organizationId);
     if (organizationResponse.isOk()) {
-      for (VmOpenApiOrganizationService organizationService : organizationResponse.getResponse().getServices()) {
+      for (V4VmOpenApiOrganizationService organizationService : organizationResponse.getResponse().getServices()) {
         if (StringUtils.equals(organizationService.getServiceId(), serviceId)) {
           return ptvTranslator.translateOrganizationService(organizationService);
         }

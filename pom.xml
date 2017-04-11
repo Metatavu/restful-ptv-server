@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>fi.metatavu</groupId>
   <artifactId>restful-ptv-server</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
+  <version>1.4.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>RESTful PTV Server</description>
@@ -66,11 +66,11 @@
     
     <!-- PTV -->
     
-    <ptv-rest-client.version>0.0.16</ptv-rest-client.version>
+    <ptv-rest-client.version>0.4.0</ptv-rest-client.version>
     
     <!-- RESTful PTV -->
     
-    <restful-ptv-spec.version>1.2.13</restful-ptv-spec.version>
+    <restful-ptv-spec.version>1.4.9</restful-ptv-spec.version>
     
     <!-- Test -->
     

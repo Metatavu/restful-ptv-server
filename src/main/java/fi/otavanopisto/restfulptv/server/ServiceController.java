@@ -2,6 +2,7 @@ package fi.otavanopisto.restfulptv.server;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,8 +11,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiService;
+import fi.metatavu.ptv.client.model.V4VmOpenApiService;
 import fi.metatavu.restfulptv.server.rest.model.Service;
+import fi.metatavu.restfulptv.server.rest.model.ServiceOrganization;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.servicechannels.ServiceChannelResolver;
 import fi.otavanopisto.restfulptv.server.services.ServiceCache;
@@ -43,9 +45,9 @@ public class ServiceController implements Serializable {
       return serviceCache.get(id);
     }
 
-    ApiResponse<VmOpenApiService> response = ptvApi.getServiceApi().apiServiceByIdGet(id);
+    ApiResponse<V4VmOpenApiService> response = ptvApi.getServiceApi().apiV4ServiceByIdGet(id);
     if (response.isOk()) {
-      VmOpenApiService ptvService = response.getResponse();
+      V4VmOpenApiService ptvService = response.getResponse();
       ServiceChannelIds serviceChannelIds = serviceChannelResolver.resolveServiceChannelIds(ptvService);
       return ptvTranslator.translateService(ptvService, serviceChannelIds);
     }
@@ -64,7 +66,8 @@ public class ServiceController implements Serializable {
     for (String id : ids.subList(firstIndex, toIndex)) {
       Service service = findServiceById(id);
       if (service != null) {
-        if (organizationId == null || (service.getOrganizationIds() != null && service.getOrganizationIds().contains(organizationId))) {
+        List<String> organizationIds = getServiceOrganizationIds(service);
+        if (organizationId == null || organizationIds.contains(organizationId)) {
           result.add(service);
         }
       } else {
@@ -73,6 +76,20 @@ public class ServiceController implements Serializable {
     }
     
     return result;
+  }
+
+  private List<String> getServiceOrganizationIds(Service service) {
+    List<ServiceOrganization> serviceOrganizations = service.getOrganizations();
+    if (serviceOrganizations == null) {
+      return Collections.emptyList();
+    } else {
+      List<String> organizationIds = new ArrayList<>(serviceOrganizations.size());
+      for (ServiceOrganization serviceOrganization : serviceOrganizations) {
+        organizationIds.add(serviceOrganization.getOrganizationId());
+      }
+      
+      return organizationIds;
+    }
   }
   
 }

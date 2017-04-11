@@ -23,8 +23,8 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
-import fi.metatavu.ptv.client.model.VmOpenApiOrganizationService;
+import fi.metatavu.ptv.client.model.V4VmOpenApiOrganization;
+import fi.metatavu.ptv.client.model.V4VmOpenApiOrganizationService;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceIdUpdateRequest;
@@ -136,14 +136,14 @@ public class OrganizationEntityUpdater extends EntityUpdater {
       logger.log(Level.WARNING, () -> String.format("Could not remove %s from queue", entityId));
     }
 
-    ApiResponse<VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiOrganizationByIdGet(entityId);
+    ApiResponse<V4VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiV4OrganizationByIdGet(entityId);
     if (response.isOk()) {
-      VmOpenApiOrganization organization = response.getResponse();
+      V4VmOpenApiOrganization organization = response.getResponse();
       cacheResponse(entityId, organization);
-      List<VmOpenApiOrganizationService> services = organization.getServices();
+      List<V4VmOpenApiOrganizationService> services = organization.getServices();
       
       if (services != null && !services.isEmpty())  {
-        for (VmOpenApiOrganizationService service : services) {
+        for (V4VmOpenApiOrganizationService service : services) {
           String organizationId = service.getOrganizationId();
           String serviceId = service.getServiceId();
           String id = String.format("%s+%s", organizationId, serviceId);
@@ -156,7 +156,7 @@ public class OrganizationEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cacheResponse(String entityId, VmOpenApiOrganization ptvOrganization) {
+  private void cacheResponse(String entityId, V4VmOpenApiOrganization ptvOrganization) {
     Organization organization = ptvTranslator.translateOrganization(ptvOrganization);
     if (organization != null) {
       organizationCache.put(entityId, organization);

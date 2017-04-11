@@ -23,8 +23,8 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
-import fi.metatavu.ptv.client.model.VmOpenApiOrganizationService;
+import fi.metatavu.ptv.client.model.V4VmOpenApiOrganization;
+import fi.metatavu.ptv.client.model.V4VmOpenApiOrganizationService;
 import fi.otavanopisto.restfulptv.server.PtvTranslator;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.metatavu.restfulptv.server.rest.model.OrganizationService;
@@ -139,9 +139,9 @@ public class OrganizationServiceEntityUpdater extends EntityUpdater {
     String organizationId = idParts[0];
     String serviceId = idParts[1];
     
-    ApiResponse<VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiOrganizationByIdGet(organizationId);
+    ApiResponse<V4VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiV4OrganizationByIdGet(organizationId);
     if (response.isOk()) {
-      for (VmOpenApiOrganizationService organizationService : response.getResponse().getServices()) {
+      for (V4VmOpenApiOrganizationService organizationService : response.getResponse().getServices()) {
         if (StringUtils.equals(organizationService.getServiceId(), serviceId)) {
           cacheResponse(entityId, organizationService);
           return;
@@ -154,7 +154,7 @@ public class OrganizationServiceEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cacheResponse(String entityId, VmOpenApiOrganizationService ptvOrganizationService) {
+  private void cacheResponse(String entityId, V4VmOpenApiOrganizationService ptvOrganizationService) {
     OrganizationService organizationService = ptvTranslator.translateOrganizationService(ptvOrganizationService);
     if (organizationService != null) {
       organizationServiceCache.put(entityId, organizationService);

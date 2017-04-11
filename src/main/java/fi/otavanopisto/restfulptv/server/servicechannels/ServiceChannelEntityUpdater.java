@@ -21,11 +21,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiElectronicChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiPhoneChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiServiceLocationChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiWebPageChannel;
 import fi.metatavu.restfulptv.server.rest.model.ElectronicServiceChannel;
 import fi.metatavu.restfulptv.server.rest.model.PhoneServiceChannel;
 import fi.metatavu.restfulptv.server.rest.model.PrintableFormServiceChannel;
@@ -186,7 +186,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cacheElectronicChannel(VmOpenApiElectronicChannel ptvElectronicChannel) {
+  private void cacheElectronicChannel(V4VmOpenApiElectronicChannel ptvElectronicChannel) {
     logger.log(Level.FINE, () -> String.format("Updating electronic service channel %s", ptvElectronicChannel.getId()));
 
     ElectronicServiceChannel electronicChannel = ptvTranslator.translateElectronicChannel(ptvElectronicChannel);
@@ -197,7 +197,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cacheServiceLocationChannel(VmOpenApiServiceLocationChannel ptvServiceLocationChannel) {
+  private void cacheServiceLocationChannel(V4VmOpenApiServiceLocationChannel ptvServiceLocationChannel) {
     logger.log(Level.FINE, () -> String.format("Updating serviceLocation service channel %s", ptvServiceLocationChannel.getId()));
 
     ServiceLocationServiceChannel serviceLocationChannel = ptvTranslator
@@ -209,7 +209,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cachePrintableFormChannel(VmOpenApiPrintableFormChannel ptvPrintableFormChannel) {
+  private void cachePrintableFormChannel(V4VmOpenApiPrintableFormChannel ptvPrintableFormChannel) {
     logger.log(Level.FINE, () -> String.format("Updating printableForm service channel %s", ptvPrintableFormChannel.getId()));
 
     PrintableFormServiceChannel printableFormChannel = ptvTranslator.translatePrintableFormChannel(ptvPrintableFormChannel);
@@ -220,7 +220,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cachePhoneChannel(VmOpenApiPhoneChannel ptvPhoneChannel) {
+  private void cachePhoneChannel(V4VmOpenApiPhoneChannel ptvPhoneChannel) {
     logger.log(Level.FINE, () -> String.format("Updating phone service channel %s", ptvPhoneChannel.getId()));
 
     PhoneServiceChannel phoneChannel = ptvTranslator.translatePhoneChannel(ptvPhoneChannel);
@@ -231,7 +231,7 @@ public class ServiceChannelEntityUpdater extends EntityUpdater {
     }
   }
 
-  private void cacheWebPageChannel(VmOpenApiWebPageChannel ptvWebPageChannel) {
+  private void cacheWebPageChannel(V4VmOpenApiWebPageChannel ptvWebPageChannel) {
     logger.log(Level.FINE, () -> String.format("Updating webPage service channel %s", ptvWebPageChannel.getId()));
 
     WebPageServiceChannel webPageChannel = ptvTranslator.translateWebPageChannel(ptvWebPageChannel);

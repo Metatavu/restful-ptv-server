@@ -10,7 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiGeneralDescription;
+import fi.metatavu.ptv.client.model.V4VmOpenApiGeneralDescription;
 import fi.metatavu.restfulptv.server.rest.model.StatutoryDescription;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.statutorydescriptions.StatutoryDescriptionCache;
@@ -38,7 +38,7 @@ public class StatutoryDescriptionController implements Serializable {
       return statutoryDescriptionCache.get(id);
     }
     
-    ApiResponse<VmOpenApiGeneralDescription> response = ptvApi.getGeneralDescriptionApi().apiGeneralDescriptionByIdGet(id);
+    ApiResponse<V4VmOpenApiGeneralDescription> response = ptvApi.getGeneralDescriptionApi().apiV4GeneralDescriptionByIdGet(id);
     if (response.isOk()) {
       return ptvTranslator.translateStatutoryDescription(response.getResponse());
     }

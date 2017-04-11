@@ -9,11 +9,11 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import fi.metatavu.ptv.client.model.VmOpenApiElectronicChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiPhoneChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiPrintableFormChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiServiceLocationChannel;
-import fi.metatavu.ptv.client.model.VmOpenApiWebPageChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiElectronicChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiPhoneChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiPrintableFormChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiServiceLocationChannel;
+import fi.metatavu.ptv.client.model.V4VmOpenApiWebPageChannel;
 import fi.metatavu.restfulptv.server.rest.model.ElectronicServiceChannel;
 import fi.metatavu.restfulptv.server.rest.model.PhoneServiceChannel;
 import fi.metatavu.restfulptv.server.rest.model.PrintableFormServiceChannel;
@@ -66,7 +66,7 @@ public class ServiceChannelController implements Serializable {
       return electronicServiceChannelCache.get(id);
     }
     
-    VmOpenApiElectronicChannel channel = serviceChannelResolver.findElectronicChannel(id);
+    V4VmOpenApiElectronicChannel channel = serviceChannelResolver.findElectronicChannel(id);
     if (channel != null) {
       return ptvTranslator.translateElectronicChannel(channel);
     }
@@ -79,7 +79,7 @@ public class ServiceChannelController implements Serializable {
       return locationServiceChannelCache.get(id);
     }
     
-    VmOpenApiServiceLocationChannel channel = serviceChannelResolver.findServiceLocationChannel(id);
+    V4VmOpenApiServiceLocationChannel channel = serviceChannelResolver.findServiceLocationChannel(id);
     if (channel != null) {
       return ptvTranslator.translateServiceLocationChannel(channel);
     }
@@ -92,7 +92,7 @@ public class ServiceChannelController implements Serializable {
       return printableFormServiceChannelCache.get(id);
     }
     
-    VmOpenApiPrintableFormChannel channel = serviceChannelResolver.findPrintableFormChannel(id);
+    V4VmOpenApiPrintableFormChannel channel = serviceChannelResolver.findPrintableFormChannel(id);
     if (channel != null) {
       return ptvTranslator.translatePrintableFormChannel(channel);
     }
@@ -105,7 +105,7 @@ public class ServiceChannelController implements Serializable {
       return phoneServiceChannelCache.get(id);
     }
     
-    VmOpenApiPhoneChannel channel = serviceChannelResolver.findPhoneChannel(id);
+    V4VmOpenApiPhoneChannel channel = serviceChannelResolver.findPhoneChannel(id);
     if (channel != null) {
       return ptvTranslator.translatePhoneChannel(channel);
     }
@@ -118,7 +118,7 @@ public class ServiceChannelController implements Serializable {
       return webPageChannelCache.get(id);
     }
 
-    VmOpenApiWebPageChannel channel = serviceChannelResolver.findWebPageChannel(id);
+    V4VmOpenApiWebPageChannel channel = serviceChannelResolver.findWebPageChannel(id);
     if (channel != null) {
       return ptvTranslator.translateWebPageChannel(channel);
     }

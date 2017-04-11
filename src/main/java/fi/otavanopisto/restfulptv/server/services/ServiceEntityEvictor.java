@@ -19,7 +19,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiService;
+import fi.metatavu.ptv.client.model.V4VmOpenApiService;
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityEvictor;
@@ -117,7 +117,7 @@ public class ServiceEntityEvictor extends EntityEvictor {
   }
 
   private void checkService(String serviceId) {
-    ApiResponse<VmOpenApiService> response = ptvApi.getServiceApi().apiServiceByIdGet(serviceId);
+    ApiResponse<V4VmOpenApiService> response = ptvApi.getServiceApi().apiV4ServiceByIdGet(serviceId);
     if (response.getStatus() == 404) {
       evictService(serviceId);
     }

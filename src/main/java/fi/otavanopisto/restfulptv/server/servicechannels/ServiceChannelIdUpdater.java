@@ -1,6 +1,7 @@
 package fi.otavanopisto.restfulptv.server.servicechannels;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,7 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiGuidPage;
+import fi.metatavu.ptv.client.model.V3VmOpenApiGuidPage;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.schedulers.IdUpdater;
 import fi.otavanopisto.restfulptv.server.system.SystemUtils;
@@ -26,7 +27,7 @@ import fi.otavanopisto.restfulptv.server.system.SystemUtils;
 @Singleton
 @AccessTimeout (unit = TimeUnit.HOURS, value = 1l)
 @SuppressWarnings("squid:S3306")
-public class ServiceChannelIdUpdater implements IdUpdater {
+public class ServiceChannelIdUpdater extends IdUpdater {
 
   private static final int WARMUP_TIME = 1000 * 10;
   private static final int TIMER_INTERVAL = 5000;
@@ -100,13 +101,14 @@ public class ServiceChannelIdUpdater implements IdUpdater {
     } else {
       logger.log(Level.FINE, () -> String.format("Updating serviceChannels page %d", page + 1));
     }
-
-    ApiResponse<VmOpenApiGuidPage> response = ptvApi.getServiceChannelApi().apiServiceChannelGet(null, page);
+    
+    ApiResponse<V3VmOpenApiGuidPage> response = ptvApi.getServiceChannelApi().apiV4ServiceChannelGet(null, page);
     if (response.isOk()) {
-      VmOpenApiGuidPage pageData = response.getResponse();
-
-      updateRequest.fire(new ServiceChannelIdUpdateRequest(pageData.getGuidList(), false));
-      discoverCount += pageData.getGuidList().size();
+      V3VmOpenApiGuidPage pageData = response.getResponse();
+      List<String> ids = getItemListIds(pageData.getItemList());
+      
+      updateRequest.fire(new ServiceChannelIdUpdateRequest(ids, false));
+      discoverCount += ids.size();
       
       pageCount = pageData.getPageCount();
       hasMore = pageCount > page + 1;
@@ -130,11 +132,13 @@ public class ServiceChannelIdUpdater implements IdUpdater {
     int discoverCount = 0;
     logger.fine("Updating priority serviceChannels");
 
-    ApiResponse<VmOpenApiGuidPage> response = ptvApi.getServiceChannelApi().apiServiceChannelGet(priortyScanTime, 0);
+    ApiResponse<V3VmOpenApiGuidPage> response = ptvApi.getServiceChannelApi().apiV4ServiceChannelGet(priortyScanTime, 0);
     if (response.isOk()) {
-      VmOpenApiGuidPage pageData = response.getResponse();
-      updateRequest.fire(new ServiceChannelIdUpdateRequest(pageData.getGuidList(), true));
-      discoverCount += pageData.getGuidList().size();
+      V3VmOpenApiGuidPage pageData = response.getResponse();
+      List<String> ids = getItemListIds(pageData.getItemList());
+      
+      updateRequest.fire(new ServiceChannelIdUpdateRequest(ids, true));
+      discoverCount += ids.size();
       
       pageCount = pageData.getPageCount();
 

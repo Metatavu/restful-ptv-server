@@ -19,7 +19,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import fi.metatavu.ptv.client.ApiResponse;
-import fi.metatavu.ptv.client.model.VmOpenApiOrganization;
+import fi.metatavu.ptv.client.model.V4VmOpenApiOrganization;
 import fi.otavanopisto.restfulptv.server.organizationservices.OrganizationServiceCache;
 import fi.otavanopisto.restfulptv.server.ptv.PtvApi;
 import fi.otavanopisto.restfulptv.server.schedulers.EntityEvictor;
@@ -94,7 +94,7 @@ public class OrganizationEntityEvictor extends EntityEvictor {
   }
 
   private void checkOrganization(String organizationId) {
-    ApiResponse<VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiOrganizationByIdGet(organizationId);
+    ApiResponse<V4VmOpenApiOrganization> response = ptvApi.getOrganizationApi().apiV4OrganizationByIdGet(organizationId);
     if (response.getStatus() == 404) {
       //evictOrganization(organizationId);
     }
