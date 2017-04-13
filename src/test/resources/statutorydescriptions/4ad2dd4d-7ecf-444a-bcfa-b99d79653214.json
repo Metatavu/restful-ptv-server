@@ -1,77 +1,130 @@
 {
-  "id": "4ad2dd4d-7ecf-444a-bcfa-b99d79653214",
-  "names": [
+  "id":"4ad2dd4d-7ecf-444a-bcfa-b99d79653214",
+  "names":[
     {
-      "language": "fi",
-      "value": "Kunnallinen päiväkotihoito",
-      "type": "Name"
+      "language":"fi",
+      "value":"Korjausavustukset",
+      "type":"Name"
     }
   ],
-  "descriptions": [
+  "descriptions":[
     {
-      "language": "fi",
-      "value": "Alle 7-vuotiaat lapset voivat saada päivähoitoa kunnan järjestämänä. Käytännössä päivähoitoa järjestävät kunnat yksin tai yhdessä, yksityiset toimijat, järjestöt ja muut yhteisöt, joilta kunta ostaa palvelun. \n\nVarhaiskasvatuksen tavoitteena on tukea lapsen kasvua, kehitystä ja oppimista sekä edistää tämän hyvinvointia. Jokainen lapsi saa päivähoidossa varhaiskasvatussuunnitelman. \n\nKunnallinen päiväkotihoito voi olla joko kokopäiväistä (enintään 10h/vrk) tai osapäiväistä. Vanhempien tulee hakea päiväkotipaikkaa lapselle viimeistään neljä kuukautta ennen päivähoidossa aloittamista. Päivähoito on maksullista. Maksun suuruuteen vaikuttavat perheen koko, tulot ja hoitopäivien pituus.",
-      "type": "Description"
+      "language":"fi",
+      "value":"Taloudellisiin vaikeuksiin joutunut kuntalainen voi saada asuntonsa korjaamiseen korjausavustusta.",
+      "type":"ShortDescription"
     },
     {
-      "language": "fi",
-      "value": "Alle 7-vuotiaat lapset voivat saada päivähoitoa kunnan järjestämänä.",
-      "type": "ShortDescription"
+      "language":"fi",
+      "value":"Taloudellisiin vaikeuksiin joutunut kuntalainen voi saada asuntonsa korjaamiseen korjausavustusta. Valtion varoista maksettavan avustuksen myöntämisestä päättää kunta. Joissakin tapauksissa päätöksen tekee Asumisen rahoitus- ja kehittämiskeskus ARA.\n\nKorjausavustuspäätöstä tehtäessä otetaan huomioon hakijan elämäntilanne kokonaisuutena. Avustusten myöntämisessä käytetään tarveharkintaa eli asunnossa asuvien yhteenlasketut tulot ja varallisuus vaikuttavat siihen, voiko avustusta saada.\n\nKorjausavustusta voi saada asuntoon, jossa asutaan kokovuotisesti. Hakijan tulee pääsääntöisesti olla rakennuksen, asunnon tai asunto-osakkeiden omistaja. Hankkeen kustannusten tulee olla kohtuullisia. \n\nKunta voi myöntää avustusta vanhusten ja vammaisten asuntojen korjaamiseen sekä jätevesijärjestelmän rakentamiseen vesihuoltolaitosten toiminta-alueen ulkopuolella.",
+      "type":"Description"
     }
   ],
-  "languages": [
+  "languages":[
     "fi"
   ],
-  "serviceClasses": [
+  "serviceClasses":[
     {
-      "id": "d9bb03c1-293a-4bcd-a97e-24934c44cbae",
-      "name": "Lasten päivähoito",
-      "code": "P3.4",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:P3.4",
-      "parentId": "85d66b1d-a8a1-4eca-823e-8701a6b3d452",
-      "parentUri": null
+      "name":[
+        {
+          "value":"Korjaus- ja energia-avustukset",
+          "language":"fi"
+        },
+        {
+          "value":"Reparations- och energibidrag",
+          "language":"sv"
+        },
+        {
+          "value":"Renovation and energy grants",
+          "language":"en"
+        }
+      ],
+      "code":"P2.2",
+      "ontologyType":"PTVL",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:P2.2",
+      "parentId":"5674a71e-9925-4089-a9ce-4c58cf9eaad9",
+      "parentUri":"http://urn.fi/URN:NBN:fi:au:ptvl:P2"
     }
   ],
-  "ontologyTerms": [
+  "ontologyTerms":[
+
+  ],
+  "targetGroups":[
     {
-      "id": "a1de26cd-93cd-4612-8ea2-6abccff4defd",
-      "name": "kunnalliset päiväkodit",
-      "code": "",
-      "ontologyType": null,
-      "uri": "http://www.yso.fi/onto/jupo/p1075",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"Kansalaiset",
+          "language":"fi"
+        },
+        {
+          "value":"Citizens",
+          "language":"en"
+        },
+        {
+          "value":"Medborgare",
+          "language":"sv"
+        }
+      ],
+      "code":"KR1",
+      "ontologyType":"TARGETGROUP",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
+      "parentId":null,
+      "parentUri":""
     },
     {
-      "id": "1bc39c64-5328-4ebe-b57b-584e198c0def",
-      "name": "päiväkotihoito",
-      "code": "",
-      "ontologyType": null,
-      "uri": "http://www.yso.fi/onto/jupo/p546",
-      "parentId": null,
-      "parentUri": null
-    }
-  ],
-  "targetGroups": [
-    {
-      "id": "eaa41431-d4f9-4fb1-9af5-923b360785a6",
-      "name": "Lapset ja lapsiperheet",
-      "code": "KR1.2",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR1.2",
-      "parentId": "bf7e1aed-a2a0-484b-ba05-004db883bd71",
-      "parentUri": null
+      "name":[
+        {
+          "value":"Seniors",
+          "language":"en"
+        },
+        {
+          "value":"De äldre",
+          "language":"sv"
+        },
+        {
+          "value":"Ikäihmiset",
+          "language":"fi"
+        }
+      ],
+      "code":"KR1.1",
+      "ontologyType":"TARGETGROUP",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1.1",
+      "parentId":"07e55fa9-0455-4238-8e7d-5fdbfba431b6",
+      "parentUri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1"
     },
     {
-      "id": "bf7e1aed-a2a0-484b-ba05-004db883bd71",
-      "name": "Kansalaiset",
-      "code": "KR1",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"Handikappade",
+          "language":"sv"
+        },
+        {
+          "value":"Disabled people",
+          "language":"en"
+        },
+        {
+          "value":"Vammaiset",
+          "language":"fi"
+        }
+      ],
+      "code":"KR1.6",
+      "ontologyType":"TARGETGROUP",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1.6",
+      "parentId":"07e55fa9-0455-4238-8e7d-5fdbfba431b6",
+      "parentUri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1"
     }
   ],
-  "lifeEvents": []
+  "lifeEvents":[
+
+  ],
+  "industrialClasses":[
+
+  ],
+  "requirements":[
+
+  ],
+  "type":"Service",
+  "serviceChargeType":null,
+  "legislation":[
+
+  ]
 }

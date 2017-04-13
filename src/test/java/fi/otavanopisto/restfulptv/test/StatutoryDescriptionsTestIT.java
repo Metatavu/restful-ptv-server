@@ -2,6 +2,7 @@ package fi.otavanopisto.restfulptv.test;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,46 +37,49 @@ public class StatutoryDescriptionsTestIT extends AbstractIntegrationTest {
       .assertThat()
       .statusCode(200)
       .body("id", is("55167777-e95d-4379-9677-6b90841c01c6"))
-      .body("names.size()", is(1))
+      .body("names.size()", is(3))
       .body("names[0].language", is("fi"))
-      .body("names[0].value", is("Maakuntakaavoitukseen vaikuttaminen"))
+      .body("names[0].value", is("Kulttuuriin liittyvän kansalaistoiminnan tuki ja avustukset"))
       .body("names[0].type", is("Name"))
       
-      .body("descriptions.size()", is(2))
-      .body("descriptions[0].language", is("fi"))
-      .body("descriptions[0].value", is("Maakuntakaava on yleispiirteinen suunnitelma kaavassa mukana olevien kuntien alueiden käytöstä."))
-      .body("descriptions[0].type", is("ShortDescription"))
+      .body("descriptions.size()", is(11))
+      .body("descriptions[0].language", is("en"))
+      .body("descriptions[0].value", is("Organisations, foundations, institutes and other communities operating in a municipality may receive grants from the municipality and the central government for engaging in and promoting cultural activities. The tasks of the municipality include supporting cultural activities within its area."))
+      .body("descriptions[0].type", is("Description"))
       
       .body("serviceClasses.size()", is(1))
-      .body("serviceClasses[0].id", is("6639e905-f70a-46f2-9531-29c809237f5f"))
-      .body("serviceClasses[0].name", is("Maankäyttö, kaavoitus ja tontit"))
-      .body("serviceClasses[0].code", is("P2.3"))
-      .body("serviceClasses[0].ontologyType", is((String) null))
-      .body("serviceClasses[0].uri", is("http://urn.fi/URN:NBN:fi:au:ptvl:P2.3"))
-      .body("serviceClasses[0].parentId", is("d289e556-a8f3-471d-9d4d-505be08099c4"))
-      .body("serviceClasses[0].parentUri", is((String) null))
+      .body("serviceClasses[0].names.size()", is(3))
+      .body("serviceClasses[0].names[0].value", is("Taiteet"))
+      .body("serviceClasses[0].names[0].language", is("fi"))
+      .body("serviceClasses[0].code", is("P25.2"))
+      .body("serviceClasses[0].ontologyType", is("PTVL"))
+      .body("serviceClasses[0].uri", is("http://urn.fi/URN:NBN:fi:au:ptvl:P25.2"))
+      .body("serviceClasses[0].parentId", is("9a184e7d-bb6d-4564-8646-3e9f4e88a643"))
+      .body("serviceClasses[0].parentUri", is("http://urn.fi/URN:NBN:fi:au:ptvl:P25"))
       
       .body("languages.size()", is(1))
       .body("languages[0]", is("fi"))
-      
+
       .body("ontologyTerms.size()", is(2))
-      .body("ontologyTerms[0].id", is("f522e018-5394-434b-bcec-308fc4c50245"))
-      .body("ontologyTerms[0].name", is("maakuntakaavat"))
+      .body("ontologyTerms[0].names.size()", is(3))
+      .body("ontologyTerms[0].names[0].value", is("kulttuuritoiminta"))
+      .body("ontologyTerms[0].names[0].language", is("fi"))
       .body("ontologyTerms[0].code", is(""))
-      .body("ontologyTerms[0].ontologyType", is((String) null))
-      .body("ontologyTerms[0].uri", is("http://www.yso.fi/onto/jupo/p1101"))
-      .body("ontologyTerms[0].parentId", is((String) null))
-      .body("ontologyTerms[0].parentUri", is((String) null))
-      
-      .body("targetGroups.size()", is(2))
-      .body("targetGroups[0].id", is("bf7e1aed-a2a0-484b-ba05-004db883bd71"))
-      .body("targetGroups[0].name", is("Kansalaiset"))
+      .body("ontologyTerms[0].ontologyType", is("YSO"))
+      .body("ontologyTerms[0].uri", is("http://www.yso.fi/onto/koko/p12"))
+      .body("ontologyTerms[0].parentId", nullValue())
+      .body("ontologyTerms[0].parentUri", is("http://www.yso.fi/onto/koko/p34717;http://www.yso.fi/onto/koko/p35878"))
+
+      .body("targetGroups.size()", is(3))
+      .body("targetGroups[0].names.size()", is(3))
+      .body("targetGroups[0].names[0].value", is("Kansalaiset"))
+      .body("targetGroups[0].names[0].language", is("fi"))
       .body("targetGroups[0].code", is("KR1"))
-      .body("targetGroups[0].ontologyType", is((String) null))
+      .body("targetGroups[0].ontologyType", is("TARGETGROUP"))
       .body("targetGroups[0].uri", is("http://urn.fi/URN:NBN:fi:au:ptvl:KR1"))
-      .body("targetGroups[0].parentId", is((String) null))
-      .body("targetGroups[0].parentUri", is((String) null))
-      
+      .body("targetGroups[0].parentId", nullValue())
+      .body("targetGroups[0].parentUri", is(""))
+     
       .body("lifeEvents.size()", is(0));
   }
   
@@ -92,7 +96,7 @@ public class StatutoryDescriptionsTestIT extends AbstractIntegrationTest {
       .body("id[1]", is("4ad2dd4d-7ecf-444a-bcfa-b99d79653214"))
       .body("names[1].size()", is(1))
       .body("names[1][0].language", is("fi"))
-      .body("names[1][0].value", is("Kunnallinen päiväkotihoito"))
+      .body("names[1][0].value", is("Korjausavustukset"))
       .body("names[1][0].type", is("Name"))
       
       .body("descriptions[1].size()", is(2))

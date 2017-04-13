@@ -1,77 +1,260 @@
 {
-  "id": "55167777-e95d-4379-9677-6b90841c01c6",
-  "names": [
+  "id":"55167777-e95d-4379-9677-6b90841c01c6",
+  "names":[
     {
-      "language": "fi",
-      "value": "Maakuntakaavoitukseen vaikuttaminen",
-      "type": "Name"
-    }
-  ],
-  "descriptions": [
-    {
-      "language": "fi",
-      "value": "Maakuntakaava on yleispiirteinen suunnitelma kaavassa mukana olevien kuntien alueiden käytöstä.",
-      "type": "ShortDescription"
+      "language":"fi",
+      "value":"Kulttuuriin liittyvän kansalaistoiminnan tuki ja avustukset",
+      "type":"Name"
     },
     {
-      "language": "fi",
-      "value": "Kaikilla, joiden oloihin tai etuihin maakuntakaavoitus vaikuttaa, on oikeus osallistua maakunnan kaavoitusprosessiin ja vaikuttaa siihen osaltaan. \n\nMaakuntakaava on yleispiirteinen suunnitelma kaavassa mukana olevien kuntien alueiden käytöstä. Siinä esitetään alueiden käytön ja yhdyskuntarakenteen periaatteet ja osoitetaan alueita, joiden kehittäminen katsotaan eri syistä tarpeelliseksi. \n\nMaakuntakaavan laatimisesta ja muusta maakunnan suunnittelusta huolehtii kuntayhtymä eli maakunnan liitto, jossa alueen kuntien on oltava jäseninä. Maakuntakaava voidaan laatia myös vaiheittain tai osa-alueittain.",
-      "type": "Description"
+      "language":"sv",
+      "value":"Understöd och bidrag för kulturrelaterad medborgarverksamhet",
+      "type":"Name"
+    },
+    {
+      "language":"en",
+      "value":"Support and grants for cultural non-governmental activities",
+      "type":"Name"
     }
   ],
-  "languages": [
+  "descriptions":[
+    {
+      "language":"en",
+      "value":"Organisations, foundations, institutes and other communities operating in a municipality may receive grants from the municipality and the central government for engaging in and promoting cultural activities. The tasks of the municipality include supporting cultural activities within its area.",
+      "type":"Description"
+    },
+    {
+      "language":"fi",
+      "value":"Yhdistykset, säätiöt, laitokset ja muut kunnassa toimivat yhteisöt voivat saada kulttuuritoiminnan harjoittamiseen ja edistämiseen avustuksia kunnalta ja valtiolta. Kunnan tehtävänä on tukea kulttuuritoimintaa kunnassa.",
+      "type":"Description"
+    },
+    {
+      "language":"fi",
+      "value":"Yhdistykset, säätiöt, laitokset ja muut yhteisöt voivat saada kulttuuritoiminnan harjoittamiseen ja edistämiseen avustuksia kunnalta ja valtiolta.",
+      "type":"ShortDescription"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"ValidityTimeAdditionalInfo"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"ProcessingTimeAdditionalInfo"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"ServiceUserInstruction"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"ChargeTypeAdditionalInfo"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"DeadLineAdditionalInfo"
+    },
+    {
+      "language":"sv",
+      "value":"Föreningar, stiftelser, instanser och övriga samfund kan få bidrag av kommunen och staten för utövande och främjande av kulturverksamhet.",
+      "type":"ShortDescription"
+    },
+    {
+      "language":"en",
+      "value":"Organisations, foundations, institutes and other communities may receive grants from the municipality and the central government for engaging in and promoting cultural activities.",
+      "type":"ShortDescription"
+    },
+    {
+      "language":"sv",
+      "value":"Föreningar, stiftelser, instanser och övriga samfund som är verksamma inom kommunen kan få bidrag av kommunen och staten för utövande och främjande av kulturverksamhet. Kommunens uppgift är att stöda kulturell verksamhet i kommunen.",
+      "type":"Description"
+    }
+  ],
+  "languages":[
     "fi"
   ],
-  "serviceClasses": [
+  "serviceClasses":[
     {
-      "id": "6639e905-f70a-46f2-9531-29c809237f5f",
-      "name": "Maankäyttö, kaavoitus ja tontit",
-      "code": "P2.3",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:P2.3",
-      "parentId": "d289e556-a8f3-471d-9d4d-505be08099c4",
-      "parentUri": null
+      "name":[
+        {
+          "value":"Taiteet",
+          "language":"fi"
+        },
+        {
+          "value":"Arts",
+          "language":"en"
+        },
+        {
+          "value":"Konst",
+          "language":"sv"
+        }
+      ],
+      "code":"P25.2",
+      "ontologyType":"PTVL",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:P25.2",
+      "parentId":"9a184e7d-bb6d-4564-8646-3e9f4e88a643",
+      "parentUri":"http://urn.fi/URN:NBN:fi:au:ptvl:P25"
     }
   ],
-  "ontologyTerms": [
+  "ontologyTerms":[
     {
-      "id": "f522e018-5394-434b-bcec-308fc4c50245",
-      "name": "maakuntakaavat",
-      "code": "",
-      "ontologyType": null,
-      "uri": "http://www.yso.fi/onto/jupo/p1101",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"kulttuuritoiminta",
+          "language":"fi"
+        },
+        {
+          "value":"kulturverksamhet",
+          "language":"sv"
+        },
+        {
+          "value":"cultural activity",
+          "language":"en"
+        }
+      ],
+      "code":"",
+      "ontologyType":"YSO",
+      "uri":"http://www.yso.fi/onto/koko/p12",
+      "parentId":null,
+      "parentUri":"http://www.yso.fi/onto/koko/p34717;http://www.yso.fi/onto/koko/p35878"
     },
     {
-      "id": "69a8cdd5-f222-4ee5-9be5-d7a37659eefe",
-      "name": "maakuntakaavoitus",
-      "code": "",
-      "ontologyType": null,
-      "uri": "http://www.yso.fi/onto/yso/p12274",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"understöd (bidrag)",
+          "language":"sv"
+        },
+        {
+          "value":"avustukset",
+          "language":"fi"
+        },
+        {
+          "value":"financial aid",
+          "language":"en"
+        }
+      ],
+      "code":"",
+      "ontologyType":"YSO",
+      "uri":"http://www.yso.fi/onto/koko/p34757",
+      "parentId":null,
+      "parentUri":"http://www.yso.fi/onto/koko/p63861;http://www.yso.fi/onto/koko/p13760"
     }
   ],
-  "targetGroups": [
+  "targetGroups":[
     {
-      "id": "bf7e1aed-a2a0-484b-ba05-004db883bd71",
-      "name": "Kansalaiset",
-      "code": "KR1",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"Kansalaiset",
+          "language":"fi"
+        },
+        {
+          "value":"Citizens",
+          "language":"en"
+        },
+        {
+          "value":"Medborgare",
+          "language":"sv"
+        }
+      ],
+      "code":"KR1",
+      "ontologyType":"TARGETGROUP",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
+      "parentId":null,
+      "parentUri":""
     },
     {
-      "id": "e7196fa6-e696-4032-a611-83e152f8acfe",
-      "name": "Yritykset",
-      "code": "KR2",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR2",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"Non-government organizations",
+          "language":"en"
+        },
+        {
+          "value":"Yhdistykset ja järjestöt",
+          "language":"fi"
+        },
+        {
+          "value":"Föreningar och organisationer",
+          "language":"sv"
+        }
+      ],
+      "code":"KR2.7",
+      "ontologyType":"TARGETGROUP",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR2.7",
+      "parentId":"737b6a32-613c-4d07-9783-3736f82817e4",
+      "parentUri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR2"
+    },
+    {
+      "name":[
+        {
+          "value":"Yritykset ja yhteisöt",
+          "language":"fi"
+        },
+        {
+          "value":"Företag och samfund",
+          "language":"sv"
+        },
+        {
+          "value":"Businesses and non-government organizations",
+          "language":"en"
+        }
+      ],
+      "code":"KR2",
+      "ontologyType":"TARGETGROUP",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR2",
+      "parentId":null,
+      "parentUri":""
     }
   ],
-  "lifeEvents": []
+  "lifeEvents":[
+
+  ],
+  "industrialClasses":[
+
+  ],
+  "requirements":[
+    {
+      "value":"Avustuksia myönnetään sekä säännölliseen toimintaan että tapahtumien järjestämiseen.",
+      "language":"fi"
+    },
+    {
+      "value":"Grants are available for both regular activities and the organisation of individual events.",
+      "language":"en"
+    },
+    {
+      "value":"Bidrag beviljas både för regelbunden verksamhet och arrangerandet av evenemang.",
+      "language":"sv"
+    }
+  ],
+  "type":"Service",
+  "serviceChargeType":null,
+  "legislation":[
+    {
+      "names":[
+        {
+          "value":"Laki kuntien kulttuuritoiminnasta",
+          "language":"fi"
+        },
+        {
+          "value":"Lag om kommunernas kulturverksamhet",
+          "language":"sv"
+        }
+      ],
+      "webPages":[
+        {
+          "value":null,
+          "url":"http://www.finlex.fi/fi/laki/ajantasa/1992/19920728",
+          "language":"fi"
+        },
+        {
+          "value":null,
+          "url":"http://www.finlex.fi/sv/laki/ajantasa/1992/19920728",
+          "language":"sv"
+        }
+      ]
+    }
+  ]
 }

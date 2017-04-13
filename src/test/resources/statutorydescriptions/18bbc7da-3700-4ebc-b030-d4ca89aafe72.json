@@ -1,77 +1,231 @@
 {
-  "id": "18bbc7da-3700-4ebc-b030-d4ca89aafe72",
-  "names": [
+  "id":"18bbc7da-3700-4ebc-b030-d4ca89aafe72",
+  "names":[
     {
-      "language": "fi",
-      "value": "Yleiskaavoitukseen vaikuttaminen",
-      "type": "Name"
-    }
-  ],
-  "descriptions": [
-    {
-      "language": "fi",
-      "value": "Yleiskaava kertoo, miten kunta suunnittelee alueiden käyttöä ja jakamista asumisen, työelämän, liikenteen, virkistyksen ym. kesken.",
-      "type": "ShortDescription"
+      "language":"fi",
+      "value":"Varhaiskasvatuksen vuorohoito",
+      "type":"Name"
     },
     {
-      "language": "fi",
-      "value": "Kaikilla, joiden oloihin tai etuihin yleiskaavoitus vaikuttaa, on oikeus osallistua yleiskaavoitusprosessiin ja vaikuttaa siihen osaltaan.\n\nYleiskaava kertoo, miten kunta suunnittelee alueidensa käyttöä ja jakamista asumisen, työelämän, liikenteen, virkistyksen ja muiden toimintojen kesken. Yleiskaavasta säädetään maankäyttö- ja rakennuslaissa.\n\nKunta voi laatia yleiskaavan joko yksin tai yhdessä naapurikuntiensa (yhteinen yleiskaava) kanssa.",
-      "type": "Description"
+      "language":"en",
+      "value":"Night and weekend care in early childhood education and care",
+      "type":"Name"
+    },
+    {
+      "language":"sv",
+      "value":"Skiftesvård inom småbarnspedagogiken",
+      "type":"Name"
     }
   ],
-  "languages": [
+  "descriptions":[
+    {
+      "language":"en",
+      "value":"A child who needs care in the evenings, during the night and/or in the weekends because of the parents’ work or studies can be given a place in night and weekend care. The municipality should organise early childhood education and care so that night and weekend care is available 24 hours a day if necessary.\n \nDay-care centres providing evening care are often open until around 10 p.m. 24-hour day-care centres operate continuously on all days of the week.\n\nIf a child no longer needs evening or night care, he or she is transferred to daytime early childhood education and care.  Night and weekend care may also be organised as family day care.",
+      "type":"Description"
+    },
+    {
+      "language":"fi",
+      "value":"Vanhemmat voivat hakea lapselleen vuorohoitopaikkaa, jos he ovat vuorotyössä tai heidän opiskelunsa ajoittuu iltaan.",
+      "type":"ShortDescription"
+    },
+    {
+      "language":"fi",
+      "value":"Lapsi, joka vanhempien työn tai opiskelun takia tarvitsee hoitoa iltaisin, öisin ja/tai viikonloppuisin, voi saada vuorohoitopaikan. Kunnan on pyrittävä järjestämään varhaiskasvatusta siten, että vuorohoitoa on tarvittaessa tarjolla kaikkina vuorokaudenaikoina.\n \nIltahoitoa antavat päiväkodit ovat avoinna usein noin klo 22:een saakka. Ympärivuorokautiset päiväkodit toimivat jatkuvasti kaikkina viikonpäivinä.\n\nJos lapsen ilta- tai yöaikainen hoidon tarve päättyy, lapsi siirtyy päiväsaikaan tarjottavan varhaiskasvatuksen piiriin. Vuorohoito voidaan järjestää myös perhepäivähoitona.",
+      "type":"Description"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"DeadLineAdditionalInfo"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"ChargeTypeAdditionalInfo"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"ServiceUserInstruction"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"ValidityTimeAdditionalInfo"
+    },
+    {
+      "language":"fi",
+      "value":null,
+      "type":"ProcessingTimeAdditionalInfo"
+    },
+    {
+      "language":"sv",
+      "value":"Föräldrar kan söka plats i skiftesvården för sitt barn, om de arbetar i skift eller studerar kvällstid.",
+      "type":"ShortDescription"
+    },
+    {
+      "language":"en",
+      "value":"The parents may apply for a place in night and weekend care for their child if they work shifts or study in the evenings.",
+      "type":"ShortDescription"
+    },
+    {
+      "language":"sv",
+      "value":"Ett barn som behöver vård på kvällar, nätter och/eller veckoslut på grund av föräldrarnas arbete eller studier kan få en skiftesvårdplats. Kommunen ska sträva till att ordna småbarnspedagogiken så att skiftesvård erbjuds vid behov under alla tidpunkter på dygnet.\n \nDaghem som erbjuder kvällsvård är ofta öppna till ca kl. 22. Daghem som har öppet dygnet runt fungerar oavbrutet under alla veckodagar.\n\nOm behovet av barnets kvälls- eller nattvård upphör, överförs barnet till småbarnspedagogiken som sker dagtid.  Skiftesvård kan också ordnas som familjedagvård.",
+      "type":"Description"
+    }
+  ],
+  "languages":[
     "fi"
   ],
-  "serviceClasses": [
+  "serviceClasses":[
     {
-      "id": "6639e905-f70a-46f2-9531-29c809237f5f",
-      "name": "Maankäyttö, kaavoitus ja tontit",
-      "code": "P2.3",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:P2.3",
-      "parentId": "d289e556-a8f3-471d-9d4d-505be08099c4",
-      "parentUri": null
+      "name":[
+        {
+          "value":"Lasten päivähoito",
+          "language":"fi"
+        },
+        {
+          "value":"Barndagvård",
+          "language":"sv"
+        },
+        {
+          "value":"Day-care for children",
+          "language":"en"
+        }
+      ],
+      "code":"P3.4",
+      "ontologyType":"PTVL",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:P3.4",
+      "parentId":"2698a900-9cb1-4b48-8b83-82cc40df47aa",
+      "parentUri":"http://urn.fi/URN:NBN:fi:au:ptvl:P3"
     }
   ],
-  "ontologyTerms": [
+  "ontologyTerms":[
     {
-      "id": "37459e75-936b-4293-b3ca-c46c6063ffc7",
-      "name": "yleiskaavoitus",
-      "code": "",
-      "ontologyType": null,
-      "uri": "http://www.yso.fi/onto/yso/p18373",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"skiftesvård",
+          "language":"sv"
+        },
+        {
+          "value":"vuorohoito",
+          "language":"fi"
+        },
+        {
+          "value":"nonstandard hour child care",
+          "language":"en"
+        }
+      ],
+      "code":"",
+      "ontologyType":"YSO",
+      "uri":"http://www.yso.fi/onto/koko/p53864",
+      "parentId":null,
+      "parentUri":"http://www.yso.fi/onto/koko/p18203"
     },
     {
-      "id": "a4ea1d02-eb6a-4d8c-ad21-b839ae6518ac",
-      "name": "yleiskaavat",
-      "code": "",
-      "ontologyType": null,
-      "uri": "http://www.yso.fi/onto/jupo/p34",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"päiväkotihoito",
+          "language":"fi"
+        }
+      ],
+      "code":"",
+      "ontologyType":"JUPO",
+      "uri":"http://www.yso.fi/onto/koko/p69116",
+      "parentId":null,
+      "parentUri":"http://www.yso.fi/onto/koko/p9399"
     }
   ],
-  "targetGroups": [
+  "targetGroups":[
     {
-      "id": "bf7e1aed-a2a0-484b-ba05-004db883bd71",
-      "name": "Kansalaiset",
-      "code": "KR1",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"Kansalaiset",
+          "language":"fi"
+        },
+        {
+          "value":"Citizens",
+          "language":"en"
+        },
+        {
+          "value":"Medborgare",
+          "language":"sv"
+        }
+      ],
+      "code":"KR1",
+      "ontologyType":"TARGETGROUP",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1",
+      "parentId":null,
+      "parentUri":""
     },
     {
-      "id": "e7196fa6-e696-4032-a611-83e152f8acfe",
-      "name": "Yritykset",
-      "code": "KR2",
-      "ontologyType": null,
-      "uri": "http://urn.fi/URN:NBN:fi:au:ptvl:KR2",
-      "parentId": null,
-      "parentUri": null
+      "name":[
+        {
+          "value":"Lapset ja lapsiperheet",
+          "language":"fi"
+        },
+        {
+          "value":"Children and families with children",
+          "language":"en"
+        },
+        {
+          "value":"Barn och barnfamiljer",
+          "language":"sv"
+        }
+      ],
+      "code":"KR1.2",
+      "ontologyType":"TARGETGROUP",
+      "uri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1.2",
+      "parentId":"07e55fa9-0455-4238-8e7d-5fdbfba431b6",
+      "parentUri":"http://urn.fi/URN:NBN:fi:au:ptvl:KR1"
     }
   ],
-  "lifeEvents": []
+  "lifeEvents":[
+
+  ],
+  "industrialClasses":[
+
+  ],
+  "requirements":[
+    {
+      "value":"Vanhemmat voivat hakea lapselleen vuorohoitopaikkaa, jos he ovat vuorotyössä tai heidän opiskelunsa ajoittuu iltaan.  \n\nHoitoa voi saada lapsi, joka ei ole vielä oppivelvollinen. Myös oppivelvollisuusikäinen voi saada päivähoitoa, jos erityiset olosuhteet sitä vaativat eikä hoitoa voida muuten järjestää.",
+      "language":"fi"
+    },
+    {
+      "value":"Föräldrar kan söka en skiftesvårdplats för sitt barn, om de arbetar i skift eller studerar kvällstid.  \n\nEtt barn som inte ännu har läroplikt kan få vård.\n\nÄven ett barn i läropliktsåldern kan få dagvård om speciella förhållanden så kräver och vården inte kan ordnas på annat sätt.",
+      "language":"sv"
+    },
+    {
+      "value":"The parents may apply for a place in night and weekend care for their child if they work shifts or study in the evenings.\n\nCare may be given to a child who has not reached the age of compulsory education.\n\nDay care may also be given to a child who has already reached the age of compulsory education, if special circumstances so require and care cannot be otherwise arranged.",
+      "language":"en"
+    }
+  ],
+  "type":"Service",
+  "serviceChargeType":"Charged",
+  "legislation":[
+    {
+      "names":[
+        {
+          "value":"Varhaiskasvatuslaki",
+          "language":"fi"
+        },
+        {
+          "value":"Lag om småbarnspedagogik",
+          "language":"sv"
+        }
+      ],
+      "webPages":[
+        {
+          "value":null,
+          "url":"http://www.finlex.fi/sv/laki/ajantasa/1973/19730036",
+          "language":"sv"
+        },
+        {
+          "value":null,
+          "url":"http://www.finlex.fi/fi/laki/ajantasa/1973/19730036",
+          "language":"fi"
+        }
+      ]
+    }
+  ]
 }

@@ -1,0 +1,243 @@
+{
+  "id":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+  "oid":null,
+  "municipality":{
+    "code":"491",
+    "name":[
+      {
+        "value":"S:t Michel",
+        "language":"sv"
+      },
+      {
+        "value":"Mikkeli",
+        "language":"fi"
+      }
+    ]
+  },
+  "organizationType":"Municipality",
+  "businessCode":"0165116-3",
+  "businessName":"Mikkelin kaupunki",
+  "organizationNames":[
+    {
+      "language":"fi",
+      "value":"Mikkelin kaupunki",
+      "type":"Name"
+    },
+    {
+      "language":"fi",
+      "value":"Mikkeli",
+      "type":"AlternateName"
+    }
+  ],
+  "displayNameType":"Name",
+  "organizationDescriptions":[
+    {
+      "language":"fi",
+      "value":"Mikkeli on 55 000 asukkaan kaupunki Etelä-Savossa Saimaan rannalla. Asiointi Mikkelin kaupungin kanssa on sujuvaa. Palvelut ovat saatavilla verkossa ympäri vuorokauden. Asiointi onnistuu vaikka kotisohvalta käsin helposti ja nopeasti.\nMikkeli panostaa uudenlaisten palvelujen tuottamiseen ja tarjoamiseen. Avoin digitaalisuus palvelee kuntalaisia ja tarjoaa mallia koko valtakunnalle. \nAvoimen datan sivusto open.mikkeli.fi kutsuu kuntalaisia mukaan ideoimaan digitaalisuuden mahdollisuuksia.",
+      "type":"Description"
+    }
+  ],
+  "emailAddresses":[
+    {
+      "description":null,
+      "value":"kirjaamo@mikkeli.fi",
+      "language":"fi"
+    }
+  ],
+  "phoneNumbers":[
+    {
+      "additionalInformation":null,
+      "serviceChargeType":"Charged",
+      "chargeDescription":null,
+      "prefixNumber":null,
+      "isFinnishServiceNumber":true,
+      "number":"0151941",
+      "language":"fi"
+    }
+  ],
+  "webPages":[
+    {
+      "orderNumber":null,
+      "value":"Mikkelin kaupungin kotisivut",
+      "url":"http://www.mikkeli.fi/",
+      "language":"fi"
+    }
+  ],
+  "addresses":[
+    {
+      "latitude":"0",
+      "longitude":"0",
+      "coordinateState":"EmptyInputReceived",
+      "type":"Postal",
+      "postOfficeBox":"PL 33",
+      "postalCode":"50101",
+      "postOffice":[
+        {
+          "value":"MIKKELI",
+          "language":"sv"
+        },
+        {
+          "value":"MIKKELI",
+          "language":"fi"
+        }
+      ],
+      "streetAddress":[
+        {
+          "value":null,
+          "language":"fi"
+        }
+      ],
+      "streetNumber":null,
+      "municipality":null,
+      "country":"FI",
+      "additionalInformations":[
+
+      ]
+    },
+    {
+      "latitude":"0",
+      "longitude":"0",
+      "coordinateState":"EmptyInputReceived",
+      "type":"Visiting",
+      "postOfficeBox":null,
+      "postalCode":"50100",
+      "postOffice":[
+        {
+          "value":"MIKKELI",
+          "language":"sv"
+        },
+        {
+          "value":"MIKKELI",
+          "language":"fi"
+        }
+      ],
+      "streetAddress":[
+        {
+          "value":"Maaherrankatu 9-11",
+          "language":"fi"
+        }
+      ],
+      "streetNumber":null,
+      "municipality":null,
+      "country":"FI",
+      "additionalInformations":[
+        {
+          "value":"Virastotalo",
+          "language":"fi"
+        }
+      ]
+    }
+  ],
+  "publishingStatus":"Published",
+  "parentOrganization":null,
+  "services":[
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"08ab5b97-d04d-4d16-a3f3-dac654b140ec",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Responsible",
+      "provisionType":null,
+      "webPages":[
+
+      ]
+    },
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"08ab5b97-d04d-4d16-a3f3-dac654b140ec",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Producer",
+      "provisionType":"SelfProduced",
+      "webPages":[
+
+      ]
+    },
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"2f21448e-e461-4ad0-a87a-47bcb08e578e",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Responsible",
+      "provisionType":null,
+      "webPages":[
+
+      ]
+    },
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"58a33fee-d7c6-4875-a1b7-75d70b00d012",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Responsible",
+      "provisionType":null,
+      "webPages":[
+
+      ]
+    },
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"58a33fee-d7c6-4875-a1b7-75d70b00d012",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Producer",
+      "provisionType":"SelfProduced",
+      "webPages":[
+
+      ]
+    },
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"6b979930-048e-4ed4-a80c-0e11ba562dfe",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Producer",
+      "provisionType":"SelfProduced",
+      "webPages":[
+
+      ]
+    },
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"6b979930-048e-4ed4-a80c-0e11ba562dfe",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Responsible",
+      "provisionType":null,
+      "webPages":[
+
+      ]
+    },
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"bcfaf5f1-98db-401e-8628-7d4f2b4ec260",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Producer",
+      "provisionType":"SelfProduced",
+      "webPages":[
+
+      ]
+    },
+    {
+      "additionalInformation":[
+
+      ],
+      "serviceId":"bcfaf5f1-98db-401e-8628-7d4f2b4ec260",
+      "organizationId":"ae2682d3-6238-4019-b34f-b078c5f9bb50",
+      "roleType":"Responsible",
+      "provisionType":null,
+      "webPages":[
+
+      ]
+    }
+  ]
+}

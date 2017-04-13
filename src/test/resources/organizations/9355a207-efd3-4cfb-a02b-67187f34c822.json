@@ -1,0 +1,48 @@
+{
+  "id":"9355a207-efd3-4cfb-a02b-67187f34c822",
+  "oid":null,
+  "municipality":{
+    "code":"507",
+    "name":[
+      {
+        "value":"Mäntyharju",
+        "language":"sv"
+      },
+      {
+        "value":"Mäntyharju",
+        "language":"fi"
+      }
+    ]
+  },
+  "organizationType":"Municipality",
+  "businessCode":"0165761-0",
+  "businessName":"Mäntyharju",
+  "organizationNames":[
+    {
+      "language":"fi",
+      "value":"Mäntyharjun kunta",
+      "type":"Name"
+    }
+  ],
+  "displayNameType":"Name",
+  "organizationDescriptions":[
+
+  ],
+  "emailAddresses":[
+
+  ],
+  "phoneNumbers":[
+
+  ],
+  "webPages":[
+
+  ],
+  "addresses":[
+
+  ],
+  "publishingStatus":"Published",
+  "parentOrganization":null,
+  "services":[
+
+  ]
+}

@@ -32,6 +32,8 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.path.json.exception.JsonPathException;
 
+import fi.metatavu.ptv.client.model.VmOpenApiItem;
+
 /**
  * Abstract base class for integration tests
  * 
@@ -279,22 +281,22 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
 
   public class PtvMocker extends AbstractMocker {
     
-    private PtvGuidListMock generalDescriptionGuidList;
-    private PtvGuidListMock organizationGuidList;
-    private PtvGuidListMock serviceGuidList;
-    private PtvGuidListMock serviceChannelGuidList;
+    private PtvGuidList3Mock generalDescriptionGuidList;
+    private PtvGuidList3Mock organizationGuidList;
+    private PtvGuidList3Mock serviceGuidList;
+    private PtvGuidList3Mock serviceChannelGuidList;
     
     
     public PtvMocker() {
-       generalDescriptionGuidList = new PtvGuidListMock();
-       organizationGuidList = new PtvGuidListMock();
-       serviceGuidList = new PtvGuidListMock();
-       serviceChannelGuidList = new PtvGuidListMock();
+       generalDescriptionGuidList = new PtvGuidList3Mock();
+       organizationGuidList = new PtvGuidList3Mock();
+       serviceGuidList = new PtvGuidList3Mock();
+       serviceChannelGuidList = new PtvGuidList3Mock();
     }
     
     public PtvMocker mockGeneralDescriptions(String... ids) {
       for (String id : ids) {
-        mockGetJSONFile(String.format("/api/GeneralDescription/%s", id), String.format("statutorydescriptions/%s.json", id));
+        mockGetJSONFile(String.format("/api/v4/GeneralDescription/%s", id), String.format("statutorydescriptions/%s.json", id));
       }
       
       generalDescriptionGuidList.addGuids(ids);
@@ -304,7 +306,7 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
 
     public PtvMocker mockServices(String... ids) {
       for (String id : ids) {
-        mockGetJSONFile(String.format("/api/Service/%s", id), String.format("services/%s.json", id));
+        mockGetJSONFile(String.format("/api/v4/Service/%s", id), String.format("services/%s.json", id));
       }
       
       serviceGuidList.addGuids(ids);
@@ -314,7 +316,7 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
 
     public PtvMocker mockOrganizations(String... ids) {
       for (String id : ids) {
-        mockGetJSONFile(String.format("/api/Organization/%s", id), String.format("organizations/%s.json", id));
+        mockGetJSONFile(String.format("/api/v4/Organization/%s", id), String.format("organizations/%s.json", id));
       }
       
       organizationGuidList.addGuids(ids);
@@ -324,7 +326,7 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
 
     public PtvMocker mockServiceChannels(String... ids) {
       for (String id : ids) {
-        mockGetJSONFile(String.format("/api/ServiceChannel/%s", id), String.format("servicechannels/%s.json", id));
+        mockGetJSONFile(String.format("/api/v4/ServiceChannel/%s", id), String.format("servicechannels/%s.json", id));
       }
       
       serviceChannelGuidList.addGuids(ids);
@@ -337,65 +339,59 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
       Map<String, String> pageQuery = new HashMap<>();
       pageQuery.put("page", "0");
       
-      mockGetJSON("/api/GeneralDescription", generalDescriptionGuidList, pageQuery, Arrays.asList("date"));
-      mockGetJSON("/api/Organization", organizationGuidList, pageQuery, Arrays.asList("date"));
-      mockGetJSON("/api/Service", serviceGuidList, pageQuery, Arrays.asList("date"));
-      mockGetJSON("/api/ServiceChannel", serviceChannelGuidList, pageQuery, Arrays.asList("date"));
+      mockGetJSON("/api/v4/GeneralDescription", generalDescriptionGuidList, pageQuery, Arrays.asList("date"));
+      mockGetJSON("/api/v4/Organization", organizationGuidList, pageQuery, Arrays.asList("date"));
+      mockGetJSON("/api/v4/Service", serviceGuidList, pageQuery, Arrays.asList("date"));
+      mockGetJSON("/api/v4/ServiceChannel", serviceChannelGuidList, pageQuery, Arrays.asList("date"));
       
       super.startMock();
     }
   }
   
-  public class PtvGuidListMock {
-
+  public class PtvGuidList3Mock {
+    
     private Integer pageNumber;
     private Integer pageSize;
-    private Integer pageCount;
-    private List<String> guidList;
-
-    public PtvGuidListMock() {
+    private List<VmOpenApiItem> itemList = new ArrayList<>();
+    
+    public PtvGuidList3Mock() {
       pageNumber = 1;
       pageSize = 1000;
-      pageCount = 1;
-      guidList = new ArrayList<>();
+      itemList = new ArrayList<>();
     }
-
+    
+    public List<VmOpenApiItem> getItemList() {
+      return itemList;
+    }
+    
+    public void setItemList(List<VmOpenApiItem> itemList) {
+      this.itemList = itemList;
+    }
+    
     public Integer getPageNumber() {
       return pageNumber;
     }
-
+    
     public void setPageNumber(Integer pageNumber) {
       this.pageNumber = pageNumber;
     }
-
+    
     public Integer getPageSize() {
       return pageSize;
     }
-
+    
     public void setPageSize(Integer pageSize) {
       this.pageSize = pageSize;
     }
 
-    public Integer getPageCount() {
-      return pageCount;
-    }
-
-    public void setPageCount(Integer pageCount) {
-      this.pageCount = pageCount;
-    }
-
-    public List<String> getGuidList() {
-      return guidList;
-    }
-
-    public void setGuidList(List<String> guidList) {
-      this.guidList = guidList;
-    }
-
     public void addGuids(String... ids) {
-      guidList.addAll(Arrays.asList(ids));
+      for (String id : ids) {
+        VmOpenApiItem item = new VmOpenApiItem();
+        item.setId(id);
+        item.setName(String.format("name-%s", id));
+        itemList.add(item);
+      }
     }
-
   }
   
   @SuppressWarnings ({"squid:S1166", "squid:S00108", "squid:S2925", "squid:S106"})
@@ -438,134 +434,134 @@ public abstract class AbstractIntegrationTest extends AbstractTest {
   
   protected void assertListLimits(String basePath, int maxResults) {
     given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=1", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(2));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=2", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(1));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=666", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(0));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=-1", basePath))
-    .then()
-    .assertThat()
-    .statusCode(400);
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?maxResults=2", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(2));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?maxResults=0", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(0));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?maxResults=-1", basePath))
-    .then()
-    .assertThat()
-    .statusCode(400);
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?maxResults=666", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(maxResults));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=0&maxResults=2", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(2));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=1&maxResults=2", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(2));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=1&maxResults=1", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(1));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=-1&maxResults=1", basePath))
-    .then()
-    .assertThat()
-    .statusCode(400);
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=2&maxResults=-1", basePath))
-    .then()
-    .assertThat()
-    .statusCode(400);
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=1&maxResults=0", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(0));
-  
-  given() 
-    .baseUri(getApiBasePath())
-    .contentType(ContentType.JSON)
-    .get(String.format("%s?firstResult=21&maxResults=20", basePath))
-    .then()
-    .assertThat()
-    .statusCode(200)
-    .body("id.size()", is(0));
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=1", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(maxResults - 1));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=2", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(maxResults - 2));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=666", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(0));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=-1", basePath))
+      .then()
+      .assertThat()
+      .statusCode(400);
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?maxResults=2", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(2));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?maxResults=0", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(0));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?maxResults=-1", basePath))
+      .then()
+      .assertThat()
+      .statusCode(400);
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?maxResults=666", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(maxResults));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=0&maxResults=2", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(2));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=1&maxResults=2", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(2));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=1&maxResults=1", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(1));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=-1&maxResults=1", basePath))
+      .then()
+      .assertThat()
+      .statusCode(400);
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=2&maxResults=-1", basePath))
+      .then()
+      .assertThat()
+      .statusCode(400);
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=1&maxResults=0", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(0));
+    
+    given() 
+      .baseUri(getApiBasePath())
+      .contentType(ContentType.JSON)
+      .get(String.format("%s?firstResult=21&maxResults=20", basePath))
+      .then()
+      .assertThat()
+      .statusCode(200)
+      .body("id.size()", is(0));
   }
 }
